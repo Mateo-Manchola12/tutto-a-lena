@@ -1,5 +1,28 @@
 ---
 import "@styles/global.css";
+
+// Inter - pesos: 400, 500, 600, 700
+import "@fontsource/inter/400.css";
+import "@fontsource/inter/500.css";
+import "@fontsource/inter/600.css";
+import "@fontsource/inter/700.css";
+
+// Playfair Display - pesos: 700, 900
+import "@fontsource/playfair-display/700.css";
+import "@fontsource/playfair-display/900.css";
+
+// Caveat - peso: 700
+import "@fontsource/caveat/700.css";
+
+import Footer from "@/components/layout/Footer.astro";
+import Header from "@/components/layout/Header.astro";
+import MetaTags from "@/components/layout/MetaTags.astro";
+
+type Props = {
+  title?: string;
+};
+
+const { title } = Astro.props;
 ---
 
 <!doctype html>
@@ -7,9 +30,22 @@ import "@styles/global.css";
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <title>Tutto a lena</title>
+    <MetaTags />
+    <title>
+      {
+        title
+          ? title + " | Tutto a Leña"
+          : "Tutto a Leña | Arte italiano, corazón argentino"
+      }
+    </title>
   </head>
-  <body>
-    <slot />
+  <body class="grid min-h-dvh grid-rows-[auto_1fr_auto]">
+    <header class="sticky top-0 z-50 border-b border-b-gray-700">
+      <Header />
+    </header>
+    <main>
+      <slot />
+    </main>
+    <footer class="bg-surface"><Footer /></footer>
   </body>
 </html>
