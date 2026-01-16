@@ -1,5 +1,9 @@
 ---
 import Layout from '../layouts/Layout.astro'
+import MetaTags from '@components/layout/MetaTags.astro'
+import Schema from '@components/layout/Schema.astro'
+import Container from '@components/layout/Container.astro'
+import Section from '@components/layout/Section.astro'
 import Hero from '@components/index/Hero.astro'
 import Menu from '@components/index/Menu.astro'
 import SubHero from '@components/index/SubHero.astro'
@@ -10,14 +14,40 @@ import Events from '@components/index/Events.astro'
 import Blog from '@components/index/Blog.astro'
 ---
 
-<Layout>
-  <h1>Body</h1>
+<Layout title="Inicio">
+  <MetaTags
+    title="Tutto a Leña | Inicio"
+    description="Pizzas a leña artesanales y auténtica cocina italiana en Buenos Aires. Masa madre, ingredientes frescos y horno a leña."
+    canonical="/"
+  />
+  <Schema type="aggregate" />
+
   <Hero />
-  <Menu />
-  <SubHero />
-  <About />
-  <Gallery />
-  <Contact />
-  <Events />
-  <Blog />
+
+  <Container>
+    <Section title="Nuestra Carta" subtitle="Ingredientes frescos y horno a leña">
+      <Menu />
+    </Section>
+
+    <Section title="Pasión por Italia" subtitle="Conoce nuestra historia y filosofía">
+      <About />
+    </Section>
+
+    <Section title="Galería" subtitle="Un vistazo a nuestros platos y espacio">
+      <Gallery />
+    </Section>
+
+    <Section title="Próximos eventos" subtitle="Vive experiencias únicas">
+      <Events />
+    </Section>
+
+    <Section title="Contacto" subtitle="Estamos para ayudarte">
+      <Contact />
+    </Section>
+
+    <Section title="Blog" subtitle="Recetas, noticias y cultura italiana">
+      <SubHero />
+      <Blog />
+    </Section>
+  </Container>
 </Layout>
