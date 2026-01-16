@@ -35,7 +35,6 @@ export default defineConfig({
   integrations: [
     react({
       exclude: [],
-      applyNormalizeCss: false,
     }),
     sitemap({
       changefreq: 'weekly',
@@ -109,6 +108,7 @@ export default defineConfig({
     },
     ssr: {
       external: [],
+      noExternal: ['tailwind-animations'],
     },
   },
 

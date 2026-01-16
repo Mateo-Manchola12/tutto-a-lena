@@ -24,6 +24,7 @@
     "astro-htaccess": "^0.2.3",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
+    "tailwind-animations": "^1.0.1",
     "tailwindcss": "^4.1.17"
   },
   "devDependencies": {
@@ -36,7 +37,6 @@
     "eslint": "^9.39.2",
     "eslint-plugin-astro": "^1.5.0",
     "favicons": "^7.2.0",
-    "tailwindcss-animated": "^2.0.0",
     "terser": "^5.46.0",
     "typescript-eslint": "^8.53.0"
   }
