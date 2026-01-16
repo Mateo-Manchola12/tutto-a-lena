@@ -5,11 +5,9 @@ import Breadcrumbs from '@components/layout/Breadcrumbs.astro'
 import Container from '@components/layout/Container.astro'
 import Section from '@components/layout/Section.astro'
 import { SITE_MAP } from '@constants/site_map'
-import { getAllMenuItems, getMenuItemsByCategory } from '@constants/menu'
-import type { MenuItem } from '@types/pageTypes'
+import { getMenuItemsByCategory } from '@constants/menu'
 
 const page = SITE_MAP.find(p => p.slug === 'carta')!
-const items: MenuItem[] = getAllMenuItems()
 const categories = ['pizzas', 'pastas', 'carnes', 'entradas', 'postres', 'bebidas']
 ---
 

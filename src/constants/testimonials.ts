@@ -152,7 +152,6 @@ export const countTestimonialsByRating = () => {
  * Generar schema para AggregateRating
  */
 export const generateAggregateRatingSchema = () => {
-  const counts = countTestimonialsByRating()
   const average = getAverageRating()
 
   return {

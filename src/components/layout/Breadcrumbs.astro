@@ -62,6 +62,7 @@ const schema = showSchema
   </ol>
 </nav>
 
+{/* eslint-disable-next-line astro/no-set-html-directive */}
 {schema && <script type="application/ld+json" set:html={JSON.stringify(schema)} />}
 
 <style>
