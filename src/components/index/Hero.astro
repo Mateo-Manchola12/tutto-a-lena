@@ -3,47 +3,62 @@ import Button from '@components/ui/Button.astro'
 import logo from '@assets/logo.png'
 ---
 
-<section class="relative min-h-screen flex items-center overflow-hidden">
-  <!-- Background Image with Overlay -->
+<section class="relative min-h-screen flex items-center overflow-hidden bg-background">
+  <!-- Background Image with Gradient Overlay -->
   <div class="absolute inset-0">
     <img
       src="/images/hero-food-truck.jpg"
-      alt="Tutto a Leña Food Truck"
+      alt="Tutto a Leña Food Truck con horno de leña"
       class="w-2/3 h-full object-cover ml-auto opacity-80"
       style="transform: scaleX(-1);"
       loading="eager"
     />
-    <div class="absolute inset-0 bg-gradient-to-r from-surface via-surface/80 to-surface/30"></div>
+    <!-- Overlay: Negro sólido izquierda → transparente derecha -->
+    <div class="absolute inset-0 bg-gradient-hero"></div>
   </div>
 
   <!-- Content -->
-  <div class="container mx-auto px-4 relative z-10">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-      <!-- Left Column - Text & Logo -->
-      <div class="space-y-8">
+      <!-- Left Column - Logo + Text Content -->
+      <div class="space-y-6 md:space-y-8 animate-fade-in">
+        <!-- Logo -->
         <img
           src={logo.src}
-          alt="Tutto a Leña"
-          class="h-32 md:h-40 w-auto"
+          alt="Tutto a Leña - Food Truck Italo-Argentino"
+          class="h-28 md:h-36 lg:h-40 w-auto"
           width={logo.width}
           height={logo.height}
         />
-        <h1 class="font-display text-5xl md:text-7xl font-bold leading-tight text-foreground">
+
+        <!-- Main Heading -->
+        <h1 class="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight text-foreground">
           Sabor auténtico
           <br />
-          <span class="text-primary">al fuego</span>
+          <span class="text-primary text-glow">al fuego</span>
         </h1>
-        <p class="font-handwriting text-2xl md:text-3xl text-primary">
+
+        <!-- Script Subtitle -->
+        <p class="font-handwriting text-2xl sm:text-3xl md:text-4xl text-primary">
           Arte italiano, corazón argentino
         </p>
-        <p class="text-lg md:text-xl text-muted max-w-lg">
-          Pizzas napolitanas al horno de leña, empanadas artesanales y cerveza tirada. Si tiene
-          horno a leña, tiene magia.
+
+        <!-- Description -->
+        <p class="text-base sm:text-lg md:text-xl text-muted max-w-lg leading-relaxed">
+          Pizzas napolitanas al horno de leña, empanadas artesanales y cerveza tirada. 
+          <span class="text-foreground-secondary font-medium">Si tiene horno a leña, tiene magia.</span>
         </p>
-        <div class="flex flex-col sm:flex-row gap-4">
-          <Button href="/carta" variant="primary" size="lg">
+
+        <!-- CTAs -->
+        <div class="flex flex-col sm:flex-row gap-4 pt-4">
+          <Button href="/carta" variant="primary" size="lg" class="group">
             Ver Carta
-            <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg
+              class="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
               <path
                 stroke-linecap="round"
                 stroke-linejoin="round"
@@ -51,12 +66,54 @@ import logo from '@assets/logo.png'
                 d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
             </svg>
           </Button>
-          <Button href="/donde-estamos" variant="outline" size="lg"> Dónde Estamos </Button>
+          <Button href="/donde-estamos" variant="outline" size="lg" class="border-primary text-primary hover:bg-primary hover:text-primary-foreground">
+            Dónde Estamos
+          </Button>
         </div>
       </div>
 
-      <!-- Right Column - Image space (covered by background) -->
+      <!-- Right Column - Espacio para imagen de fondo -->
       <div class="hidden lg:block"></div>
     </div>
   </div>
 </section>
+
+<style>
+  /* Animación de entrada */
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in {
+    animation: fade-in 0.8s ease-out forwards;
+  }
+
+  /* Efecto glow para "al fuego" */
+  .text-glow {
+    text-shadow: 0 0 20px currentColor;
+  }
+
+  /* Responsive Hero Height */
+  section {
+    min-height: var(--hero-height-mobile);
+  }
+
+  @media (min-width: 768px) {
+    section {
+      min-height: var(--hero-height-tablet);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    section {
+      min-height: var(--hero-height-desktop);
+    }
+  }
+</style>
