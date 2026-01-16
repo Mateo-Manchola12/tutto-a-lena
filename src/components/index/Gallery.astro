@@ -1,25 +1,120 @@
 ---
+// Imágenes seleccionadas para home (collage orgánico)
 const images = [
-  { src: '/images/pizza-slice-cool-photo.jpg', alt: 'Pizza recién salida del horno' },
-  { src: '/images/empanada-realy-good-looking.jpg', alt: 'Empanadas artesanales' },
-  { src: '/images/chef-puttin-pizza-in-oven.jpg', alt: 'Chef trabajando el horno' },
-  { src: '/images/pizza-and-beer.jpg', alt: 'Pizza con cerveza artesanal' },
-  { src: '/images/oven-mosaic.jpg', alt: 'Horno a leña con mosaico' },
-  { src: '/images/3-dessert-piramid.jpg', alt: 'Postres caseros' },
+  {
+    src: '/images/oven-mosaic-front-face.jpg',
+    alt: 'Horno de leña con mosaico frontal',
+    span: 'row-span-2 col-span-2',
+    rotate: -1,
+  },
+  {
+    src: '/images/hero-food-truck.jpg',
+    alt: 'Food truck Tutto a Leña',
+    span: 'row-span-2',
+    rotate: 2,
+  },
+  {
+    src: '/images/chef-puttin-pizza-in-oven.jpg',
+    alt: 'Chef colocando pizza en horno',
+    span: 'row-span-2',
+    rotate: -2,
+  },
+  {
+    src: '/images/vertical-full-pizza.jpg',
+    alt: 'Pizza completa recién horneada',
+    span: 'row-span-2',
+    rotate: 1,
+  },
+  {
+    src: '/images/empanada-realy-good-looking.jpg',
+    alt: 'Empanadas artesanales',
+    span: 'row-span-2',
+    rotate: -1,
+  },
+  {
+    src: '/images/pizza-slice-cool-photo.jpg',
+    alt: 'Porción de pizza',
+    span: 'row-span-2',
+    rotate: 2,
+  },
 ]
 ---
 
-<div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-  {
-    images.map(img => (
-      <div class="relative aspect-square overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-shadow">
-        <img
-          src={img.src}
-          alt={img.alt}
-          class="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
-          loading="lazy"
-        />
+<section class="py-16 md:py-20 bg-background">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Header -->
+    <div class="text-center mb-12 space-y-4">
+      <h2 class="font-display text-4xl md:text-5xl font-bold text-foreground">
+        Nuestra <span class="text-primary">Historia</span>
+      </h2>
+      <p class="font-handwriting text-xl md:text-2xl text-muted max-w-2xl mx-auto">
+        Momentos de sabor y tradición
+      </p>
+    </div>
+
+    <!-- Collage Grid - Masonry orgánico -->
+    <div class="relative max-w-6xl mx-auto">
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 auto-rows-[200px] gap-4">
+        {
+          images.map((image, index) => (
+            <div
+              class={`${image.span} group cursor-pointer overflow-hidden rounded-3xl relative shadow-card hover:shadow-glow-strong transition-all duration-500`}
+              style={`animation: fade-in-up 0.7s ease-out ${index * 100}ms forwards; opacity: 0;`}
+            >
+              <img
+                src={image.src}
+                alt={image.alt}
+                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
+                loading="lazy"
+                style={`transform: rotate(${image.rotate}deg);`}
+              />
+              <!-- Overlay sutil en hover -->
+              <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            </div>
+          ))
+        }
       </div>
-    ))
+
+      <!-- Botón para ver galería completa -->
+      <div class="text-center mt-12">
+        <button
+          class="inline-flex items-center gap-2 px-6 py-3 bg-surface-light hover:bg-surface-hover text-foreground rounded-lg transition-colors border border-surface-border"
+          onclick="window.location.href='/galeria'"
+        >
+          Ver galería completa
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Animación fade-in desde abajo */
+  @keyframes fade-in-up {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
-</div>
+
+  /* Efecto de foto inclinada (polaroid) */
+  .grid > div:nth-child(odd) img {
+    transition: transform 0.7s ease-out;
+  }
+
+  .grid > div:nth-child(even) img {
+    transition: transform 0.7s ease-out;
+  }
+
+  /* Hover suave */
+  .grid > div:hover img {
+    transform: rotate(0deg) scale(1.1) !important;
+  }
+</style>
