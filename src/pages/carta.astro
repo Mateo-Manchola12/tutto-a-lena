@@ -19,12 +19,12 @@ const categories = [
 
 const getCategoryId = (name: string) => {
   const map: Record<string, string> = {
-    'pizzas': 'pizzas',
-    'pastas': 'pasta',
-    'carnes': 'carne',
-    'entradas': 'entrada',
-    'postres': 'postre',
-    'bebidas': 'bebida',
+    'pizzas': 'pizza',
+    'pasta': 'pasta',
+    'carne': 'carne',
+    'entrada': 'entrada',
+    'postre': 'postre',
+    'bebida': 'bebida',
   }
   return map[name] || name
 }
@@ -168,17 +168,17 @@ const getCategoryId = (name: string) => {
     <!-- Call to Action -->
     <section class="py-12 bg-gradient-to-r from-primary/10 to-primary/5 rounded-2xl border border-primary/20 text-center space-y-6 mb-12">
       <h3 class="font-display text-3xl md:text-4xl font-bold text-foreground">
-        ¿Qué esperas para visitarnos?
+        ¿Tenés un evento en mente?
       </h3>
       <p class="text-lg text-muted max-w-2xl mx-auto">
-        Reserva tu mesa ahora y vive una experiencia gastronómica única. Atendemos de martes a domingo de 12:00 a 23:00 hs.
+        Nuestro catering lleva la magia de Tutto a Leña a tu evento. Desde bodas hasta eventos corporativos, hacemos de cada ocasión un momento memorable.
       </p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
         <a
-          href="/reservar"
+          href="/catering"
           class="inline-flex items-center justify-center px-8 py-3 bg-primary text-primary-foreground font-bold rounded-full hover:bg-primary-hover transition-colors shadow-glow"
         >
-          Reservar Mesa
+          Solicitar Catering
         </a>
         <a
           href="/contacto"
