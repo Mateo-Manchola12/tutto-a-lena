@@ -1,0 +1,22 @@
+---
+import Layout from '@/layouts/Layout.astro'
+import MetaTags from '@components/layout/MetaTags.astro'
+import Breadcrumbs from '@components/layout/Breadcrumbs.astro'
+import Container from '@components/layout/Container.astro'
+import Section from '@components/layout/Section.astro'
+import { SITE_MAP } from '@constants/site_map'
+
+const page = SITE_MAP.find(p => p.slug === 'catering')!
+---
+<Layout>
+  <MetaTags title={`Tutto a Leña | ${page.name}`} description={page.description} canonical={page.path} />
+  <Container>
+    <Breadcrumbs items={[{ label: 'Inicio', href: '/' }, { label: 'Catering', href: '/catering' }]} />
+    <Section title="Catering" subtitle="Eventos corporativos, bodas y celebraciones">
+      <p class="text-muted">Ofrecemos menús personalizados, servicio integral y propuestas adaptadas a cada evento.</p>
+      <div class="mt-6">
+        <a href="/contacto" class="underline">Solicitar cotización</a>
+      </div>
+    </Section>
+  </Container>
+</Layout>
