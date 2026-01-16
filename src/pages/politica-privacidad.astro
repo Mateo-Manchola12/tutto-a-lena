@@ -1,0 +1,25 @@
+---
+import Layout from '@/layouts/Layout.astro'
+import MetaTags from '@components/layout/MetaTags.astro'
+import Container from '@components/layout/Container.astro'
+import Section from '@components/layout/Section.astro'
+import { SITE_MAP } from '@constants/site_map'
+
+const page = SITE_MAP.find(p => p.slug === 'politica-privacidad')!
+---
+
+<Layout>
+  <MetaTags
+    title={`Tutto a Leña | ${page.name}`}
+    description={page.description}
+    canonical={page.path}
+    noindex={true}
+  />
+  <Container>
+    <Section title="Política de Privacidad" subtitle="Actualizaremos esta sección próximamente">
+      <p class="text-muted">
+        Esta página describe cómo recopilamos, usamos y protegemos tus datos personales.
+      </p>
+    </Section>
+  </Container>
+</Layout>
