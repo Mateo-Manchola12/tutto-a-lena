@@ -16,36 +16,37 @@
   --font-weight-bold: 700;
   --font-weight-extrabold: 800;
 
-  /* ==================== COLORES - PALETTE ELEGANTE ==================== */
+  /* ==================== COLORES DE MARCA - TUTTO A LEÑA ==================== */
+  
+  /* Identidad de Marca */
+  --brand-red: #b30000;        /* Rojo intenso - CTAs y acentos */
+  --brand-black: #000000;      /* Negro predominante - fondos */
+  --brand-yellow: #ffc800;     /* Amarillo cálido - detalles */
+  --brand-fire: #ff6b35;       /* Naranja fuego - efectos */
 
-  /* Primarios - Terracota/Naranja quemado */
-  --color-primary-50: #fff8f5;
-  --color-primary-100: #ffe8e0;
-  --color-primary-200: #ffd0c0;
-  --color-primary-300: #ffb8a0;
-  --color-primary-400: #ffa080;
-  --color-primary-500: #ff8860; /* Main */
-  --color-primary-600: #e67440;
-  --color-primary-700: #cc6030;
-  --color-primary-800: #b34c20;
-  --color-primary-900: #8a3810;
+  /* Backgrounds - Sistema Oscuro */
+  --color-background: #000000;
+  --color-surface: #0a0a0a;
+  --color-surface-light: #171717;
+  --color-surface-dark: #050505;
+  --color-surface-hover: #1f1f1f;
+  --color-surface-border: #2a2a2a;
 
-  /* Neutrales - Tonos elegantes */
-  --color-neutral-0: #ffffff;
-  --color-neutral-50: #fafaf8;
-  --color-neutral-100: #f5f5f0;
-  --color-neutral-200: #e8e8e0;
-  --color-neutral-300: #dbdbd0;
-  --color-neutral-400: #cdcdbe;
-  --color-neutral-500: #9e9e8f;
-  --color-neutral-600: #7f7f70;
-  --color-neutral-700: #605f52;
-  --color-neutral-800: #403f38;
-  --color-neutral-900: #1f1e18;
+  /* Texto - Alto Contraste */
+  --color-foreground: #ffffff;
+  --color-foreground-secondary: #f5f5f5;
+  --color-muted: #9ca3af;
+  --color-muted-foreground: #6b7280;
 
-  /* Acentos Italia */
-  --color-accent-green: #2d5016;
-  --color-accent-red: #dc3545;
+  /* Primary - Rojo de Marca */
+  --color-primary: #b30000;
+  --color-primary-hover: #8b0000;
+  --color-primary-active: #670000;
+  --color-primary-foreground: #ffffff;
+
+  /* Accent - Amarillo/Fuego */
+  --color-accent: #ffc800;
+  --color-accent-foreground: #000000;
 
   /* Estados */
   --color-success: #10b981;
@@ -54,14 +55,14 @@
   --color-info: #3b82f6;
 
   /* ==================== ESPACIADO ==================== */
-  --spacing-xs: 0.5rem; /* 8px */
-  --spacing-sm: 0.75rem; /* 12px */
-  --spacing-md: 1rem; /* 16px */
-  --spacing-lg: 1.5rem; /* 24px */
-  --spacing-xl: 2rem; /* 32px */
-  --spacing-2xl: 3rem; /* 48px */
-  --spacing-3xl: 4rem; /* 64px */
-  --spacing-4xl: 6rem; /* 96px */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 0.75rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+  --spacing-3xl: 4rem;
+  --spacing-4xl: 6rem;
 
   /* ==================== BORDES ==================== */
   --border-radius-xs: 0.125rem;
@@ -72,15 +73,16 @@
   --border-radius-2xl: 1.5rem;
   --border-radius-full: 9999px;
 
-  /* ==================== SOMBRAS ==================== */
-  --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-  --shadow-elegant: 0 8px 16px rgba(0, 0, 0, 0.08);
-  --shadow-elevated: 0 12px 32px rgba(0, 0, 0, 0.12);
+  /* ==================== SOMBRAS - ESTILO OSCURO ==================== */
+  --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.6);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.7);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.8);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.9);
+  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.95);
+  --shadow-glow: 0 0 40px rgba(179, 0, 0, 0.4);
+  --shadow-glow-strong: 0 0 60px rgba(179, 0, 0, 0.6);
+  --shadow-card: 0 10px 30px -10px rgba(0, 0, 0, 0.8);
 
   /* ==================== TRANSICIONES ==================== */
   --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -101,95 +103,163 @@
   --z-notification: 800;
 
   /* ==================== LAYOUTS ==================== */
-  --section-padding-mobile: 1.5rem;
-  --section-padding-tablet: 2rem;
-  --section-padding-desktop: 3rem;
+  --section-padding-mobile: 3rem;
+  --section-padding-tablet: 4rem;
+  --section-padding-desktop: 6rem;
 
   --header-height-mobile: 64px;
   --header-height-desktop: 80px;
 
   --hero-height-mobile: 70vh;
   --hero-height-tablet: 80vh;
-  --hero-height-desktop: 90vh;
+  --hero-height-desktop: 100vh;
 
   /* ==================== ACCESIBILIDAD ==================== */
-  --focus-outline: 2px solid var(--color-primary-500);
+  --focus-outline: 2px solid var(--color-primary);
   --focus-outline-offset: 2px;
-
-  /* Reduce motion */
-  --motion-reduce: no-preference;
-  --motion-duration: var(--transition-base);
 }
 
 /* Respetar preferencia de reducir movimiento */
 @media (prefers-reduced-motion: reduce) {
   :root {
-    --motion-duration: 1ms;
     --transition-fast: 1ms;
     --transition-base: 1ms;
     --transition-slow: 1ms;
   }
 }
 
+/* ==================== TAILWIND V4 THEME ==================== */
 @theme {
+  /* Container */
+  --container-center: true;
+  --container-padding: 2rem;
+  --breakpoint-2xl: 1400px;
+
   /* === Fuentes === */
   --font-display: 'Playfair Display', ui-serif, Georgia, Cambria, serif;
   --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
   --font-handwriting: 'Caveat', cursive;
 
-  /* === Primary (Rojo intenso) === */
-  --color-primary: rgb(239 68 68 / 1);
-  --color-primary-foreground: #ffffff;
-  --color-primary-hover: rgb(220 38 38 / 1);
-  --color-primary-active: rgb(185 28 28 / 1);
+  /* === Colores del Sistema (Oscuro) === */
+  --color-background: hsl(0 0% 0%);
+  --color-foreground: hsl(0 0% 100%);
+  --color-border: hsl(0 0% 16%);
+  --color-input: hsl(0 0% 16%);
+  --color-ring: hsl(0 100% 35.1%);
 
-  /* === Accent (Verde italiano) === */
-  --color-accent: #2d5016;
-  --color-accent-foreground: #ffffff;
-  --color-accent-hover: #213a11;
+  /* === Primary (Rojo #b30000) === */
+  --color-primary: hsl(0 100% 35.1%);
+  --color-primary-foreground: hsl(0 0% 100%);
+  --color-primary-hover: hsl(0 100% 27%);
+  --color-primary-active: hsl(0 100% 20%);
+
+  /* === Secondary === */
+  --color-secondary: hsl(0 0% 10%);
+  --color-secondary-foreground: hsl(0 0% 98%);
+
+  /* === Accent (Amarillo #ffc800) === */
+  --color-accent: hsl(48 100% 50%);
+  --color-accent-foreground: hsl(0 0% 0%);
+  --color-accent-hover: hsl(48 100% 45%);
 
   /* === Superficies === */
-  --color-surface: rgb(23 23 23 / 1);
-  --color-surface-light: rgb(31 31 31 / 1);
-  --color-surface-dark: rgb(15 15 15 / 1);
-  --color-surface-hover: rgb(38 38 38 / 1);
-  --color-surface-border: rgb(55 55 55 / 1);
+  --color-surface: hsl(0 0% 4%);
+  --color-surface-light: hsl(0 0% 9%);
+  --color-surface-dark: hsl(0 0% 2%);
+  --color-surface-hover: hsl(0 0% 12%);
+  --color-surface-border: hsl(0 0% 16%);
 
-  /* === Fondo principal === */
-  --color-background: rgb(15 15 15 / 1);
+  /* === Muted === */
+  --color-muted: hsl(0 0% 10%);
+  --color-muted-foreground: hsl(0 0% 60%);
 
-  /* === Texto === */
-  --color-foreground: rgb(255 255 255 / 1);
-  --color-muted: rgb(156 163 175 / 1);
-  --color-muted-foreground: rgb(107 114 128 / 1);
+  /* === Destructive === */
+  --color-destructive: hsl(0 84.2% 60.2%);
+  --color-destructive-foreground: hsl(0 0% 98%);
 
-  /* === Estados === */
-  --color-success: #10b981;
-  --color-warning: #f59e0b;
-  --color-error: #ef4444;
-  --color-info: #3b82f6;
-  --color-gray-200: #d4d4d4;
-  --color-gray-300: #a3a3a3;
-  --color-gray-400: #808080;
-  --color-gray-500: #666666;
-  --color-gray-600: #4d4d4d;
-  --color-gray-700: #333333;
-  --color-gray-800: #1a1a1a;
-  --color-gray-900: #0d0d0d;
+  /* === Card === */
+  --color-card: hsl(0 0% 4%);
+  --color-card-foreground: hsl(0 0% 98%);
+
+  /* === Popover === */
+  --color-popover: hsl(0 0% 4%);
+  --color-popover-foreground: hsl(0 0% 98%);
+
+  /* === Border Radius === */
+  --radius: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-md: 0.5rem;
+  --radius-sm: 0.25rem;
 
   /* === Sombras === */
-  --shadow-card: 0 4px 10px rgba(0, 0, 0, 0.35);
-  --shadow-popover: 0 6px 18px rgba(0, 0, 0, 0.45);
-  --shadow-modal: 0 10px 30px rgba(0, 0, 0, 0.65);
+  --shadow-glow: 0 0 40px hsl(0 100% 35.1% / 0.4);
+  --shadow-glow-strong: 0 0 60px hsl(0 100% 35.1% / 0.6);
+  --shadow-card: 0 10px 30px -10px hsl(0 0% 0% / 0.8);
+  --shadow-modal: 0 20px 50px -10px hsl(0 0% 0% / 0.9);
 
-  /* === Bordes / radios === */
-  --radius-xl: 1rem;
-  --radius-2xl: 1.25rem;
+  /* === Animaciones === */
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+  --animate-fade-in: fade-in 0.3s ease-out;
+  --animate-glow: glow 2s ease-in-out infinite;
+  --animate-slide-in: slide-in-from-bottom 0.5s ease-out;
 }
 
+/* ==================== KEYFRAMES ==================== */
+@keyframes accordion-down {
+  from { height: 0; }
+  to { height: var(--radix-accordion-content-height); }
+}
+
+@keyframes accordion-up {
+  from { height: var(--radix-accordion-content-height); }
+  to { height: 0; }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-in-from-bottom {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 20px hsl(0 100% 35.1% / 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px hsl(0 100% 35.1% / 0.6);
+  }
+}
+
+/* ==================== ESTILOS BASE ==================== */
 @layer base {
+  * {
+    @apply border-border;
+  }
+
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans;
+    font-feature-settings: 'rlig' 1, 'calt' 1;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display font-bold text-foreground;
   }
 
   .font-display {
@@ -197,6 +267,56 @@
   }
 
   .font-handwriting {
-    font-family: var(--font-handwriting);
+    font-family: var(--font-script);
+  }
+}
+
+/* ==================== UTILIDADES ==================== */
+@layer utilities {
+  /* Gradientes */
+  .bg-gradient-hero {
+    background: linear-gradient(
+      to right,
+      hsl(0 0% 0% / 1) 0%,
+      hsl(0 0% 0% / 0.95) 30%,
+      hsl(0 0% 0% / 0.8) 50%,
+      hsl(0 0% 0% / 0.6) 70%,
+      hsl(0 0% 0% / 0.4) 100%
+    );
+  }
+
+  .bg-gradient-fire {
+    background: linear-gradient(135deg, #b30000 0%, #ff6b35 100%);
+  }
+
+  /* Máscaras */
+  .mask-r-from-black {
+    mask-image: linear-gradient(to left, black 60%, transparent 100%);
+  }
+
+  /* Sombras */
+  .shadow-glow {
+    box-shadow: 0 0 40px hsl(0 100% 35.1% / 0.4);
+  }
+
+  .shadow-glow-strong {
+    box-shadow: 0 0 60px hsl(0 100% 35.1% / 0.6);
+  }
+
+  /* Textura pizarra */
+  .texture-chalkboard {
+    background-color: #1a1a1a;
+    background-image: 
+      repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255, 255, 255, 0.03) 2px, rgba(255, 255, 255, 0.03) 4px),
+      repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(255, 255, 255, 0.03) 2px, rgba(255, 255, 255, 0.03) 4px);
+  }
+
+  /* Efectos de texto */
+  .text-glow {
+    text-shadow: 0 0 10px currentColor;
+  }
+
+  .text-glow-strong {
+    text-shadow: 0 0 20px currentColor, 0 0 30px currentColor;
   }
 }
