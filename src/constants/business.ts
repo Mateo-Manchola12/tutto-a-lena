@@ -1,6 +1,25 @@
 /**
- * Información del negocio - Centrale para toda la web
- * Utilizados en SEO, footer, contacto, schema.org, etc.
+ * Información del negocio - Central para toda la web
+ * 
+ * SECCIONES:
+ * - Identidad: name, tagline, description
+ * - Contacto: phone, email, whatsapp (con helpers getWhatsappUrl())
+ * - Ubicación: address, coordinates, googleMapsUrl
+ * - Horarios: hours
+ * - URLs: website
+ * - Redes sociales: social (con helper getSocialUrl())
+ * - CTAs: cta (rutas de páginas + mensajes WhatsApp predefinidos)
+ * - Schema.org: structured data para SEO
+ * 
+ * USO EN COMPONENTES:
+ * import { BUSINESS_INFO, getWhatsappUrl, getSocialUrl } from '@constants/business'
+ * 
+ * EJEMPLOS:
+ * - Links simples: href={BUSINESS_INFO.cta.menu} → /carta
+ * - WhatsApp dinámico: href={getWhatsappUrl('catering')} → https://wa.me/...?text=Hola...
+ * - Redes sociales: href={getSocialUrl('instagram')} → https://instagram.com/tuttoleña
+ * 
+ * Utilizados en: SEO, footer, contacto, schema.org, CTAs, etc.
  */
 
 export const BUSINESS_INFO = {
