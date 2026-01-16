@@ -1,0 +1,19 @@
+---
+import Layout from '@/layouts/Layout.astro'
+import MetaTags from '@components/layout/MetaTags.astro'
+import Breadcrumbs from '@components/layout/Breadcrumbs.astro'
+import Container from '@components/layout/Container.astro'
+import Section from '@components/layout/Section.astro'
+import { SITE_MAP } from '@constants/site_map'
+
+const page = SITE_MAP.find(p => p.slug === 'blog')!
+---
+<Layout>
+  <MetaTags title={`Tutto a Leña | ${page.name}`} description={page.description} canonical={page.path} />
+  <Container>
+    <Breadcrumbs items={[{ label: 'Inicio', href: '/' }, { label: 'Blog', href: '/blog' }]} />
+    <Section title="Blog" subtitle="Recetas, noticias y cultura italiana">
+      <p class="text-muted">Muy pronto: artículos y novedades de Tutto a Leña.</p>
+    </Section>
+  </Container>
+</Layout>
