@@ -2,11 +2,10 @@
 import Logo from '@assets/logo.png'
 import { Picture } from 'astro:assets'
 import NavMenu from './NavMenu.astro'
-import { DOMAIN_NAME } from '@/constants/static_paths'
 ---
 
 <div class="flex content-center items-center justify-between px-4 py-2 container mx-auto h-20">
-  <a href={DOMAIN_NAME}>
+  <a href="/" aria-label="Ir al inicio">
     <Picture src={Logo} alt="Tutto a Leña | Arte italiano, corazón argentino" width={65} />
   </a>
   <NavMenu />

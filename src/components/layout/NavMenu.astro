@@ -1,5 +1,5 @@
 ---
-import { SITE_MAP } from '@constants/site_map'
+import { MAIN_ROUTES } from '@constants/site_map'
 ---
 
 <nav
@@ -25,12 +25,12 @@ import { SITE_MAP } from '@constants/site_map'
     class="list-none flex flex-col fixed top-20 -right-full w-full h-full bg-surface-light transition-[right] duration-300 ease-in-out md:static md:flex-row md:bg-transparent md:h-auto"
   >
     {
-      SITE_MAP.map(page => (
+      MAIN_ROUTES.map(page => (
         <li class="mx-0 md:mx-4">
           <a
-            href={page.path}
+            href={page.slug ? '/' + page.slug : '/'}
             class="block w-full text-foreground transition-all hover:text-accent hover:bg-surface-dark  md:flex md:items-center"
-            aria-label={`Ir a ${page.description}`}
+            aria-label={`Ir a ${page.name}`}
           >
             <span class="px-2 w-full inline-block border-b border-surface-border md:border-none text-nowrap">
               {page.name}
