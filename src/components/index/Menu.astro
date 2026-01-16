@@ -1,26 +1,77 @@
 ---
 import Card from '@components/ui/Card.astro'
 import Button from '@components/ui/Button.astro'
-import { getMenuItemsByCategory } from '@constants/menu'
 
-const pizzas = getMenuItemsByCategory('pizzas').slice(0, 3)
+// Highlights del menú para mostrar en home
+const highlights = [
+  {
+    title: 'Pizzas Artesanales',
+    image: '/images/vertical-full-pizza.jpg',
+    description: 'Masa madre, ingredientes premium, horneadas en leña',
+  },
+  {
+    title: 'Por Porción',
+    image: '/images/pizza-slice-cool-photo.jpg',
+    description: 'Llevá solo lo que necesitás, siempre recién horneadas',
+  },
+  {
+    title: 'Empanadas Argentinas',
+    image: '/images/empanada-realy-good-looking.jpg',
+    description: 'Carne jugosa, masa casera, doradas a la perfección',
+  },
+]
 ---
 
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-  {
-    pizzas.map(item => (
-      <Card
-        title={item.name}
-        subtitle={`$${item.price?.toFixed(2) ?? '--'}`}
-        imageSrc="/images/vertical-full-pizza.jpg"
-        imageAlt={item.name}
-      >
-        <p class="text-sm text-muted">{item.description}</p>
-      </Card>
-    ))
-  }
-</div>
+<!-- Sección con textura de pizarra -->
+<section class="py-16 md:py-20 texture-chalkboard relative overflow-hidden">
+  <!-- Overlay de textura sutil -->
+  <div class="absolute inset-0 opacity-5 bg-noise-pattern"></div>
 
-<div class="mt-8 text-center">
-  <Button href="/carta" variant="outline" size="lg"> Ver carta completa </Button>
-</div>
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <!-- Header -->
+    <div class="text-center mb-12 space-y-4">
+      <h2 class="font-display text-4xl md:text-5xl font-bold text-foreground">
+        Nuestra <span class="text-primary">Carta</span>
+      </h2>
+      <p class="font-handwriting text-xl md:text-2xl text-muted max-w-2xl mx-auto">
+        Probá, probá... después nos contás
+      </p>
+    </div>
+
+    <!-- Grid de destacados -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 mb-12">
+      {
+        highlights.map((item, index) => (
+          <Card
+            imageSrc={item.image}
+            imageAlt={item.title}
+            class="group hover:shadow-glow transition-all duration-300 bg-card border-surface-border overflow-hidden"
+          >
+            <div class="p-6 space-y-3">
+              <h3 class="font-display text-2xl font-bold text-foreground">
+                {item.title}
+              </h3>
+              <p class="text-muted-foreground leading-relaxed">
+                {item.description}
+              </p>
+            </div>
+          </Card>
+        ))
+      }
+    </div>
+
+    <!-- CTA -->
+    <div class="text-center">
+      <Button href="/carta" variant="primary" size="lg" class="shadow-glow">
+        Ver Carta Completa
+      </Button>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Textura de ruido para efecto pizarra */
+  .bg-noise-pattern {
+    background-image: url("data:image/svg+xml,%3Csvg width='200' height='200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23noise)'/%3E%3C/svg%3E");
+  }
+</style>
