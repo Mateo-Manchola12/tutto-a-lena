@@ -1,7 +1,23 @@
 ---
+import Card from '@components/ui/Card.astro'
+import Button from '@components/ui/Button.astro'
+import Badge from '@components/ui/Badge.astro'
+import { getUpcomingEvents } from '@constants/events'
 
+const events = getUpcomingEvents().slice(0, 3)
 ---
 
-<section>
-  <!-- Events component -->
-</section>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+  {
+    events.map(event => (
+      <Card title={event.title} subtitle={`${event.date} · ${event.startTime}`}>
+        <p class="text-sm text-muted mb-3">{event.description.slice(0, 100)}...</p>
+        {event.featured && <Badge variant="success">Destacado</Badge>}
+      </Card>
+    ))
+  }
+</div>
+
+<div class="mt-8 text-center">
+  <Button href="/eventos" variant="outline" size="lg"> Ver todos los eventos </Button>
+</div>

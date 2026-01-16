@@ -1,7 +1,25 @@
 ---
-
+const images = [
+  { src: '/images/pizza-slice-cool-photo.jpg', alt: 'Pizza recién salida del horno' },
+  { src: '/images/empanada-realy-good-looking.jpg', alt: 'Empanadas artesanales' },
+  { src: '/images/chef-puttin-pizza-in-oven.jpg', alt: 'Chef trabajando el horno' },
+  { src: '/images/pizza-and-beer.jpg', alt: 'Pizza con cerveza artesanal' },
+  { src: '/images/oven-mosaic.jpg', alt: 'Horno a leña con mosaico' },
+  { src: '/images/3-dessert-piramid.jpg', alt: 'Postres caseros' },
+]
 ---
 
-<section>
-  <!-- Gallery component -->
-</section>
+<div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+  {
+    images.map((img, i) => (
+      <div class="relative aspect-square overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-shadow">
+        <img
+          src={img.src}
+          alt={img.alt}
+          class="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
+          loading="lazy"
+        />
+      </div>
+    ))
+  }
+</div>

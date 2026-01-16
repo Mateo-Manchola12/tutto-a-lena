@@ -1,7 +1,27 @@
 ---
+import Card from '@components/ui/Card.astro'
+import Button from '@components/ui/Button.astro'
+import { getMenuItemsByCategory } from '@constants/menu'
 
+const pizzas = getMenuItemsByCategory('pizzas').slice(0, 3)
+const pastas = getMenuItemsByCategory('pastas').slice(0, 3)
 ---
 
-<section>
-  <!-- Menu component -->
-</section>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+  {
+    pizzas.map(item => (
+      <Card
+        title={item.name}
+        subtitle={`$${item.price?.toFixed(2) ?? '--'}`}
+        imageSrc="/images/vertical-full-pizza.jpg"
+        imageAlt={item.name}
+      >
+        <p class="text-sm text-muted">{item.description}</p>
+      </Card>
+    ))
+  }
+</div>
+
+<div class="mt-8 text-center">
+  <Button href="/carta" variant="outline" size="lg"> Ver carta completa </Button>
+</div>

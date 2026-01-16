@@ -1,7 +1,35 @@
 ---
+import Button from '@components/ui/Button.astro'
+import { BUSINESS_INFO } from '@constants/business'
 
+const { phone, email, whatsapp } = BUSINESS_INFO
 ---
 
-<section>
-  <!-- Contact component -->
-</section>
+<div class="bg-surface rounded-lg p-8 shadow-elegant">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <div class="space-y-4">
+      <h3 class="text-2xl font-semibold text-foreground">¿Tienes preguntas?</h3>
+      <p class="text-muted">
+        Estamos aquí para ayudarte. Contáctanos por teléfono, email o WhatsApp.
+      </p>
+      <div class="space-y-2">
+        <p class="text-foreground">
+          <span class="font-semibold">Teléfono:</span>
+          {phone ?? '+54 11 XXXX-XXXX'}
+        </p>
+        <p class="text-foreground">
+          <span class="font-semibold">Email:</span>
+          {email ?? 'info@tuttoalena.com'}
+        </p>
+        <p class="text-foreground">
+          <span class="font-semibold">WhatsApp:</span>
+          {whatsapp ?? '+54 9 11 XXXX-XXXX'}
+        </p>
+      </div>
+    </div>
+    <div class="flex flex-col gap-4 justify-center">
+      <Button href="/reservar" variant="primary" size="lg"> Reservar mesa </Button>
+      <Button href="/contacto" variant="outline" size="lg"> Ir a contacto </Button>
+    </div>
+  </div>
+</div>
