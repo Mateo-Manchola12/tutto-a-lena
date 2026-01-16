@@ -1,0 +1,137 @@
+---
+import Layout from '@/layouts/Layout.astro'
+import MetaTags from '@/components/layout/MetaTags.astro'
+import Schema from '@/components/layout/Schema.astro'
+import { MAIN_ROUTES } from '@/constants/site_map'
+
+const title = 'Página no encontrada'
+const description =
+  'Lo sentimos, la página que buscas no existe. Aquí puedes encontrar nuestras secciones principales.'
+---
+
+<Layout title={title}>
+  <MetaTags
+    title={title}
+    description={description}
+    noindex={true}
+    canonical="https://tutto-a-lena.com/404"
+  />
+  <Schema type="organization" />
+
+  <main class="min-h-[70vh] flex items-center justify-center px-4">
+    <div class="max-w-xl mx-auto text-center py-12">
+      <!-- Error Code -->
+      <div class="mb-8">
+        <h1 class="text-9xl font-bold text-primary-500 mb-4">404</h1>
+        <div class="h-1 w-24 bg-primary-500 mx-auto mb-8"></div>
+      </div>
+
+      <!-- Title -->
+      <h2 class="text-4xl md:text-5xl font-display font-bold text-neutral-900 mb-4">
+        Oups, página no encontrada
+      </h2>
+
+      <!-- Description -->
+      <p class="text-lg text-neutral-600 mb-8">
+        Lo sentimos, la página que buscas no existe. Pero no te preocupes, puedes volver a nuestro
+        sitio principal o explorar las secciones que tenemos para ti.
+      </p>
+
+      <!-- CTA Button -->
+      <div class="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+        <a
+          href="/"
+          class="inline-flex items-center justify-center px-8 py-3 bg-primary-500 text-white font-semibold rounded-lg hover:bg-primary-600 transition-colors"
+        >
+          Volver al inicio
+        </a>
+        <a
+          href="/contacto"
+          class="inline-flex items-center justify-center px-8 py-3 border-2 border-primary-500 text-primary-500 font-semibold rounded-lg hover:bg-primary-50 transition-colors"
+        >
+          Contactanos
+        </a>
+      </div>
+
+      <!-- Navigation Links -->
+      <div class="bg-neutral-100 rounded-lg p-8">
+        <h3 class="text-lg font-semibold text-neutral-900 mb-6">Quizás busques:</h3>
+        <nav class="grid grid-cols-2 gap-4 md:grid-cols-3">
+          {
+            MAIN_ROUTES.map(route => (
+              <a
+                href={`/${route.slug}`}
+                class="text-neutral-600 hover:text-primary-600 font-medium transition-colors text-sm"
+              >
+                {route.name}
+              </a>
+            ))
+          }
+        </nav>
+      </div>
+
+      <!-- Help Text -->
+      <p class="text-sm text-neutral-500 mt-8">
+        Si crees que esto es un error, por favor{' '}
+        <a href="/contacto" class="text-primary-600 hover:underline font-semibold"> contáctanos </a>
+      </p>
+    </div>
+  </main>
+
+  <!-- Suggestions Section -->
+  <section class="py-12 bg-neutral-100">
+    <div class="max-w-5xl mx-auto px-4">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-display font-bold text-neutral-900 mb-4">Explora Tutto a Leña</h2>
+        <p class="text-neutral-600">Descubre lo que podemos ofrecerte</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        <a href="/carta" class="group bg-white p-6 rounded-lg hover:shadow-lg transition-all">
+          <div class="mb-4 text-4xl">🍕</div>
+          <h3
+            class="font-bold text-neutral-900 mb-2 group-hover:text-primary-600 transition-colors"
+          >
+            Nuestro Menú
+          </h3>
+          <p class="text-neutral-600 text-sm">
+            Descubre nuestras pizzas a leña y deliciosos platos italianos
+          </p>
+        </a>
+
+        <a
+          href="/donde-estamos"
+          class="group bg-white p-6 rounded-lg hover:shadow-lg transition-all"
+        >
+          <div class="mb-4 text-4xl">📍</div>
+          <h3
+            class="font-bold text-neutral-900 mb-2 group-hover:text-primary-600 transition-colors"
+          >
+            Dónde Estamos
+          </h3>
+          <p class="text-neutral-600 text-sm">
+            Encuentra nuestra ubicación, horarios y cómo llegar
+          </p>
+        </a>
+
+        <a href="/contacto" class="group bg-white p-6 rounded-lg hover:shadow-lg transition-all">
+          <div class="mb-4 text-4xl">📞</div>
+          <h3
+            class="font-bold text-neutral-900 mb-2 group-hover:text-primary-600 transition-colors"
+          >
+            Contactanos
+          </h3>
+          <p class="text-neutral-600 text-sm">
+            Ponte en contacto con nosotros para reservas o consultas
+          </p>
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  h1 {
+    letter-spacing: -0.02em;
+  }
+</style>
