@@ -96,7 +96,7 @@ export const PIZZAS = [
   {
     id: 'margherita',
     name: 'Margherita',
-    price: 8.50, // ← CAMBIAR PRECIO REAL
+    price: 8.5, // ← CAMBIAR PRECIO REAL
     description: 'Tomate, mozzarella, albahaca fresca',
   },
   // ... más pizzas
@@ -107,7 +107,7 @@ export const EMPANADAS = [
   {
     id: 'carne',
     name: 'Empanada de Carne',
-    price: 3.00, // ← CAMBIAR
+    price: 3.0, // ← CAMBIAR
     description: 'Carne picada, cebolla, especias',
   },
   // ... más empanadas
@@ -118,7 +118,7 @@ export const BEERS = [
   {
     id: 'ipa',
     name: 'IPA Artesanal',
-    price: 4.50, // ← CAMBIAR
+    price: 4.5, // ← CAMBIAR
     size: '330ml',
   },
 ]
@@ -150,6 +150,7 @@ export const EVENTS = [
 ```
 
 **Notas**:
+
 - Usar fechas futuras reales
 - Coordenadas precisas para Google Maps
 - `featured: true` para eventos importantes
@@ -238,6 +239,7 @@ Los colores ya están definidos en `src/styles/global.css`:
 ### Textos con Humor Argentino
 
 Ubicaciones actuales:
+
 - Hero: "Si tiene horno a leña, tiene magia."
 - Menu: "Probá, probá… después nos contás."
 - About: "Hechas con amor… y un poquito de picardía."
@@ -275,6 +277,7 @@ git commit -m "tipo(scope): descripción breve"
 ```
 
 **Tipos**:
+
 - `feat`: Nueva funcionalidad
 - `fix`: Corrección de bug
 - `docs`: Documentación
@@ -283,6 +286,7 @@ git commit -m "tipo(scope): descripción breve"
 - `perf`: Performance
 
 **Ejemplos**:
+
 ```bash
 git commit -m "feat(menu): actualizar precios pizzas"
 git commit -m "fix(hero): corregir overlay gradient"
@@ -304,6 +308,7 @@ Revisar errores TypeScript.
 ### Problema: Imágenes no cargan
 
 Verificar:
+
 1. Ruta correcta en `public/images/`
 2. Formato: `.jpg`, `.png`, `.webp`
 3. Sin espacios en nombre de archivo

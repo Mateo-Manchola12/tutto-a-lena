@@ -41,19 +41,15 @@ const highlights = [
     <!-- Grid de destacados -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 mb-12">
       {
-        highlights.map((item, index) => (
+        highlights.map(item => (
           <Card
             imageSrc={item.image}
             imageAlt={item.title}
             class="group hover:shadow-glow transition-all duration-300 bg-card border-surface-border overflow-hidden"
           >
             <div class="p-6 space-y-3">
-              <h3 class="font-display text-2xl font-bold text-foreground">
-                {item.title}
-              </h3>
-              <p class="text-muted-foreground leading-relaxed">
-                {item.description}
-              </p>
+              <h3 class="font-display text-2xl font-bold text-foreground">{item.title}</h3>
+              <p class="text-muted-foreground leading-relaxed">{item.description}</p>
             </div>
           </Card>
         ))

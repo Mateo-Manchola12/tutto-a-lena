@@ -4,7 +4,9 @@ import { Picture } from 'astro:assets'
 import NavMenu from './NavMenu.astro'
 ---
 
-<header class="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-surface-border">
+<header
+  class="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-surface-border"
+>
   <div class="flex content-center items-center justify-between px-4 py-3 container mx-auto h-20">
     <a href="/" aria-label="Ir al inicio" class="hover:opacity-80 transition-opacity">
       <Picture src={Logo} alt="Tutto a Leña | Arte italiano, corazón argentino" width={65} />
