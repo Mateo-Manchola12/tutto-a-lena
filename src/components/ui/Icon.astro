@@ -1,0 +1,16 @@
+---
+interface Props {
+  size?: number
+  className?: string
+  ariaLabel?: string
+}
+const { size = 20, className = '', ariaLabel } = Astro.props as Props
+---
+
+<span
+  class={`inline-flex items-center justify-center ${className}`}
+  aria-label={ariaLabel}
+  style={`width:${size}px;height:${size}px`}
+>
+  <slot />
+</span>

@@ -1,0 +1,46 @@
+---
+interface Props {
+  variant?: 'primary' | 'secondary' | 'outline' | 'ghost'
+  size?: 'sm' | 'md' | 'lg'
+  href?: string
+  type?: 'button' | 'submit' | 'reset'
+  ariaLabel?: string
+  disabled?: boolean
+}
+const {
+  variant = 'primary',
+  size = 'md',
+  href,
+  type = 'button',
+  ariaLabel,
+  disabled = false,
+} = Astro.props as Props
+
+const sizes = {
+  sm: 'h-9 px-3 text-sm',
+  md: 'h-10 px-4 text-base',
+  lg: 'h-12 px-6 text-lg',
+}[size]
+
+const variants = {
+  primary:
+    'bg-primary text-primary-foreground hover:bg-primary-hover active:bg-primary-active shadow-elegant',
+  secondary: 'bg-surface text-foreground hover:bg-surface-hover border border-surface-border',
+  outline: 'border border-surface-border bg-transparent hover:bg-surface text-foreground',
+  ghost: 'bg-transparent hover:bg-surface text-foreground',
+}[variant]
+
+const base = `inline-flex items-center justify-center rounded-md transition-[background,color,transform] duration-[var(--transition-base)] disabled:opacity-60 disabled:cursor-not-allowed ${sizes} ${variants}`
+---
+
+{
+  href ? (
+    <a class={base} href={href} aria-label={ariaLabel}>
+      <slot />
+    </a>
+  ) : (
+    <button class={base} type={type} aria-label={ariaLabel} disabled={disabled}>
+      <slot />
+    </button>
+  )
+}

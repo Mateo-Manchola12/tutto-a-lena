@@ -1,0 +1,18 @@
+---
+interface Props {
+  variant?: 'default' | 'success' | 'warning' | 'error' | 'info'
+}
+const { variant = 'default' } = Astro.props as Props
+
+const variants = {
+  default: 'bg-primary/15 text-primary border border-primary/30',
+  success: 'bg-success/15 text-success border border-success/30',
+  warning: 'bg-warning/15 text-warning border border-warning/30',
+  error: 'bg-error/15 text-error border border-error/30',
+  info: 'bg-info/15 text-info border border-info/30',
+}[variant]
+---
+
+<span class={`inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium ${variants}`}>
+  <slot />
+</span>
