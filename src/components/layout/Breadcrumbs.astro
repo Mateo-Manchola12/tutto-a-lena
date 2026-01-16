@@ -1,0 +1,72 @@
+---
+/**
+ * Breadcrumbs.astro - Navegación contextual y schema.org
+ * Mejora UX y SEO
+ */
+
+export interface Props {
+  items: Array<{
+    label: string
+    href: string
+  }>
+  showSchema?: boolean
+}
+
+const { items, showSchema = true } = Astro.props
+
+// Validar que no haya breadcrumbs vacíos
+if (!items || items.length === 0) {
+  throw new Error('Breadcrumbs require at least one item')
+}
+
+// Generar schema para breadcrumbs
+const schema = showSchema
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: items.map((item, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        name: item.label,
+        item: item.href,
+      })),
+    }
+  : null
+---
+
+<nav aria-label="Breadcrumb" class="bg-neutral-100 px-4 py-3 sm:px-6 lg:px-8">
+  <ol class="flex flex-wrap gap-1 text-sm">
+    {
+      items.map((item, index) => (
+        <li class="flex items-center gap-1" key={item.href}>
+          {index > 0 && (
+            <span aria-hidden="true" class="mx-1 text-neutral-400">
+              /
+            </span>
+          )}
+          {index === items.length - 1 ? (
+            <span aria-current="page" class="font-medium text-neutral-900">
+              {item.label}
+            </span>
+          ) : (
+            <a
+              href={item.href}
+              class="text-primary-600 hover:text-primary-700 underline transition-colors"
+            >
+              {item.label}
+            </a>
+          )}
+        </li>
+      ))
+    }
+  </ol>
+</nav>
+
+{schema && <script type="application/ld+json" set:html={JSON.stringify(schema)} />}
+
+<style>
+  nav {
+    font-size: 0.875rem;
+    line-height: 1.5rem;
+  }
+</style>

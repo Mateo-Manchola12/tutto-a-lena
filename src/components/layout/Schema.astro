@@ -1,0 +1,101 @@
+---
+/**
+ * Schema.astro - Componente para generar structured data (JSON-LD)
+ * Genera schema.org automáticamente
+ */
+import {
+  generateOrganizationSchema,
+  generateRestaurantSchema,
+  generateLocalBusinessSchema,
+  generateBreadcrumbSchema,
+  generateFAQSchema,
+  generateArticleSchema,
+  mergeSchemas,
+} from '@/lib/seo-utils'
+
+export interface Props {
+  type:
+    | 'organization'
+    | 'restaurant'
+    | 'localBusiness'
+    | 'breadcrumb'
+    | 'faq'
+    | 'article'
+    | 'aggregate'
+
+  // Para breadcrumb
+  breadcrumbs?: Array<{ name: string; url: string }>
+
+  // Para FAQ
+  faqs?: Array<{ question: string; answer: string }>
+
+  // Para article
+  article?: {
+    title: string
+    description: string
+    image: string
+    publishedDate: Date
+    modifiedDate?: Date
+    author?: string
+  }
+
+  // Para aggregate (múltiples schemas)
+  schemas?: Array<{
+    type: 'organization' | 'restaurant' | 'localBusiness'
+  }>
+
+  // Additional custom schema
+  customSchema?: Record<string, any>
+}
+
+const { type, breadcrumbs, faqs, article, schemas = [], customSchema } = Astro.props
+
+let schema: Record<string, any> | null = null
+
+// Generar schema según tipo
+switch (type) {
+  case 'organization':
+    schema = generateOrganizationSchema()
+    break
+  case 'restaurant':
+    schema = generateRestaurantSchema()
+    break
+  case 'localBusiness':
+    schema = generateLocalBusinessSchema()
+    break
+  case 'breadcrumb':
+    if (breadcrumbs) {
+      schema = generateBreadcrumbSchema(breadcrumbs)
+    }
+    break
+  case 'faq':
+    if (faqs) {
+      schema = generateFAQSchema(faqs)
+    }
+    break
+  case 'article':
+    if (article) {
+      schema = generateArticleSchema(article)
+    }
+    break
+  case 'aggregate':
+    const schemaList = schemas
+      .map(s => {
+        if (s.type === 'organization') return generateOrganizationSchema()
+        if (s.type === 'restaurant') return generateRestaurantSchema()
+        if (s.type === 'localBusiness') return generateLocalBusinessSchema()
+      })
+      .filter(Boolean)
+    if (schemaList.length > 0) {
+      schema = mergeSchemas(schemaList)
+    }
+    break
+}
+
+// Mergear custom schema si existe
+if (customSchema && schema) {
+  schema = { ...schema, ...customSchema }
+}
+---
+
+{schema && <script type="application/ld+json" set:html={JSON.stringify(schema)} />}
