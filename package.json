@@ -8,8 +8,8 @@
     "build": "cross-env NODE_ENV=production astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "lint": "eslint --ext .astro .",
-    "lint:fix": "eslint --ext .astro --fix ."
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix ."
   },
   "dependencies": {
     "@astrojs/react": "^4.4.2",

@@ -4,10 +4,8 @@ import tseslint from 'typescript-eslint'
 import globals from 'globals'
 
 export default [
-  {
-    ...js.configs.recommended,
-    languageOptions: { globals: globals.browser },
-  },
+  { ignores: ['dist/**', '.astro/**', 'node_modules/**'] },
+  { ...js.configs.recommended, languageOptions: { globals: globals.browser } },
   ...tseslint.configs.recommended,
   ...astro.configs.recommended,
   {
