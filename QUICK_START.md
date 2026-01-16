@@ -1,102 +1,351 @@
-# ⚡ Quick Start Guide - Cómo Continuar
+# ⚡ Quick Start Guide - Tutto a Leña
 
-## 🚀 Para Empezar Inmediatamente
+## 🚀 Inicio Rápido (2 minutos)
 
-### 1️⃣ Verificar que todo funciona
+### 1️⃣ Verificar que funciona
 
 ```bash
 cd /home/teo/Escritorio/tutto-a-lena-astro
 npm run dev
 ```
 
-Debería abrir en `http://localhost:4321`
+Abre `http://localhost:4321` - Deberías ver la homepage con hero oscuro.
 
-### 2️⃣ Actualizar Datos Críticos
+---
 
-Estos archivos DEBEN ser actualizados con datos reales:
+## 📋 Checklist de Datos Reales
 
-#### 🔴 URGENTE:
+### 🔴 URGENTE - Actualizar Contacto
 
 ```typescript
 // src/constants/business.ts
 export const BUSINESS_INFO = {
   phone: {
-    display: '+54 (011) XXXX-XXXX', // ← CAMBIAR
-    raw: '+541100000000', // ← CAMBIAR
+    display: '+34 XXX XXX XXX', // ← CAMBIAR
+    raw: '+34XXXXXXXXX',
   },
   whatsapp: {
-    display: '+54 911 XXXX-XXXX', // ← CAMBIAR
-    raw: '5491100000000', // ← CAMBIAR
+    display: '+34 XXX XXX XXX', // ← CAMBIAR
+    raw: '34XXXXXXXXX',
   },
-  location: {
-    street: 'Calle Principal 123', // ← CAMBIAR
-    city: 'Buenos Aires',
-    coordinates: {
-      latitude: -34.6037, // ← CAMBIAR (GPS real)
-      longitude: -58.3816, // ← CAMBIAR (GPS real)
-    },
-  },
-  hours: {
-    monday: { open: '12:00', close: '23:00' }, // ← CAMBIAR según horarios
-    // ... más horarios
+  email: {
+    display: 'info@tuttoleña.es', // ← CAMBIAR
+    href: 'mailto:info@tuttoleña.es',
   },
 }
 ```
 
-#### 🟡 IMPORTANTE:
+### 🟡 IMPORTANTE - Ubicación y Redes
 
 ```typescript
-// src/constants/menu.ts
-export const PIZZAS = [
-  {
-    id: 'pizza-1',
-    name: 'Margherita',
-    price: 450, // ← CAMBIAR PRECIOS REALES
-    // ...
+// src/constants/business.ts - Ubicación Base
+location: {
+  street: '', // Food truck itinerante, no hay dirección fija
+  city: 'Costa Blanca',
+  state: 'Alicante',
+  country: 'España',
+  coordinates: {
+    latitude: 38.3452, // ← GPS real Costa Blanca
+    longitude: -0.4810,
   },
-]
+}
 
-// src/constants/social.ts
+// src/constants/social.ts - Redes Sociales
 export const SOCIAL_NETWORKS = {
+  instagram: {
+    url: 'https://instagram.com/tuttoleña', // ← CAMBIAR
+    username: '@tuttoleña',
+  },
   facebook: {
     url: 'https://facebook.com/tuttoleña', // ← CAMBIAR
   },
-  instagram: {
-    url: 'https://instagram.com/tuttoleña', // ← CAMBIAR
+  whatsapp: {
+    url: 'https://wa.me/34XXXXXXXXX', // ← CAMBIAR
   },
-  // ...
 }
+```
 
-// src/constants/events.ts
+### 🟢 OPCIONAL - Ubicaciones Itinerantes
+
+```typescript
+// src/constants/events.ts - Próximas Ubicaciones
 export const EVENTS = [
   {
-    date: new Date('2026-02-14'), // ← CAMBIAR FECHAS REALES
-    price: 850, // ← CAMBIAR PRECIOS
-    // ...
+    id: 'evento-1',
+    title: 'Feria de Benidorm',
+    date: new Date('2026-02-15'),
+    location: 'Plaza Mayor, Benidorm',
+    description: 'Estaremos en la feria gastronómica',
+    featured: true,
+  },
+  // Agregar más eventos/ubicaciones
+]
+```
+
+---
+
+## 🍕 Menú y Carta
+
+### Precios y Productos
+
+```typescript
+// src/constants/menu.ts
+
+// PIZZAS - Actualizar nombres y precios
+export const PIZZAS = [
+  {
+    id: 'margherita',
+    name: 'Margherita',
+    price: 8.50, // ← CAMBIAR PRECIO REAL
+    description: 'Tomate, mozzarella, albahaca fresca',
+  },
+  // ... más pizzas
+]
+
+// EMPANADAS - Productos argentinos
+export const EMPANADAS = [
+  {
+    id: 'carne',
+    name: 'Empanada de Carne',
+    price: 3.00, // ← CAMBIAR
+    description: 'Carne picada, cebolla, especias',
+  },
+  // ... más empanadas
+]
+
+// CERVEZAS - Marcas disponibles
+export const BEERS = [
+  {
+    id: 'ipa',
+    name: 'IPA Artesanal',
+    price: 4.50, // ← CAMBIAR
+    size: '330ml',
   },
 ]
 ```
 
 ---
 
-## 📝 Workflow Recomendado
+## 🎉 Eventos e Itinerario
 
-### Opción A: Rápido (1-2 horas)
+### Gestionar Ubicaciones
+
+```typescript
+// src/constants/events.ts
+
+export const EVENTS = [
+  {
+    id: 'unique-id',
+    title: 'Nombre del evento',
+    date: new Date('2026-MM-DD'),
+    location: 'Dirección exacta',
+    coordinates: {
+      lat: 38.xxxx,
+      lng: -0.xxxx,
+    },
+    featured: true, // Aparece destacado en home
+    description: 'Descripción breve',
+  },
+]
+```
+
+**Notas**:
+- Usar fechas futuras reales
+- Coordenadas precisas para Google Maps
+- `featured: true` para eventos importantes
+
+---
+
+## 📰 WordPress Headless (Preparado)
+
+### Configuración Futura
+
+El sitio está **preparado** para conectar con WordPress:
+
+```typescript
+// Crear archivo: src/lib/wordpress.ts
+
+const WORDPRESS_API_URL = 'https://tu-wordpress.com/wp-json/wp/v2'
+
+export async function getPosts() {
+  const res = await fetch(`${WORDPRESS_API_URL}/posts`)
+  return res.json()
+}
+
+export async function getEvents() {
+  // Custom post type 'eventos'
+  const res = await fetch(`${WORDPRESS_API_URL}/eventos`)
+  return res.json()
+}
+```
+
+### Páginas Afectadas
+
+- `src/pages/blog.astro` - Consumirá `/posts`
+- `src/pages/eventos.astro` - Consumirá `/eventos`
+
+**Por ahora**: Datos estáticos en `src/constants/`
+
+---
+
+## 📸 Imágenes y Assets
+
+### Imágenes Actuales (14 fotos)
 
 ```
-1. Actualizar datos en constants/*.ts
-2. Probar npm run dev
-3. Correr Fase 2 (componentes UI)
+public/images/
+├── hero-food-truck.jpg          # Hero principal
+├── oven-mosaic-front-face.jpg   # Horno con mosaico
+├── vertical-full-pizza.jpg      # Pizza completa
+├── pizza-slice-cool-photo.jpg   # Porción de pizza
+├── empanada-realy-good-looking.jpg
+├── pizza-and-beer.jpg
+└── ... (más 8 imágenes)
 ```
 
-### Opción B: Completo (3-4 horas)
+### Agregar Nuevas Imágenes
 
+1. Colocar en `public/images/`
+2. Actualizar `src/constants/gallery.ts`:
+
+```typescript
+export const GALLERY_IMAGES = [
+  {
+    id: 'nueva-foto',
+    src: '/images/nueva-foto.jpg',
+    alt: 'Descripción',
+    category: 'pizzas', // pizzas, empanadas, eventos, horno
+  },
+]
 ```
-1. Actualizar todos los datos
-2. Agregar imágenes reales
-3. Correr Fase 2 (componentes UI)
-4. Crear páginas básicas
+
+---
+
+## 🎨 Ajustes Visuales
+
+### Colores de Marca
+
+Los colores ya están definidos en `src/styles/global.css`:
+
+```css
+--brand-red: #b30000;
+--brand-black: #000000;
+--brand-yellow: #ffc800;
 ```
+
+**No cambiar** estos colores - son parte de la identidad.
+
+### Textos con Humor Argentino
+
+Ubicaciones actuales:
+- Hero: "Si tiene horno a leña, tiene magia."
+- Menu: "Probá, probá… después nos contás."
+- About: "Hechas con amor… y un poquito de picardía."
+
+**Regla**: Máximo 2-3 frases con guiño argentino, mantener elegancia.
+
+---
+
+## 🛠️ Comandos Útiles
+
+```bash
+# Desarrollo
+npm run dev              # localhost:4321
+npm run dev -- --host    # Exponer en red local
+
+# Build
+npm run build            # Compila a ./dist/
+npm run preview          # Preview del build
+
+# Calidad
+npm run lint             # ESLint
+npm run lint:fix         # Auto-fix errores
+npm run astro check      # Type checking
+```
+
+---
+
+## 📊 Workflow de Commits
+
+### Formato Granular
+
+```bash
+git add [archivo]
+git commit -m "tipo(scope): descripción breve"
+```
+
+**Tipos**:
+- `feat`: Nueva funcionalidad
+- `fix`: Corrección de bug
+- `docs`: Documentación
+- `style`: Estilos visuales
+- `refactor`: Refactorización
+- `perf`: Performance
+
+**Ejemplos**:
+```bash
+git commit -m "feat(menu): actualizar precios pizzas"
+git commit -m "fix(hero): corregir overlay gradient"
+git commit -m "docs(readme): agregar sección WordPress"
+```
+
+---
+
+## 🔍 Troubleshooting
+
+### Problema: Build falla
+
+```bash
+npm run astro check
+```
+
+Revisar errores TypeScript.
+
+### Problema: Imágenes no cargan
+
+Verificar:
+1. Ruta correcta en `public/images/`
+2. Formato: `.jpg`, `.png`, `.webp`
+3. Sin espacios en nombre de archivo
+
+### Problema: Estilos no aplican
+
+```bash
+# Limpiar cache
+rm -rf node_modules/.astro
+npm run dev
+```
+
+---
+
+## 📚 Recursos
+
+- **AGENT_CONTEXT.md** - Contexto técnico completo
+- **README.md** - Documentación general
+- [Astro Docs](https://docs.astro.build)
+- [Tailwind v4 Docs](https://tailwindcss.com/docs)
+
+---
+
+## ✅ Checklist Pre-Deploy
+
+- [ ] Actualizar contacto (teléfono, email, WhatsApp)
+- [ ] Agregar redes sociales reales
+- [ ] Actualizar precios del menú
+- [ ] Agregar eventos/ubicaciones futuras
+- [ ] Verificar imágenes optimizadas
+- [ ] Probar formulario de contacto
+- [ ] Verificar SEO (meta tags, Schema.org)
+- [ ] Test en móvil
+- [ ] Lighthouse score 90+
+- [ ] npm run build sin errores
+
+---
+
+<p align="center">
+  <strong>¿Listo para empezar?</strong><br>
+  <code>npm run dev</code> y comienza a personalizar! 🚀
+</p>
 
 ### Opción C: Profesional (5-6 horas)
 
