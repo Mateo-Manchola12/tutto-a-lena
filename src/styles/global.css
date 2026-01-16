@@ -191,4 +191,12 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  .font-display {
+    font-family: var(--font-display);
+  }
+
+  .font-handwriting {
+    font-family: var(--font-handwriting);
+  }
 }

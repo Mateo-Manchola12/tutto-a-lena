@@ -2,9 +2,9 @@
 
 ## 🎯 Estado Actual del Proyecto
 
-**Proyecto**: Tutto a Leña - Sitio web restaurante con pizzas a leña  
-**Framework**: Astro 5.x + React islands  
-**Estado**: Fase 3 - Refinamiento visual y de contenido  
+**Proyecto**: Tutto a Leña - Sitio web restaurante con pizzas a leña
+**Framework**: Astro 5.x + React islands
+**Estado**: Fase 3 - Refinamiento visual y de contenido
 **Última actualización**: 16 enero 2026
 
 ---
@@ -47,17 +47,20 @@ tutto-a-lena-astro/
 ## 🎨 Sistema de Diseño
 
 ### Colores Principales
+
 - **Primary (Terracota)**: `#FF8860` - Color principal del brand
 - **Accent (Verde italiano)**: `#2D5016` - Acento secundario
 - **Surface**: `rgb(250 250 248)` - Fondo elegante neutral
 - **Foreground**: `rgb(31 30 24)` - Texto principal
 
 ### Tipografías
+
 - **Display**: Playfair Display (títulos grandes, elegante)
 - **Body/Heading**: Inter (texto general, UI)
 - **Script/Handwriting**: Caveat (subtítulos decorativos)
 
 ### Componentes UI Base
+
 - `Button.astro` - 4 variantes (primary, secondary, outline, ghost) y 3 tamaños
 - `Card.astro` - Cards con imagen y contenido
 - `Badge.astro` - Etiquetas con estados
@@ -69,18 +72,22 @@ tutto-a-lena-astro/
 ## 📊 Estado de Fases
 
 ### ✅ Fase 1: Fundación (COMPLETADA)
+
 - 1.1: Config Astro optimizada, build con terser, cache headers, security headers
 - 1.2: SEO foundation (MetaTags, Schema, Breadcrumbs, robots.txt, 404)
 - 1.3: Data structure (business, menu, events, FAQs, gallery, testimonials)
 
 ### ✅ Fase 2: Componentes UI (COMPLETADA)
+
 - Design tokens (70+ CSS variables)
 - Componentes base reutilizables (Button, Card, Badge, Icon, Image)
 - Layout components (Container, Section)
 - Lint configurado (ESLint + Astro)
 
 ### 🔄 Fase 3: Páginas y Contenido (EN PROGRESO)
+
 - **Completado**:
+
   - 11 páginas creadas (index, carta, donde-estamos, catering, eventos, contacto, blog, reservar, política, términos, 404)
   - Build exitoso
   - Navegación funcional
@@ -98,12 +105,14 @@ tutto-a-lena-astro/
 ## 🎯 Tareas Inmediatas
 
 1. **Análisis de estilos React** ✅
+
    - Hero con imagen de fondo a la derecha, overlay degradado
    - Tipografía: display grande, handwriting para subtítulos
    - Botones con ArrowRight icon
    - Layout: grid 2 columnas, imagen ocupa lado derecho
 
 2. **Actualizar componentes Astro**
+
    - Hero: imagen de fondo, layout de 2 columnas, botones con íconos
    - MenuTeaser: cards con imágenes, hover effects
    - Gallery: grid responsivo con imágenes optimizadas
@@ -160,6 +169,7 @@ git commit -m "tipo(scope): mensaje descriptivo"
 ## 🎨 Referencia Visual (React)
 
 La página React de referencia está en `/home/teo/Escritorio/tutto-a-lena/`:
+
 - **Hero**: Imagen de fondo derecha con overlay degradado, logo grande, tipografía display + handwriting
 - **Colores**: Terracota primary visible, fondos claros elegantes
 - **Tipografía**: Playfair Display (display), Inter (body), Caveat (handwriting)
