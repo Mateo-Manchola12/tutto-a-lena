@@ -8,10 +8,14 @@ import Hero from '@components/index/Hero.astro'
 import Menu from '@components/index/Menu.astro'
 import SubHero from '@components/index/SubHero.astro'
 import About from '@components/index/About.astro'
+import HistoryExpanded from '@components/index/HistoryExpanded.astro'
+import WhyOurPizza from '@components/index/WhyOurPizza.astro'
+import IngredientsShowcase from '@components/index/IngredientsShowcase.astro'
 import Gallery from '@components/index/Gallery.astro'
 import Contact from '@components/index/Contact.astro'
 import Events from '@components/index/Events.astro'
 import Blog from '@components/index/Blog.astro'
+import CallToAction from '@components/index/CallToAction.astro'
 ---
 
 <Layout title="Inicio">
@@ -32,7 +36,15 @@ import Blog from '@components/index/Blog.astro'
     <Section title="Pasión por Italia" subtitle="Conoce nuestra historia y filosofía">
       <About />
     </Section>
+  </Container>
 
+  <HistoryExpanded />
+
+  <WhyOurPizza />
+
+  <IngredientsShowcase />
+
+  <Container>
     <Section title="Galería" subtitle="Un vistazo a nuestros platos y espacio">
       <Gallery />
     </Section>
@@ -50,4 +62,6 @@ import Blog from '@components/index/Blog.astro'
       <Blog />
     </Section>
   </Container>
+
+  <CallToAction />
 </Layout>
