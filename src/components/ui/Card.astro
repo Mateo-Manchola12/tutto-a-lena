@@ -4,11 +4,14 @@ interface Props {
   subtitle?: string
   imageSrc?: string
   imageAlt?: string
+  class?: string
 }
-const { title, subtitle, imageSrc, imageAlt } = Astro.props as Props
+const { title, subtitle, imageSrc, imageAlt, class: className } = Astro.props as Props
 ---
 
-<article class="rounded-lg bg-surface shadow-elegant border border-surface-border overflow-hidden">
+<article
+  class={`rounded-lg bg-surface shadow-elegant border border-surface-border overflow-hidden ${className ?? ''}`}
+>
   {
     imageSrc && (
       <img
