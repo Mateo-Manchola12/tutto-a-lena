@@ -81,6 +81,30 @@ export const BUSINESS_INFO = {
     'https://tripadvisor.com/restaurants/tuttoleña',
   ],
 
+  // CTAs y Links de acciones
+  cta: {
+    // Links principales
+    menu: '/carta',
+    catering: '/catering',
+    events: '/eventos',
+    contact: '/contacto',
+    location: '/donde-estamos',
+    gallery: '/galeria',
+    home: '/',
+
+    // WhatsApp con mensajes predefinidos
+    whatsappMessages: {
+      default: 'Hola Tutto a Leña! Quisiera hacer una consulta',
+      catering:
+        'Hola, quisiera consultar sobre catering para mi evento. Me gustaría conocer opciones y presupuestos.',
+      events:
+        'Hola, quisiera conocer más sobre vuestros eventos y servicios especiales. Tengo un evento próximo.',
+      general: 'Hola, tengo una consulta',
+      booking: 'Hola, me gustaría consultar disponibilidad y hacer una reserva',
+      inquiry: 'Hola, quisiera más información sobre vuestros servicios',
+    },
+  },
+
   // Certificaciones y reconocimientos
   certifications: ['Restaurante registrado', 'Habilitación municipal', 'Certificado de calidad'],
 
@@ -217,3 +241,25 @@ export const SCHEMA = {
 }
 
 export default BUSINESS_INFO
+
+/**
+ * Helper para construir URLs de WhatsApp con mensajes predefinidos
+ * @param messageType - Tipo de mensaje (default, catering, events, general, booking, inquiry)
+ * @param customMessage - Mensaje personalizado (opcional, sobrescribe el predefinido)
+ */
+export const getWhatsappUrl = (
+  messageType: keyof typeof BUSINESS_INFO.cta.whatsappMessages = 'default',
+  customMessage?: string
+): string => {
+  const phoneNumber = BUSINESS_INFO.whatsapp.raw
+  const message = customMessage || BUSINESS_INFO.cta.whatsappMessages[messageType]
+  const encodedMessage = encodeURIComponent(message)
+  return `https://wa.me/${phoneNumber}?text=${encodedMessage}`
+}
+
+/**
+ * Helper para construir URLs de redes sociales
+ */
+export const getSocialUrl = (network: keyof typeof BUSINESS_INFO.social): string => {
+  return BUSINESS_INFO.social[network]
+}

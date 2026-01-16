@@ -3,6 +3,7 @@ import Layout from '@/layouts/Layout.astro'
 import MetaTags from '@/components/layout/MetaTags.astro'
 import Schema from '@/components/layout/Schema.astro'
 import { MAIN_ROUTES } from '@/constants/site_map'
+import { BUSINESS_INFO } from '@/constants/business'
 
 const title = 'Página no encontrada'
 const description =
@@ -40,13 +41,13 @@ const description =
       <!-- CTA Button -->
       <div class="flex flex-col sm:flex-row gap-4 justify-center mb-12">
         <a
-          href="/"
+          href={BUSINESS_INFO.cta.home}
           class="inline-flex items-center justify-center px-8 py-3 bg-primary text-primary-foreground font-semibold rounded-lg hover:bg-primary-hover transition-colors shadow-glow"
         >
           Volver al inicio
         </a>
         <a
-          href="/contacto"
+          href={BUSINESS_INFO.cta.contact}
           class="inline-flex items-center justify-center px-8 py-3 border-2 border-primary text-primary font-semibold rounded-lg hover:bg-primary hover:text-primary-foreground transition-colors"
         >
           Contactanos
@@ -73,7 +74,7 @@ const description =
       <!-- Help Text -->
       <p class="text-sm text-muted mt-8">
         Si crees que esto es un error, por favor{' '}
-        <a href="/contacto" class="text-primary hover:underline font-semibold"> contáctanos </a>
+        <a href={BUSINESS_INFO.cta.contact} class="text-primary hover:underline font-semibold"> contáctanos </a>
       </p>
     </div>
   </main>
@@ -88,7 +89,7 @@ const description =
 
       <div class="grid md:grid-cols-3 gap-6">
         <a
-          href="/carta"
+          href={BUSINESS_INFO.cta.menu}
           class="group bg-surface p-6 rounded-lg border border-surface-border hover:border-primary hover:shadow-glow transition-all"
         >
           <div class="mb-4 text-4xl">🍕</div>

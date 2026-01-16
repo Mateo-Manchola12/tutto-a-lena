@@ -1,6 +1,6 @@
 ---
 import Button from '@components/ui/Button.astro'
-import { BUSINESS_INFO } from '@constants/business'
+import { BUSINESS_INFO, getWhatsappUrl } from '@constants/business'
 
 const { phone, email, whatsapp } = BUSINESS_INFO
 ---
@@ -28,8 +28,8 @@ const { phone, email, whatsapp } = BUSINESS_INFO
       </div>
     </div>
     <div class="flex flex-col gap-4 justify-center">
-      <Button href="/reservar" variant="primary" size="lg"> Reservar mesa </Button>
-      <Button href="/contacto" variant="outline" size="lg"> Ir a contacto </Button>
+      <Button href={BUSINESS_INFO.cta.catering} variant="primary" size="lg"> Solicitar Catering </Button>
+      <Button href={BUSINESS_INFO.cta.contact} variant="outline" size="lg"> Contactanos </Button>
     </div>
   </div>
 </div>

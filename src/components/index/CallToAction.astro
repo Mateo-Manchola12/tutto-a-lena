@@ -1,4 +1,5 @@
 ---
+import { BUSINESS_INFO } from '@constants/business'
 ---
 
 <section class="py-16 md:py-24 bg-gradient-to-r from-primary/95 to-primary via-primary/90 relative overflow-hidden border-t border-primary-hover">
@@ -31,17 +32,17 @@
       <!-- CTAs -->
       <div class="flex flex-col sm:flex-row gap-4 justify-center pt-6">
         <a
-          href="/reservar"
+          href={BUSINESS_INFO.cta.catering}
           class="inline-flex items-center justify-center px-8 py-4 bg-white text-primary font-bold rounded-full hover:bg-gray-50 transition-colors duration-300 shadow-lg hover:shadow-glow text-lg"
         >
-          Reservar Mesa
+          Solicitar Catering
           <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
           </svg>
         </a>
 
         <a
-          href="/contacto"
+          href={BUSINESS_INFO.cta.contact}
           class="inline-flex items-center justify-center px-8 py-4 border-2 border-white text-white font-bold rounded-full hover:bg-white/10 transition-colors duration-300 text-lg"
         >
           Contáctanos

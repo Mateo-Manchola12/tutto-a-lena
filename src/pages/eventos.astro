@@ -4,6 +4,7 @@ import MetaTags from '@components/layout/MetaTags.astro'
 import Breadcrumbs from '@components/layout/Breadcrumbs.astro'
 import Container from '@components/layout/Container.astro'
 import { SITE_MAP } from '@constants/site_map'
+import { BUSINESS_INFO } from '@constants/business'
 import { getUpcomingEvents } from '@constants/events'
 
 const page = SITE_MAP.find(p => p.slug === 'eventos')!
@@ -62,7 +63,7 @@ const events = getUpcomingEvents()
                     <!-- CTA -->
                     <div class="pt-4 border-t border-surface-border">
                       <a
-                        href="/contacto"
+                        href={BUSINESS_INFO.cta.contact}
                         class="inline-flex items-center gap-2 text-primary font-semibold hover:gap-3 transition-all"
                       >
                         Consultar más
@@ -83,7 +84,7 @@ const events = getUpcomingEvents()
             Estamos preparando nuevas experiencias. Seguinos en redes sociales para no perderte los próximos eventos.
           </p>
           <a
-            href="/contacto"
+            href={BUSINESS_INFO.cta.contact}
             class="inline-flex items-center justify-center px-6 py-2 border-2 border-primary text-primary font-semibold rounded-full hover:bg-primary/10 transition-colors"
           >
             Consultar
@@ -149,7 +150,7 @@ const events = getUpcomingEvents()
           Cuéntanos tu idea. Nosotros nos encargamos del resto para hacer un evento inolvidable.
         </p>
         <a
-          href="/contacto"
+          href={BUSINESS_INFO.cta.contact}
           class="inline-flex items-center justify-center px-8 py-3 bg-white text-primary font-bold rounded-full hover:bg-gray-100 transition-colors shadow-lg"
         >
           Contactanos

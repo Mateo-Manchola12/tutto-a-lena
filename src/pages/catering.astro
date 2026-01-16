@@ -4,6 +4,7 @@ import MetaTags from '@components/layout/MetaTags.astro'
 import Breadcrumbs from '@components/layout/Breadcrumbs.astro'
 import Container from '@components/layout/Container.astro'
 import { SITE_MAP } from '@constants/site_map'
+import { BUSINESS_INFO } from '@constants/business'
 
 const page = SITE_MAP.find(p => p.slug === 'catering')!
 
@@ -231,7 +232,7 @@ const process = [
       </p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
         <a
-          href="/contacto"
+          href={BUSINESS_INFO.cta.contact}
           class="inline-flex items-center justify-center px-8 py-3 bg-white text-primary font-bold rounded-full hover:bg-gray-100 transition-colors shadow-lg"
         >
           Solicitar Cotización

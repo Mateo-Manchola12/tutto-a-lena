@@ -4,7 +4,7 @@ import MetaTags from '@components/layout/MetaTags.astro'
 import Breadcrumbs from '@components/layout/Breadcrumbs.astro'
 import Container from '@components/layout/Container.astro'
 import { SITE_MAP } from '@constants/site_map'
-import { BUSINESS_INFO } from '@constants/business'
+import { BUSINESS_INFO, getWhatsappUrl } from '@constants/business'
 
 const page = SITE_MAP.find(p => p.slug === 'contacto')!
 const { phone, email, whatsapp } = BUSINESS_INFO
@@ -48,7 +48,7 @@ const { phone, email, whatsapp } = BUSINESS_INFO
 
           <!-- WhatsApp -->
           <a
-            href={`https://wa.me/${whatsapp?.replace(/\D/g, '')}`}
+            href={getWhatsappUrl('default')}
             target="_blank"
             rel="noopener noreferrer"
             class="group block bg-surface rounded-2xl border border-surface-border p-6 hover:border-primary hover:shadow-glow transition-all duration-300"
@@ -131,7 +131,7 @@ const { phone, email, whatsapp } = BUSINESS_INFO
 
             <div class="space-y-3">
               <a
-                href={`https://wa.me/${whatsapp?.replace(/\D/g, '')}?text=Hola%2C%20quisiera%20consultar%20sobre%20catering`}
+                href={getWhatsappUrl('catering')}
                 target="_blank"
                 rel="noopener noreferrer"
                 class="block p-4 bg-surface rounded-lg border border-surface-border hover:border-primary hover:bg-primary/5 transition-all duration-300 text-foreground hover:text-primary font-semibold"
@@ -139,7 +139,7 @@ const { phone, email, whatsapp } = BUSINESS_INFO
                 🍕 Consultar sobre catering
               </a>
               <a
-                href={`https://wa.me/${whatsapp?.replace(/\D/g, '')}?text=Hola%2C%20quisiera%20conocer%20m%C3%A1s%20sobre%20vuestros%20eventos`}
+                href={getWhatsappUrl('events')}
                 target="_blank"
                 rel="noopener noreferrer"
                 class="block p-4 bg-surface rounded-lg border border-surface-border hover:border-primary hover:bg-primary/5 transition-all duration-300 text-foreground hover:text-primary font-semibold"
@@ -147,7 +147,7 @@ const { phone, email, whatsapp } = BUSINESS_INFO
                 🎉 Información sobre eventos
               </a>
               <a
-                href={`https://wa.me/${whatsapp?.replace(/\D/g, '')}?text=Hola%2C%20tengo%20una%20consulta`}
+                href={getWhatsappUrl('general')}
                 target="_blank"
                 rel="noopener noreferrer"
                 class="block p-4 bg-surface rounded-lg border border-surface-border hover:border-primary hover:bg-primary/5 transition-all duration-300 text-foreground hover:text-primary font-semibold"
