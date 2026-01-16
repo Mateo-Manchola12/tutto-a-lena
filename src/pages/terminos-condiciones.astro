@@ -7,8 +7,14 @@ import { SITE_MAP } from '@constants/site_map'
 
 const page = SITE_MAP.find(p => p.slug === 'terminos-condiciones')!
 ---
+
 <Layout>
-  <MetaTags title={`Tutto a Leña | ${page.name}`} description={page.description} canonical={page.path} noindex={true} />
+  <MetaTags
+    title={`Tutto a Leña | ${page.name}`}
+    description={page.description}
+    canonical={page.path}
+    noindex={true}
+  />
   <Container>
     <Section title="Términos y Condiciones" subtitle="Actualizaremos esta sección próximamente">
       <p class="text-muted">Condiciones de uso del sitio y términos del servicio.</p>

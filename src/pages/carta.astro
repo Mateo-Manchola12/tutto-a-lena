@@ -12,25 +12,37 @@ const page = SITE_MAP.find(p => p.slug === 'carta')!
 const items: MenuItem[] = getAllMenuItems()
 const categories = ['pizzas', 'pastas', 'carnes', 'entradas', 'postres', 'bebidas']
 ---
+
 <Layout>
-  <MetaTags title={`Tutto a Leña | ${page.name}`} description={page.description} canonical={page.path} />
+  <MetaTags
+    title={`Tutto a Leña | ${page.name}`}
+    description={page.description}
+    canonical={page.path}
+  />
   <Container>
-    <Breadcrumbs items={[{ label: 'Inicio', href: '/' }, { label: 'Carta', href: '/carta' }]} />
+    <Breadcrumbs
+      items={[
+        { label: 'Inicio', href: '/' },
+        { label: 'Carta', href: '/carta' },
+      ]}
+    />
     <Section title="Nuestra Carta" subtitle="Ingredientes frescos, masa madre y horno a leña">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {categories.map(cat => (
-          <section>
-            <h3 class="text-xl font-semibold mb-3 capitalize">{cat}</h3>
-            <ul class="space-y-2">
-              {getMenuItemsByCategory(cat).map(item => (
-                <li class="flex justify-between">
-                  <span class="text-foreground">{item.name}</span>
-                  <span class="text-muted">${item.price?.toFixed(2) ?? '--'}</span>
-                </li>
-              ))}
-            </ul>
-          </section>
-        ))}
+        {
+          categories.map(cat => (
+            <section>
+              <h3 class="text-xl font-semibold mb-3 capitalize">{cat}</h3>
+              <ul class="space-y-2">
+                {getMenuItemsByCategory(cat).map(item => (
+                  <li class="flex justify-between">
+                    <span class="text-foreground">{item.name}</span>
+                    <span class="text-muted">${item.price?.toFixed(2) ?? '--'}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ))
+        }
       </div>
     </Section>
   </Container>

@@ -8,10 +8,20 @@ import { SITE_MAP } from '@constants/site_map'
 
 const page = SITE_MAP.find(p => p.slug === 'blog')!
 ---
+
 <Layout>
-  <MetaTags title={`Tutto a Leña | ${page.name}`} description={page.description} canonical={page.path} />
+  <MetaTags
+    title={`Tutto a Leña | ${page.name}`}
+    description={page.description}
+    canonical={page.path}
+  />
   <Container>
-    <Breadcrumbs items={[{ label: 'Inicio', href: '/' }, { label: 'Blog', href: '/blog' }]} />
+    <Breadcrumbs
+      items={[
+        { label: 'Inicio', href: '/' },
+        { label: 'Blog', href: '/blog' },
+      ]}
+    />
     <Section title="Blog" subtitle="Recetas, noticias y cultura italiana">
       <p class="text-muted">Muy pronto: artículos y novedades de Tutto a Leña.</p>
     </Section>

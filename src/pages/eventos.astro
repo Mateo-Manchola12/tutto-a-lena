@@ -11,17 +11,29 @@ import { getUpcomingEvents } from '@constants/events'
 const page = SITE_MAP.find(p => p.slug === 'eventos')!
 const events = getUpcomingEvents()
 ---
+
 <Layout>
-  <MetaTags title={`Tutto a Leña | ${page.name}`} description={page.description} canonical={page.path} />
+  <MetaTags
+    title={`Tutto a Leña | ${page.name}`}
+    description={page.description}
+    canonical={page.path}
+  />
   <Container>
-    <Breadcrumbs items={[{ label: 'Inicio', href: '/' }, { label: 'Eventos', href: '/eventos' }]} />
+    <Breadcrumbs
+      items={[
+        { label: 'Inicio', href: '/' },
+        { label: 'Eventos', href: '/eventos' },
+      ]}
+    />
     <Section title="Próximos eventos" subtitle="Vive experiencias únicas en Tutto a Leña">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {events.map(ev => (
-          <Card title={ev.title} subtitle={`${ev.date} · ${ev.startTime}-${ev.endTime}`}>
-            <p class="text-muted">{ev.description}</p>
-          </Card>
-        ))}
+        {
+          events.map(ev => (
+            <Card title={ev.title} subtitle={`${ev.date} · ${ev.startTime}-${ev.endTime}`}>
+              <p class="text-muted">{ev.description}</p>
+            </Card>
+          ))
+        }
       </div>
     </Section>
   </Container>
