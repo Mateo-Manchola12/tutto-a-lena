@@ -28,15 +28,15 @@ const { address, coordinates, phone, email, hours } = BUSINESS_INFO
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
           <h3 class="font-semibold">Dirección</h3>
-          <p class="text-muted">{address.street}, {address.city}</p>
-          <p class="text-muted">{address.postalCode}, {address.country}</p>
+          <p class="text-muted">{address?.street ?? '—'}, {address?.city ?? ''}</p>
+          <p class="text-muted">{address?.postalCode ?? ''}, {address?.country ?? ''}</p>
           <h3 class="font-semibold mt-4">Contacto</h3>
-          <p class="text-muted">Tel: {phone}</p>
-          <p class="text-muted">Email: {email}</p>
+          <p class="text-muted">Tel: {phone ?? '—'}</p>
+          <p class="text-muted">Email: {email ?? '—'}</p>
           <h3 class="font-semibold mt-4">Horarios</h3>
           <ul class="text-muted">
             {
-              hours.map(h => (
+              (Array.isArray(hours) ? hours : []).map(h => (
                 <li>
                   {h.day}: {h.open} - {h.close}
                 </li>
@@ -48,7 +48,7 @@ const { address, coordinates, phone, email, hours } = BUSINESS_INFO
           <iframe
             class="w-full h-80 rounded-md border"
             loading="lazy"
-            src={`https://www.google.com/maps?q=${coordinates.lat},${coordinates.lng}&output=embed`}
+            src={`https://www.google.com/maps?q=${coordinates?.lat ?? 0},${coordinates?.lng ?? 0}&output=embed`}
             title="Mapa Tutto a Leña"></iframe>
         </div>
       </div>
