@@ -1,0 +1,28 @@
+---
+import Layout from '@/layouts/Layout.astro'
+import MetaTags from '@components/layout/MetaTags.astro'
+import Breadcrumbs from '@components/layout/Breadcrumbs.astro'
+import Container from '@components/layout/Container.astro'
+import Section from '@components/layout/Section.astro'
+import Card from '@components/ui/Card.astro'
+import { SITE_MAP } from '@constants/site_map'
+import { getUpcomingEvents } from '@constants/events'
+
+const page = SITE_MAP.find(p => p.slug === 'eventos')!
+const events = getUpcomingEvents()
+---
+<Layout>
+  <MetaTags title={`Tutto a Leña | ${page.name}`} description={page.description} canonical={page.path} />
+  <Container>
+    <Breadcrumbs items={[{ label: 'Inicio', href: '/' }, { label: 'Eventos', href: '/eventos' }]} />
+    <Section title="Próximos eventos" subtitle="Vive experiencias únicas en Tutto a Leña">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {events.map(ev => (
+          <Card title={ev.title} subtitle={`${ev.date} · ${ev.startTime}-${ev.endTime}`}>
+            <p class="text-muted">{ev.description}</p>
+          </Card>
+        ))}
+      </div>
+    </Section>
+  </Container>
+</Layout>
