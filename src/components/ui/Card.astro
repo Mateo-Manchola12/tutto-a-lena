@@ -10,7 +10,7 @@ const { title, subtitle, imageSrc, imageAlt, class: className } = Astro.props as
 ---
 
 <article
-  class={`rounded-lg bg-surface shadow-elegant border border-surface-border overflow-hidden ${className ?? ''}`}
+  class={`rounded-lg bg-surface shadow-elegant border border-surface-border overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl animate-fade-in-up animate-duration-700 animate-once ${className ?? ''}`}
 >
   {
     imageSrc && (
