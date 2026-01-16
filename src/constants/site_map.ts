@@ -82,7 +82,7 @@ export const SITE_MAP: Page[] = RAW_SITE_MAP.map(page => ({
 
 // Rutas principales para navbar
 export const MAIN_ROUTES = RAW_SITE_MAP.filter(page =>
-  ['', 'carta', 'donde-estamos', 'catering', 'eventos', 'contacto'].includes(page.slug),
+  ['', 'carta', 'donde-estamos', 'catering', 'eventos', 'contacto', 'blog'].includes(page.slug),
 )
 
 // Rutas de footer
