@@ -3,10 +3,100 @@ import Layout from '@/layouts/Layout.astro'
 import MetaTags from '@components/layout/MetaTags.astro'
 import Breadcrumbs from '@components/layout/Breadcrumbs.astro'
 import Container from '@components/layout/Container.astro'
-import Section from '@components/layout/Section.astro'
 import { SITE_MAP } from '@constants/site_map'
 
 const page = SITE_MAP.find(p => p.slug === 'catering')!
+
+const services = [
+  {
+    icon: '💍',
+    title: 'Bodas y Casamientos',
+    description:
+      'Haz de tu día especial aún más memorable con nuestras pizzas y empanadas artesanales. Servicio completo con horno a leña.',
+    features: [
+      'Menú personalizado',
+      'Staff de atención',
+      'Horno a leña incluido',
+      'Barra de bebidas',
+    ],
+  },
+  {
+    icon: '🎉',
+    title: 'Fiestas y Celebraciones',
+    description:
+      'Cumpleaños, aniversarios, bautismos. Llevamos la alegría de Tutto a Leña a tu fiesta.',
+    features: [
+      'Porciones variadas',
+      'Opciones vegetarianas',
+      'Empanadas surtidas',
+      'Postres premium',
+    ],
+  },
+  {
+    icon: '🏢',
+    title: 'Eventos Corporativos',
+    description:
+      'Reuniones, conferencias, team building. Impresiona a tus clientes y colaboradores con gastronomía de lujo.',
+    features: ['Catering ejecutivo', 'Opciones gourmet', 'Servicio discreto', 'Bebidas premium'],
+  },
+  {
+    icon: '🎓',
+    title: 'Eventos Académicos',
+    description:
+      'Graduaciones, seminarios, presentaciones. Comida de calidad para hacer memorable tu evento educativo.',
+    features: [
+      'Menús económicos',
+      'Servicio flexible',
+      'Variedad de platos',
+      'Atención personalizada',
+    ],
+  },
+  {
+    icon: '🍽️',
+    title: 'Cenas Privadas',
+    description:
+      'Cenas íntimas, reuniones familiares. Una experiencia gastronómica en tu hogar con todo lo necesario.',
+    features: ['Preparación en sitio', 'Ambiente íntimo', 'Menú a medida', 'Limpieza incluida'],
+  },
+  {
+    icon: '🎪',
+    title: 'Eventos al Aire Libre',
+    description:
+      'Festival, picnics, reuniones outdoors. Nuestro horno móvil lleva pizzas recién horneadas a cualquier lugar.',
+    features: [
+      'Horno móvil',
+      'Montaje y desmontaje',
+      'Opciones para todo clima',
+      'Servicio completo',
+    ],
+  },
+]
+
+const process = [
+  {
+    step: 1,
+    title: 'Consulta Inicial',
+    description:
+      'Contáctanos para conocer detalles de tu evento, cantidad de personas y preferencias culinarias.',
+  },
+  {
+    step: 2,
+    title: 'Propuesta Personalizada',
+    description:
+      'Te enviaremos un menú a medida con opciones y presupuesto adaptado a tu evento y presupuesto.',
+  },
+  {
+    step: 3,
+    title: 'Confirmación y Detalles',
+    description: 'Confirmamos fecha, cantidad de comensales y últimos detalles logísticos.',
+  },
+  {
+    step: 4,
+    title: 'Día del Evento',
+    description:
+      'Nuestro equipo se encarga de todo. Tú solo disfruta del evento y la comida espectacular.',
+  },
+]
 ---
 
 <Layout>
@@ -15,20 +105,138 @@ const page = SITE_MAP.find(p => p.slug === 'catering')!
     description={page.description}
     canonical={page.path}
   />
-  <Container>
-    <Breadcrumbs
-      items={[
-        { label: 'Inicio', href: '/' },
-        { label: 'Catering', href: '/catering' },
-      ]}
-    />
-    <Section title="Catering" subtitle="Eventos corporativos, bodas y celebraciones">
-      <p class="text-muted">
-        Ofrecemos menús personalizados, servicio integral y propuestas adaptadas a cada evento.
-      </p>
-      <div class="mt-6">
-        <a href="/contacto" class="underline">Solicitar cotización</a>
+  <Breadcrumbs
+    items={[
+      { label: 'Inicio', href: '/' },
+      { label: 'Catering', href: '/catering' },
+    ]}
+  />
+
+  <!-- Hero Section -->
+  <section
+    class="py-12 md:py-16 bg-gradient-to-b from-primary/10 to-background border-b border-surface-border"
+  >
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center space-y-4">
+        <h1 class="font-display text-5xl md:text-6xl font-bold text-foreground">
+          Catering <span class="text-primary">Tutto a Leña</span>
+        </h1>
+        <p class="text-xl text-muted max-w-2xl mx-auto">
+          Llevamos la magia del horno a leña y la gastronomía italiana a tu evento
+        </p>
       </div>
-    </Section>
+    </div>
+  </section>
+
+  <Container>
+    <!-- Intro -->
+    <section class="py-12 md:py-16">
+      <div class="max-w-3xl mx-auto text-center space-y-4 mb-12">
+        <p class="text-xl text-foreground leading-relaxed">
+          En <span class="font-semibold text-primary">Tutto a Leña</span>, entendemos que cada
+          evento es especial y merece gastronomía de calidad. Nuestro servicio de catering ofrece
+          pizzas recién horneadas en nuestro horno a leña, empanadas artesanales y una experiencia
+          gastronómica completa que dejará a tus invitados hablando del evento por mucho tiempo.
+        </p>
+      </div>
+
+      <!-- Servicios Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+        {
+          services.map(service => (
+            <div class="bg-surface rounded-2xl border border-surface-border p-6 hover:border-primary hover:shadow-glow transition-all duration-300 transform hover:scale-105">
+              <div class="text-5xl mb-4">{service.icon}</div>
+              <h3 class="text-xl font-bold text-foreground mb-2">{service.title}</h3>
+              <p class="text-muted-foreground mb-4 leading-relaxed">{service.description}</p>
+              <ul class="space-y-2">
+                {service.features.map(feature => (
+                  <li class="flex items-start gap-2 text-sm">
+                    <span class="text-primary font-bold mt-0.5">✓</span>
+                    <span class="text-muted-foreground">{feature}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+
+      <!-- Proceso -->
+      <section
+        class="bg-gradient-to-b from-primary/10 to-primary/5 rounded-2xl border border-primary/20 p-8 md:p-12 mb-12"
+      >
+        <h2 class="font-display text-3xl md:text-4xl font-bold text-foreground text-center mb-12">
+          Cómo funciona nuestro catering
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 md:gap-4">
+          {
+            process.map(item => (
+              <div class="relative">
+                <div class="flex flex-col items-center">
+                  <div class="w-14 h-14 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-xl mb-4 shadow-md">
+                    {item.step}
+                  </div>
+                  <h3 class="font-bold text-foreground text-center mb-2">{item.title}</h3>
+                  <p class="text-sm text-muted-foreground text-center">{item.description}</p>
+                </div>
+                {item.step < 4 && (
+                  <div class="hidden md:block absolute top-7 left-[calc(50%+28px)] w-[calc(100%-56px)] h-0.5 bg-primary/30" />
+                )}
+              </div>
+            ))
+          }
+        </div>
+      </section>
+
+      <!-- Why Choose Us -->
+      <section class="py-12">
+        <h2 class="font-display text-3xl md:text-4xl font-bold text-foreground text-center mb-12">
+          ¿Por qué elegir Tutto a Leña para tu catering?
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="text-center">
+            <div class="text-5xl mb-4">🔥</div>
+            <h3 class="font-bold text-foreground mb-2">Horno a Leña</h3>
+            <p class="text-muted-foreground">
+              Pizzas recién horneadas con sabor incomparable. El fuego real hace la diferencia.
+            </p>
+          </div>
+          <div class="text-center">
+            <div class="text-5xl mb-4">👨‍🍳</div>
+            <h3 class="font-bold text-foreground mb-2">Equipo Profesional</h3>
+            <p class="text-muted-foreground">
+              Pizzaiolos certificados y personal capacitado que entiende la importancia de tu
+              evento.
+            </p>
+          </div>
+          <div class="text-center">
+            <div class="text-5xl mb-4">✨</div>
+            <h3 class="font-bold text-foreground mb-2">Experiencia Garantizada</h3>
+            <p class="text-muted-foreground">
+              Años de trayectoria en eventos. Cada detalle cuenta para hacer tu día especial.
+            </p>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <!-- CTA Final -->
+    <section
+      class="py-12 bg-gradient-to-r from-primary to-primary/90 rounded-2xl text-center space-y-6 mb-12 text-white"
+    >
+      <h3 class="font-display text-3xl md:text-4xl font-bold">¿Tenés un evento próximo?</h3>
+      <p class="text-lg text-white/90 max-w-2xl mx-auto">
+        Consultanos ahora y te enviaremos una propuesta personalizada sin compromiso. Tu evento
+        merece lo mejor.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a
+          href="/contacto"
+          class="inline-flex items-center justify-center px-8 py-3 bg-white text-primary font-bold rounded-full hover:bg-gray-100 transition-colors shadow-lg"
+        >
+          Solicitar Cotización
+        </a>
+      </div>
+    </section>
   </Container>
 </Layout>
