@@ -24,10 +24,10 @@ const sizes = {
 
 const variants = {
   primary:
-    'bg-primary text-primary-foreground hover:bg-primary-hover active:bg-primary-active shadow-elegant',
-  secondary: 'bg-surface text-foreground hover:bg-surface-hover border border-surface-border',
-  outline: 'border border-surface-border bg-transparent hover:bg-surface text-foreground',
-  ghost: 'bg-transparent hover:bg-surface text-foreground',
+    'bg-primary text-primary-foreground hover:bg-primary-hover active:bg-primary-active shadow-glow hover:shadow-glow-strong',
+  secondary: 'bg-surface text-foreground hover:bg-surface-hover border border-surface-border hover:border-primary',
+  outline: 'border-2 border-primary bg-transparent hover:bg-primary text-primary hover:text-primary-foreground',
+  ghost: 'bg-transparent hover:bg-surface-hover text-foreground hover:text-primary',
 }[variant]
 
 const base = `inline-flex items-center justify-center rounded-md transition-[background,color,transform] duration-[var(--transition-base)] disabled:opacity-60 disabled:cursor-not-allowed ${sizes} ${variants}`
