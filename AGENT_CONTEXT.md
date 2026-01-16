@@ -44,20 +44,22 @@ tutto-a-lena-astro/
 
 ---
 
-## 🎨 Sistema de Diseño
+## 🎨 Sistema de Diseño (React Reference)
 
-### Colores Principales
+### Colores de React Reference
 
-- **Primary (Terracota)**: `#FF8860` - Color principal del brand
-- **Accent (Verde italiano)**: `#2D5016` - Acento secundario
-- **Surface**: `rgb(250 250 248)` - Fondo elegante neutral
-- **Foreground**: `rgb(31 30 24)` - Texto principal
+- **Background**: Negro/gris muy oscuro (`#000` - `#0F0F0F`)
+- **Primary/Accent**: Rojo intenso (`#DC2626` - `#EF4444`) para CTAs y destacados
+- **Text Primary**: Blanco (`#FFFFFF`) para títulos principales
+- **Text Secondary**: Gris claro (`#9CA3AF`) para descripciones
+- **Borders/Outline**: Gris oscuro para botones outline
 
-### Tipografías
+### Tipografías de React Reference
 
-- **Display**: Playfair Display (títulos grandes, elegante)
-- **Body/Heading**: Inter (texto general, UI)
-- **Script/Handwriting**: Caveat (subtítulos decorativos)
+- **Display Headlines**: Serif grande (Playfair Display) en mayúsculas para "SABOR AUTÉNTICO"
+- **Accent Text**: Serif rojo en mayúsculas para "AL FUEGO"
+- **Subtitle Script**: Cursiva roja para "Arte italiano, corazón argentino"
+- **Body**: Sans-serif claro (Inter) para descripciones
 
 ### Componentes UI Base
 
@@ -94,10 +96,14 @@ tutto-a-lena-astro/
   - Imágenes copiadas desde proyecto React
 
 - **Pendiente**:
-  - ⚠️ **PRIORIDAD**: Replicar estilos visuales de la página React de referencia
-  - Actualizar componentes de homepage para que coincidan con React (Hero, Menu, Gallery, etc.)
-  - Ajustar colores, tipografías y espaciados para igualar vibras de React
-  - Integrar imágenes reales en componentes
+  - ⚠️ **PRIORIDAD MÁXIMA**: Replicar diseño oscuro de React reference
+    - Hero: fondo negro con overlay, imagen del horno a la derecha, texto blanco/rojo
+    - Tipografía: "SABOR AUTÉNTICO" en blanco, "AL FUEGO" en rojo, subtítulo cursiva
+    - Botones: Rojo sólido para primario, outline para secundario
+    - Navegación: Header oscuro con logo y nav en blanco
+  - Ajustar todas las secciones al esquema oscuro
+  - Integrar imágenes del proyecto React (hero-food-truck.jpg, vertical-full-pizza.jpg, etc.)
+  - Actualizar paleta de colores global para coincidir con React
   - Blog: integrar WordPress headless (futuro)
 
 ---
