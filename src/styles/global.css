@@ -1,5 +1,5 @@
 @import 'tailwindcss';
-@plugin '@midudev/tailwind-animations';
+@import 'tailwind-animations';
 
 :root {
   /* ==================== TIPOGRAFÍA ==================== */
@@ -17,7 +17,7 @@
   --font-weight-extrabold: 800;
 
   /* ==================== COLORES DE MARCA - TUTTO A LEÑA ==================== */
-  
+
   /* Identidad de Marca */
   --brand-red: #b30000;        /* Rojo intenso - CTAs y acentos */
   --brand-black: #000000;      /* Negro predominante - fondos */
@@ -306,7 +306,7 @@
   /* Textura pizarra */
   .texture-chalkboard {
     background-color: #1a1a1a;
-    background-image: 
+    background-image:
       repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255, 255, 255, 0.03) 2px, rgba(255, 255, 255, 0.03) 4px),
       repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(255, 255, 255, 0.03) 2px, rgba(255, 255, 255, 0.03) 4px);
   }
