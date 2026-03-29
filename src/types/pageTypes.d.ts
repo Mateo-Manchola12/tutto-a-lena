@@ -1,25 +1,12 @@
 type SinglePage = {
   name: string
-  path?: string
   slug: string
   clickable?: true
   description: string
   priority?: number
-  changefreq?: 'always' | 'hourly' | 'daily' | 'weekly' | 'monthly' | 'yearly' | 'never'
 }
 
-type ParentPage = {
-  name: string
-  path?: string
-  slug: string
-  description: string
-  clickable?: false
-  subpages: Page[]
-  priority?: number
-  changefreq?: 'always' | 'hourly' | 'daily' | 'weekly' | 'monthly' | 'yearly' | 'never'
-}
-
-export type Page = SinglePage | ParentPage
+export type Page = SinglePage
 
 // Metadatos SEO
 export type SeoMetadata = {
@@ -75,5 +62,5 @@ export type MenuItem = {
   category: 'pizza' | 'pasta' | 'carne' | 'entrada' | 'postre' | 'bebida'
   image?: string
   ingredients?: string[]
-  tags?: ('vegetariano' | 'vegano' | 'picante' | 'sin-gluten' | 'nuevo' | 'popular')[]
+  tags?: ('vegetariano' | 'vegano' | 'picante' | 'sin-gluten' | 'nuevo' | 'popular' | 'especialidad' | 'premium' | 'mariscos' | 'argentino' | 'italiano' | 'clasico' | 'casero' | 'para-compartir' | 'estacional' | 'saludable' | 'cerveza' | 'artesanal' | 'vino' | 'cafe')[]
 }

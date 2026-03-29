@@ -355,7 +355,7 @@ export const POSTRES: MenuItem[] = [
     price: 300,
     category: 'postre',
     ingredients: ['Crema', 'Frutas del bosque'],
-    tags: ['italiano', 'sofisticado'],
+    tags: ['italiano'],
   },
   {
     id: 'postre-3',
@@ -409,7 +409,7 @@ export const POSTRES: MenuItem[] = [
     price: 200,
     category: 'postre',
     ingredients: ['Helado', 'Café'],
-    tags: ['rapido', 'popular'],
+    tags: ['popular'],
   },
 ]
 
@@ -485,7 +485,7 @@ export const BEBIDAS: MenuItem[] = [
     price: 120,
     category: 'bebida',
     ingredients: [],
-    tags: ['digestivo', 'italiano'],
+    tags: ['italiano'],
   },
   {
     id: 'bebida-9',

@@ -1,6 +1,5 @@
 ---
 import Layout from '../layouts/Layout.astro'
-import MetaTags from '@components/layout/MetaTags.astro'
 import Schema from '@components/layout/Schema.astro'
 import Container from '@components/layout/Container.astro'
 import Section from '@components/layout/Section.astro'
@@ -18,12 +17,7 @@ import Blog from '@components/index/Blog.astro'
 import CallToAction from '@components/index/CallToAction.astro'
 ---
 
-<Layout title="Inicio">
-  <MetaTags
-    title="Tutto a Leña | Inicio"
-    description="Pizzas a leña artesanales y auténtica cocina italiana en Buenos Aires. Masa madre, ingredientes frescos y horno a leña."
-    canonical="/"
-  />
+<Layout>
   <Schema type="aggregate" />
 
   <Hero />

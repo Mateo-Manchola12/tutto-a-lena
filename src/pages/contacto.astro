@@ -1,21 +1,14 @@
 ---
 import Layout from '@/layouts/Layout.astro'
-import MetaTags from '@components/layout/MetaTags.astro'
 import Breadcrumbs from '@components/layout/Breadcrumbs.astro'
 import Container from '@components/layout/Container.astro'
-import { SITE_MAP } from '@constants/site_map'
+import Button from '@components/ui/Button.astro'
 import { BUSINESS_INFO, getWhatsappUrl } from '@constants/business'
 
-const page = SITE_MAP.find(p => p.slug === 'contacto')!
 const { phone, email, whatsapp } = BUSINESS_INFO
 ---
 
 <Layout>
-  <MetaTags
-    title={`Tutto a Leña | ${page.name}`}
-    description={page.description}
-    canonical={page.path}
-  />
   <Breadcrumbs
     items={[
       { label: 'Inicio', href: '/' },
@@ -24,12 +17,12 @@ const { phone, email, whatsapp } = BUSINESS_INFO
   />
 
   <!-- Hero Section -->
-  <section class="py-12 md:py-16 bg-gradient-to-b from-primary/10 to-background border-b border-surface-border">
+  <section
+    class="py-12 md:py-16 bg-linear-to-b from-primary/10 to-background border-b border-surface-border"
+  >
     <div class="container mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center space-y-4">
-        <h1 class="font-display text-5xl md:text-6xl font-bold text-foreground">
-          Contactanos
-        </h1>
+        <h1 class="font-display text-5xl md:text-6xl font-bold text-foreground">Contactanos</h1>
         <p class="text-xl text-muted max-w-2xl mx-auto">
           Estamos aquí para responderte. Comunicáte con nosotros por el medio que prefieras
         </p>
@@ -42,9 +35,7 @@ const { phone, email, whatsapp } = BUSINESS_INFO
       <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
         <!-- Contacto Info -->
         <div class="space-y-6">
-          <h2 class="font-display text-3xl font-bold text-foreground">
-            Formas de contacto
-          </h2>
+          <h2 class="font-display text-3xl font-bold text-foreground">Formas de contacto</h2>
 
           <!-- WhatsApp -->
           <a
@@ -54,12 +45,14 @@ const { phone, email, whatsapp } = BUSINESS_INFO
             class="group block bg-surface rounded-2xl border border-surface-border p-6 hover:border-primary hover:shadow-glow transition-all duration-300"
           >
             <div class="flex items-start gap-4">
-              <div class="text-5xl flex-shrink-0">💬</div>
+              <div class="text-5xl shrink-0">💬</div>
               <div>
-                <h3 class="text-xl font-bold text-foreground group-hover:text-primary transition-colors mb-1">
+                <h3
+                  class="text-xl font-bold text-foreground group-hover:text-primary transition-colors mb-1"
+                >
                   WhatsApp
                 </h3>
-                <p class="text-primary font-semibold text-lg mb-1">{whatsapp}</p>
+                <p class="text-primary font-semibold text-lg mb-1">{whatsapp.display}</p>
                 <p class="text-sm text-muted-foreground">Respuesta rápida y contacto directo</p>
               </div>
             </div>
@@ -67,16 +60,18 @@ const { phone, email, whatsapp } = BUSINESS_INFO
 
           <!-- Teléfono -->
           <a
-            href={`tel:${phone}`}
+            href={phone.href}
             class="group block bg-surface rounded-2xl border border-surface-border p-6 hover:border-primary hover:shadow-glow transition-all duration-300"
           >
             <div class="flex items-start gap-4">
-              <div class="text-5xl flex-shrink-0">📞</div>
+              <div class="text-5xl shrink-0">📞</div>
               <div>
-                <h3 class="text-xl font-bold text-foreground group-hover:text-primary transition-colors mb-1">
+                <h3
+                  class="text-xl font-bold text-foreground group-hover:text-primary transition-colors mb-1"
+                >
                   Teléfono
                 </h3>
-                <p class="text-primary font-semibold text-lg mb-1">{phone}</p>
+                <p class="text-primary font-semibold text-lg mb-1">{phone.display}</p>
                 <p class="text-sm text-muted-foreground">Llamadas de lunes a domingo</p>
               </div>
             </div>
@@ -84,16 +79,18 @@ const { phone, email, whatsapp } = BUSINESS_INFO
 
           <!-- Email -->
           <a
-            href={`mailto:${email}`}
+            href={email.href}
             class="group block bg-surface rounded-2xl border border-surface-border p-6 hover:border-primary hover:shadow-glow transition-all duration-300"
           >
             <div class="flex items-start gap-4">
-              <div class="text-5xl flex-shrink-0">✉️</div>
+              <div class="text-5xl shrink-0">✉️</div>
               <div>
-                <h3 class="text-xl font-bold text-foreground group-hover:text-primary transition-colors mb-1">
+                <h3
+                  class="text-xl font-bold text-foreground group-hover:text-primary transition-colors mb-1"
+                >
                   Email
                 </h3>
-                <p class="text-primary font-semibold break-all mb-1">{email}</p>
+                <p class="text-primary font-semibold break-all mb-1">{email.display}</p>
                 <p class="text-sm text-muted-foreground">Respuesta en 24 horas</p>
               </div>
             </div>
@@ -101,13 +98,15 @@ const { phone, email, whatsapp } = BUSINESS_INFO
 
           <!-- Ubicación -->
           <a
-            href="/donde-estamos"
-            class="group block bg-gradient-to-br from-primary/10 to-primary/5 rounded-2xl border border-primary/20 p-6 hover:border-primary hover:shadow-glow transition-all duration-300"
+            href={BUSINESS_INFO.cta.location}
+            class="group block bg-linear-to-br from-primary/10 to-primary/5 rounded-2xl border border-primary/20 p-6 hover:border-primary hover:shadow-glow transition-all duration-300"
           >
             <div class="flex items-start gap-4">
-              <div class="text-5xl flex-shrink-0">📍</div>
+              <div class="text-5xl shrink-0">📍</div>
               <div>
-                <h3 class="text-xl font-bold text-foreground group-hover:text-primary transition-colors mb-1">
+                <h3
+                  class="text-xl font-bold text-foreground group-hover:text-primary transition-colors mb-1"
+                >
                   Visítanos
                 </h3>
                 <p class="text-muted-foreground text-sm mb-2">
@@ -121,12 +120,14 @@ const { phone, email, whatsapp } = BUSINESS_INFO
 
         <!-- Formulario / Mensaje -->
         <div>
-          <div class="bg-gradient-to-br from-primary/10 to-primary/5 rounded-2xl border border-primary/20 p-8 space-y-6">
+          <div
+            class="bg-linear-to-br from-primary/10 to-primary/5 rounded-2xl border border-primary/20 p-8 space-y-6"
+          >
             <div>
-              <h2 class="font-display text-3xl font-bold text-foreground mb-2">
-                ¿Qué necesitás?
-              </h2>
-              <p class="text-muted-foreground">Selecciona la opción que mejor describa tu consulta</p>
+              <h2 class="font-display text-3xl font-bold text-foreground mb-2">¿Qué necesitás?</h2>
+              <p class="text-muted-foreground">
+                Selecciona la opción que mejor describa tu consulta
+              </p>
             </div>
 
             <div class="space-y-3">
@@ -176,19 +177,19 @@ const { phone, email, whatsapp } = BUSINESS_INFO
     </div>
 
     <!-- CTA Section -->
-    <section class="py-12 bg-gradient-to-r from-primary/10 to-primary/5 rounded-2xl border border-primary/20 text-center space-y-6">
+    <section
+      class="py-12 bg-linear-to-r from-primary/10 to-primary/5 rounded-2xl border border-primary/20 text-center space-y-6"
+    >
       <h3 class="font-display text-3xl md:text-4xl font-bold text-foreground">
         ¿Querés saber dónde estamos?
       </h3>
       <p class="text-lg text-muted max-w-2xl mx-auto">
-        Visítanos en nuestro espacio. Te esperamos de martes a domingo con las mejores pizzas a leña.
+        Visítanos en nuestro espacio. Te esperamos de martes a domingo con las mejores pizzas a
+        leña.
       </p>
-      <a
-        href="/donde-estamos"
-        class="inline-flex items-center justify-center px-8 py-3 bg-primary text-primary-foreground font-bold rounded-full hover:bg-primary-hover transition-colors shadow-glow"
-      >
+      <Button href={BUSINESS_INFO.cta.location} variant="primary" size="lg" class="font-bold">
         Ver Ubicación
-      </a>
+      </Button>
     </section>
   </Container>
 </Layout>

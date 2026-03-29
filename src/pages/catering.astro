@@ -1,12 +1,9 @@
 ---
 import Layout from '@/layouts/Layout.astro'
-import MetaTags from '@components/layout/MetaTags.astro'
 import Breadcrumbs from '@components/layout/Breadcrumbs.astro'
 import Container from '@components/layout/Container.astro'
-import { SITE_MAP } from '@constants/site_map'
 import { BUSINESS_INFO } from '@constants/business'
-
-const page = SITE_MAP.find(p => p.slug === 'catering')!
+import Button from '@/components/ui/Button.astro'
 
 const services = [
   {
@@ -101,11 +98,6 @@ const process = [
 ---
 
 <Layout>
-  <MetaTags
-    title={`Tutto a Leña | ${page.name}`}
-    description={page.description}
-    canonical={page.path}
-  />
   <Breadcrumbs
     items={[
       { label: 'Inicio', href: '/' },
@@ -115,7 +107,7 @@ const process = [
 
   <!-- Hero Section -->
   <section
-    class="py-12 md:py-16 bg-gradient-to-b from-primary/10 to-background border-b border-surface-border"
+    class="py-12 md:py-16 bg-linear-to-b from-primary/10 to-background border-b border-surface-border"
   >
     <div class="container mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center space-y-4">
@@ -164,7 +156,7 @@ const process = [
 
       <!-- Proceso -->
       <section
-        class="bg-gradient-to-b from-primary/10 to-primary/5 rounded-2xl border border-primary/20 p-8 md:p-12 mb-12"
+        class="bg-linear-to-b from-primary/10 to-primary/5 rounded-2xl border border-primary/20 p-8 md:p-12 mb-12"
       >
         <h2 class="font-display text-3xl md:text-4xl font-bold text-foreground text-center mb-12">
           Cómo funciona nuestro catering
@@ -223,7 +215,7 @@ const process = [
 
     <!-- CTA Final -->
     <section
-      class="py-12 bg-gradient-to-r from-primary to-primary/90 rounded-2xl text-center space-y-6 mb-12 text-white"
+      class="py-12 bg-linear-to-r from-primary to-primary/90 rounded-2xl text-center space-y-6 mb-12 text-white px-6"
     >
       <h3 class="font-display text-3xl md:text-4xl font-bold">¿Tenés un evento próximo?</h3>
       <p class="text-lg text-white/90 max-w-2xl mx-auto">
@@ -231,12 +223,12 @@ const process = [
         merece lo mejor.
       </p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a
+        <Button
           href={BUSINESS_INFO.cta.contact}
-          class="inline-flex items-center justify-center px-8 py-3 bg-white text-primary font-bold rounded-full hover:bg-gray-100 transition-colors shadow-lg"
+          variant="primary"
+          class="bg-white text-primary! hover:text-primary-foreground! font-bold"
+          >Solicitar Cotización</Button
         >
-          Solicitar Cotización
-        </a>
       </div>
     </section>
   </Container>

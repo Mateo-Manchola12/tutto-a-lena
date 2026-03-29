@@ -1,6 +1,6 @@
 /**
  * Información del negocio - Central para toda la web
- * 
+ *
  * SECCIONES:
  * - Identidad: name, tagline, description
  * - Contacto: phone, email, whatsapp (con helpers getWhatsappUrl())
@@ -10,15 +10,15 @@
  * - Redes sociales: social (con helper getSocialUrl())
  * - CTAs: cta (rutas de páginas + mensajes WhatsApp predefinidos)
  * - Schema.org: structured data para SEO
- * 
+ *
  * USO EN COMPONENTES:
  * import { BUSINESS_INFO, getWhatsappUrl, getSocialUrl } from '@constants/business'
- * 
+ *
  * EJEMPLOS:
  * - Links simples: href={BUSINESS_INFO.cta.menu} → /carta
  * - WhatsApp dinámico: href={getWhatsappUrl('catering')} → https://wa.me/...?text=Hola...
  * - Redes sociales: href={getSocialUrl('instagram')} → https://instagram.com/tuttoleña
- * 
+ *
  * Utilizados en: SEO, footer, contacto, schema.org, CTAs, etc.
  */
 
@@ -61,19 +61,13 @@ export const BUSINESS_INFO = {
 
   // Horarios de apertura
   hours: {
-    monday: { open: '12:00', close: '23:00' },
-    tuesday: { open: '12:00', close: '23:00' },
-    wednesday: { open: '12:00', close: '23:00' },
-    thursday: { open: '12:00', close: '00:00' },
-    friday: { open: '12:00', close: '01:00' },
-    saturday: { open: '12:00', close: '01:00' },
-    sunday: { open: '12:00', close: '23:00' },
-    // Especiales
-    holidays: [
-      { date: '2026-01-01', closed: true, reason: 'Año Nuevo' },
-      { date: '2026-02-16', closed: true, reason: 'Carnaval' },
-      { date: '2026-12-25', closed: true, reason: 'Navidad' },
-    ],
+    "Lunes": { open: '12:00', close: '23:00' },
+    "Martes": { open: '12:00', close: '23:00' },
+    "Miércoles": { open: '12:00', close: '23:00' },
+    "Jueves": { open: '12:00', close: '00:00' },
+    "Viernes": { open: '12:00', close: '01:00' },
+    "Sábado": { open: '12:00', close: '01:00' },
+    "Domingo": { open: '12:00', close: '23:00' },
   },
 
   // URLs
@@ -268,7 +262,7 @@ export default BUSINESS_INFO
  */
 export const getWhatsappUrl = (
   messageType: keyof typeof BUSINESS_INFO.cta.whatsappMessages = 'default',
-  customMessage?: string
+  customMessage?: string,
 ): string => {
   const phoneNumber = BUSINESS_INFO.whatsapp.raw
   const message = customMessage || BUSINESS_INFO.cta.whatsappMessages[messageType]

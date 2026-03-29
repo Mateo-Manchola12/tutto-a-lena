@@ -1,22 +1,14 @@
 ---
 import Layout from '@/layouts/Layout.astro'
-import MetaTags from '@components/layout/MetaTags.astro'
 import Breadcrumbs from '@components/layout/Breadcrumbs.astro'
 import Container from '@components/layout/Container.astro'
-import Section from '@components/layout/Section.astro'
-import { SITE_MAP } from '@constants/site_map'
 import { BUSINESS_INFO } from '@constants/business'
+import Button from '@/components/ui/Button.astro'
 
-const page = SITE_MAP.find(p => p.slug === 'donde-estamos')!
-const { address, coordinates, phone, email, hours } = BUSINESS_INFO
+const { location, phone, email, hours } = BUSINESS_INFO
 ---
 
 <Layout>
-  <MetaTags
-    title={`Tutto a Leña | ${page.name}`}
-    description={page.description}
-    canonical={page.path}
-  />
   <Breadcrumbs
     items={[
       { label: 'Inicio', href: '/' },
@@ -26,7 +18,7 @@ const { address, coordinates, phone, email, hours } = BUSINESS_INFO
 
   <!-- Hero Section -->
   <section
-    class="py-12 md:py-16 bg-gradient-to-b from-primary/10 to-background border-b border-surface-border"
+    class="py-12 md:py-16 bg-linear-to-b from-primary/10 to-background border-b border-surface-border"
   >
     <div class="container mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center space-y-4">
@@ -50,14 +42,14 @@ const { address, coordinates, phone, email, hours } = BUSINESS_INFO
           class="bg-surface rounded-2xl border border-surface-border p-6 hover:border-primary hover:shadow-glow transition-all duration-300"
         >
           <div class="flex items-start gap-4">
-            <div class="text-3xl flex-shrink-0">📍</div>
+            <div class="text-3xl shrink-0">📍</div>
             <div>
               <h3 class="text-lg font-bold text-foreground mb-2">Dirección</h3>
               <p class="text-muted-foreground leading-relaxed">
-                {address?.street ?? '—'}<br />
-                {address?.city ?? ''}, {address?.postalCode ?? ''}
+                {location?.street ?? '—'}<br />
+                {location?.city ?? ''}, {location?.zipCode ?? ''}
               </p>
-              <p class="text-sm text-muted mt-2">{address?.country ?? ''}</p>
+              <p class="text-sm text-muted mt-2">{location?.country ?? ''}</p>
             </div>
           </div>
         </div>
@@ -67,11 +59,11 @@ const { address, coordinates, phone, email, hours } = BUSINESS_INFO
           class="bg-surface rounded-2xl border border-surface-border p-6 hover:border-primary hover:shadow-glow transition-all duration-300"
         >
           <div class="flex items-start gap-4">
-            <div class="text-3xl flex-shrink-0">📞</div>
+            <div class="text-3xl shrink-0">📞</div>
             <div>
               <h3 class="text-lg font-bold text-foreground mb-2">Teléfono</h3>
-              <a href={`tel:${phone}`} class="text-primary font-semibold hover:underline">
-                {phone ?? '—'}
+              <a href={phone.href} class="text-primary font-semibold hover:underline">
+                {phone.display ?? '—'}
               </a>
               <p class="text-sm text-muted mt-1">Llamadas y WhatsApp</p>
             </div>
@@ -83,14 +75,11 @@ const { address, coordinates, phone, email, hours } = BUSINESS_INFO
           class="bg-surface rounded-2xl border border-surface-border p-6 hover:border-primary hover:shadow-glow transition-all duration-300"
         >
           <div class="flex items-start gap-4">
-            <div class="text-3xl flex-shrink-0">✉️</div>
+            <div class="text-3xl shrink-0">✉️</div>
             <div>
               <h3 class="text-lg font-bold text-foreground mb-2">Email</h3>
-              <a
-                href={`mailto:${email}`}
-                class="text-primary font-semibold hover:underline break-all"
-              >
-                {email ?? '—'}
+              <a href={email.href} class="text-primary font-semibold hover:underline break-all">
+                {email.display ?? '—'}
               </a>
               <p class="text-sm text-muted mt-1">Respuesta en 24hs</p>
             </div>
@@ -99,17 +88,17 @@ const { address, coordinates, phone, email, hours } = BUSINESS_INFO
 
         <!-- Horarios -->
         <div
-          class="bg-gradient-to-br from-primary/10 to-primary/5 rounded-2xl border border-primary/20 p-6"
+          class="bg-linear-to-br from-primary/10 to-primary/5 rounded-2xl border border-primary/20 p-6"
         >
           <div class="flex items-start gap-4">
-            <div class="text-3xl flex-shrink-0">🕐</div>
+            <div class="text-3xl shrink-0">🕐</div>
             <div>
               <h3 class="text-lg font-bold text-foreground mb-3">Horarios</h3>
               <ul class="space-y-2">
                 {
-                  (Array.isArray(hours) ? hours : []).map(h => (
+                  Object.entries(hours).map(([day, h]) => (
                     <li class="flex justify-between gap-4 text-muted-foreground">
-                      <span class="font-semibold">{h.day}:</span>
+                      <span class="font-semibold">{day}:</span>
                       <span>
                         {h.open} - {h.close}
                       </span>
@@ -130,7 +119,7 @@ const { address, coordinates, phone, email, hours } = BUSINESS_INFO
           <iframe
             class="w-full h-full"
             loading="lazy"
-            src={`https://www.google.com/maps?q=${coordinates?.lat ?? 0},${coordinates?.lng ?? 0}&output=embed`}
+            src={`https://www.google.com/maps?q=${location?.coordinates?.latitude ?? 0},${location?.coordinates?.longitude ?? 0}&output=embed`}
             title="Ubicación Tutto a Leña"></iframe>
         </div>
       </div>
@@ -138,7 +127,7 @@ const { address, coordinates, phone, email, hours } = BUSINESS_INFO
 
     <!-- CTA Section -->
     <section
-      class="py-12 bg-gradient-to-r from-primary/10 to-primary/5 rounded-2xl border border-primary/20 text-center space-y-6 mb-12"
+      class="py-12 px-6 bg-linear-to-r from-primary/10 to-primary/5 rounded-2xl border border-primary/20 text-center space-y-6 mb-12"
     >
       <h3 class="font-display text-3xl md:text-4xl font-bold text-foreground">
         ¿Querés que vayamos a tu evento?
@@ -148,18 +137,20 @@ const { address, coordinates, phone, email, hours } = BUSINESS_INFO
         Leña donde vos estés.
       </p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a
-          href="/catering"
-          class="inline-flex items-center justify-center px-8 py-3 bg-primary text-primary-foreground font-bold rounded-full hover:bg-primary-hover transition-colors shadow-glow"
+        <Button
+          href={BUSINESS_INFO.cta.catering}
+          variant="primary"
+          class="px-8 py-3 font-bold h-auto"
         >
           Conocer Catering
-        </a>
-        <a
-          href="/contacto"
-          class="inline-flex items-center justify-center px-8 py-3 border-2 border-primary text-primary font-bold rounded-full hover:bg-primary/10 transition-colors"
+        </Button>
+        <Button
+          href={BUSINESS_INFO.cta.contact}
+          variant="outline"
+          class="px-8 py-3 font-bold h-auto"
         >
           Consultanos
-        </a>
+        </Button>
       </div>
     </section>
   </Container>

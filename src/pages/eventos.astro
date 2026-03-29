@@ -1,22 +1,15 @@
 ---
 import Layout from '@/layouts/Layout.astro'
-import MetaTags from '@components/layout/MetaTags.astro'
 import Breadcrumbs from '@components/layout/Breadcrumbs.astro'
 import Container from '@components/layout/Container.astro'
-import { SITE_MAP } from '@constants/site_map'
+import Button from '@components/ui/Button.astro'
 import { BUSINESS_INFO } from '@constants/business'
 import { getUpcomingEvents } from '@constants/events'
 
-const page = SITE_MAP.find(p => p.slug === 'eventos')!
 const events = getUpcomingEvents()
 ---
 
 <Layout>
-  <MetaTags
-    title={`Tutto a Leña | ${page.name}`}
-    description={page.description}
-    canonical={page.path}
-  />
   <Breadcrumbs
     items={[
       { label: 'Inicio', href: '/' },
@@ -25,7 +18,7 @@ const events = getUpcomingEvents()
   />
 
   <!-- Hero Section -->
-  <section class="py-12 md:py-16 bg-gradient-to-b from-primary/10 to-background border-b border-surface-border">
+  <section class="py-12 md:py-16 bg-linear-to-b from-primary/10 to-background border-b border-surface-border">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center space-y-4">
         <h1 class="font-display text-5xl md:text-6xl font-bold text-foreground">
@@ -48,7 +41,7 @@ const events = getUpcomingEvents()
               events.map((ev) => (
                 <div class="group bg-surface rounded-2xl border border-surface-border overflow-hidden hover:border-primary hover:shadow-glow transition-all duration-300 transform hover:scale-105">
                   <!-- Header con fecha -->
-                  <div class="bg-gradient-to-r from-primary to-primary/80 text-white p-4">
+                  <div class="bg-linear-to-r from-primary to-primary/80 text-white p-4">
                     <p class="text-sm font-semibold opacity-90">📅 {ev.date}</p>
                     <p class="text-sm opacity-75">⏰ {ev.startTime} - {ev.endTime}</p>
                   </div>
@@ -62,13 +55,14 @@ const events = getUpcomingEvents()
 
                     <!-- CTA -->
                     <div class="pt-4 border-t border-surface-border">
-                      <a
+                      <Button
                         href={BUSINESS_INFO.cta.contact}
-                        class="inline-flex items-center gap-2 text-primary font-semibold hover:gap-3 transition-all"
+                        variant="ghost"
+                        size="sm"
+                        class="text-primary font-semibold px-0 hover:px-0"
                       >
-                        Consultar más
-                        <span>→</span>
-                      </a>
+                        Consultar más →
+                      </Button>
                     </div>
                   </div>
                 </div>
@@ -83,12 +77,9 @@ const events = getUpcomingEvents()
           <p class="text-muted-foreground max-w-md mx-auto mb-6">
             Estamos preparando nuevas experiencias. Seguinos en redes sociales para no perderte los próximos eventos.
           </p>
-          <a
-            href={BUSINESS_INFO.cta.contact}
-            class="inline-flex items-center justify-center px-6 py-2 border-2 border-primary text-primary font-semibold rounded-full hover:bg-primary/10 transition-colors"
-          >
+          <Button href={BUSINESS_INFO.cta.contact} variant="outline" size="md" class="font-semibold">
             Consultar
-          </a>
+          </Button>
         </div>
       )}
 
@@ -142,19 +133,21 @@ const events = getUpcomingEvents()
       </section>
 
       <!-- CTA Final -->
-      <section class="py-12 bg-gradient-to-r from-primary to-primary/90 rounded-2xl text-center space-y-6 text-white">
+      <section class="py-12 bg-linear-to-r from-primary to-primary/90 rounded-2xl text-center space-y-6 text-white">
         <h3 class="font-display text-3xl md:text-4xl font-bold">
           ¿Querés organizar un evento?
         </h3>
         <p class="text-lg text-white/90 max-w-2xl mx-auto">
           Cuéntanos tu idea. Nosotros nos encargamos del resto para hacer un evento inolvidable.
         </p>
-        <a
+        <Button
           href={BUSINESS_INFO.cta.contact}
-          class="inline-flex items-center justify-center px-8 py-3 bg-white text-primary font-bold rounded-full hover:bg-gray-100 transition-colors shadow-lg"
+          variant="primary"
+          size="lg"
+          class="bg-white text-primary hover:bg-gray-100 active:bg-gray-200 shadow-lg font-bold"
         >
           Contactanos
-        </a>
+        </Button>
       </section>
     </div>
   </Container>

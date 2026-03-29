@@ -1,18 +1,107 @@
 ---
 import Logo from '@assets/logo.png'
 import { Picture } from 'astro:assets'
-import NavMenu from './NavMenu.astro'
+import Button from '@components/ui/Button.astro'
+import { MAIN_ROUTES } from '@/constants/site_map'
+
+const isActive = (slug: string) => new URL(Astro.request.url).pathname === `/${slug}`
 ---
 
-<header
-  class="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-surface-border"
->
-  <div class="flex content-center items-center justify-between px-4 py-3 container mx-auto h-20">
-    <a href="/" aria-label="Ir al inicio" class="hover:opacity-80 transition-opacity">
-      <Picture src={Logo} alt="Tutto a Leña | Arte italiano, corazón argentino" width={65} />
+<div class="border-b border-surface-border bg-background/95">
+  <div class="container mx-auto flex h-20 items-center justify-between px-4">
+    <a href="/" aria-label="Ir al inicio" class="transition-opacity hover:opacity-80">
+      <Picture
+        formats={['webp', 'avif']}
+        src={Logo}
+        alt="Tutto a Leña | Arte italiano, corazón argentino"
+        width={65}
+      />
     </a>
-    <NavMenu />
+
+    <button
+      id="open-nav-button"
+      class="flex size-12 cursor-pointer items-center justify-center rounded-2xl text-foreground transition-colors hover:bg-surface-light md:hidden"
+      aria-label="Abrir menú"
+      aria-controls="header-nav-menu"
+      aria-expanded="false"
+    >
+      <span aria-hidden="true" class="text-2xl leading-none">☰</span>
+    </button>
+
+    <nav
+      id="header-nav-menu"
+      class="fixed inset-0 z-50 hidden h-dvh w-screen min-h-dvh flex-col items-stretch gap-8 bg-background/70 p-6 pt-5 backdrop-blur-md md:static md:z-auto md:flex md:h-auto md:min-h-0 md:w-auto md:flex-row md:items-center md:justify-end md:gap-8 md:bg-transparent md:p-0 md:backdrop-blur-none"
+      aria-label="Navegación principal"
+      aria-hidden="true"
+    >
+      <button
+        id="close-nav-button"
+        class="mb-4 ml-auto flex size-12 cursor-pointer items-center justify-center rounded-2xl text-foreground transition-colors hover:bg-surface-light md:hidden"
+        aria-label="Cerrar menú"
+      >
+        <span aria-hidden="true" class="text-3xl leading-none">×</span>
+      </button>
+
+      <ol
+        class="flex w-full flex-col items-stretch gap-3 md:w-auto md:flex-row md:items-center md:gap-2"
+      >
+        {
+          MAIN_ROUTES.map(page => (
+            <li>
+              <a
+                href={`/${page.slug}`}
+                class:list={[
+                  'inline-block w-full rounded-2xl px-6 py-4 text-foreground transition-colors hover:bg-surface-light md:w-auto md:px-4 md:py-2',
+                  { 'bg-surface-light/60 pointer-events-none': isActive(page.slug) },
+                ]}
+              >
+                {page.name}
+              </a>
+            </li>
+          ))
+        }
+      </ol>
+
+      <Button
+        href="/reservar"
+        variant="primary"
+        size="lg"
+        class="mt-10 w-full rounded-2xl text-center md:mt-0 md:w-auto"
+      >
+        Reservar Ahora
+      </Button>
+    </nav>
   </div>
-</header>
-<!-- Espaciador para header fixed -->
-<div class="h-20"></div>
+</div>
+
+<script>
+  import { $ } from '@/lib/dom-selector'
+
+  document.addEventListener('astro:page-load', () => {
+    const openNavButton = $('#open-nav-button')
+    const closeNavButton = $('#close-nav-button')
+    const navMenu = $('#header-nav-menu')
+
+    if (!openNavButton || !closeNavButton || !navMenu || navMenu.dataset.initialized === 'true')
+      return
+
+    navMenu.dataset.initialized = 'true'
+
+    const setMenuState = (isOpen: boolean) => {
+      navMenu.classList.toggle('hidden', !isOpen)
+      navMenu.classList.toggle('flex', isOpen)
+      openNavButton.setAttribute('aria-expanded', isOpen ? 'true' : 'false')
+      navMenu.setAttribute('aria-hidden', isOpen ? 'false' : 'true')
+      document.body.classList.toggle('overflow-hidden', isOpen)
+    }
+
+    const closeMenu = () => setMenuState(false)
+
+    openNavButton.addEventListener('click', () => setMenuState(true))
+    closeNavButton.addEventListener('click', closeMenu)
+
+    navMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', closeMenu)
+    })
+  })
+</script>

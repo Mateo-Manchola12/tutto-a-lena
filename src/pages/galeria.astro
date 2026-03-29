@@ -1,22 +1,16 @@
 ---
 import Layout from '../layouts/Layout.astro'
-import MetaTags from '@components/layout/MetaTags.astro'
 import Schema from '@components/layout/Schema.astro'
 import Container from '@components/layout/Container.astro'
 import Section from '@components/layout/Section.astro'
 ---
 
-<Layout title="Galería">
-  <MetaTags
-    title="Galería | Tutto a Leña"
-    description="Galería de fotos y videos de nuestras pizzas, empanadas, horno a leña y espacios. Conoce el lugar donde se crea la magia."
-    canonical="/galeria"
-  />
+<Layout>
   <Schema type="aggregate" />
 
   <Container>
     <Section title="Galería" subtitle="Un vistazo a nuestros platos, horno y espacio">
-      <div class="w-full" x-data="galleryPage()">
+      <div class="w-full">
         <!-- Masonry grid infinito -->
         <div class="relative">
           <div
@@ -28,37 +22,37 @@ import Section from '@components/layout/Section.astro'
                 {
                   src: '/images/oven-mosaic-front-face.jpg',
                   alt: 'Horno de leña con mosaico frontal',
-                  span: 'row-span-2 col-span-2',
+                  span: 'sm:row-span-2 sm:col-span-2',
                   description: 'Nuestro hermoso horno artesanal',
                 },
                 {
                   src: '/images/hero-food-truck.jpg',
                   alt: 'Food truck Tutto a Leña',
-                  span: 'row-span-2',
+                  span: 'sm:row-span-2',
                   description: 'Nuestro icónico food truck donde todo comenzó',
                 },
                 {
                   src: '/images/chef-puttin-pizza-in-oven.jpg',
                   alt: 'Chef colocando pizza en horno de leña',
-                  span: 'row-span-2',
+                  span: 'sm:row-span-2',
                   description: 'El arte de hornear en fuego real',
                 },
                 {
                   src: '/images/vertical-full-pizza.jpg',
                   alt: 'Pizza completa recién horneada',
-                  span: 'row-span-2',
+                  span: 'sm:row-span-2',
                   description: 'Perfección recién salida del horno',
                 },
                 {
                   src: '/images/empanada-realy-good-looking.jpg',
                   alt: 'Empanadas artesanales',
-                  span: 'row-span-2',
+                  span: 'sm:row-span-2',
                   description: 'Empanadas doradas y crujientes',
                 },
                 {
                   src: '/images/pizza-slice-cool-photo.jpg',
                   alt: 'Porción de pizza',
-                  span: 'row-span-2',
+                  span: 'sm:row-span-2',
                   description: 'Cada porción es una obra de arte',
                 },
                 {
@@ -70,49 +64,48 @@ import Section from '@components/layout/Section.astro'
                 {
                   src: '/images/pizza-and-beer.jpg',
                   alt: 'Pizza y cerveza',
-                  span: 'row-span-2',
+                  span: 'sm:row-span-2',
                   description: 'La combinación perfecta',
                 },
                 {
                   src: '/images/serving-beer.jpg',
                   alt: 'Sirviendo cerveza tirada',
-                  span: 'row-span-2',
+                  span: 'sm:row-span-2',
                   description: 'Cerveza artesanal bien fría',
                 },
                 {
                   src: '/images/oven-mosaic.jpg',
                   alt: 'Horno de leña decorado',
-                  span: 'row-span-1 col-span-2',
+                  span: 'sm:row-span-1 sm:col-span-2',
                   description: 'Diseño único en cada detalle',
                 },
                 {
                   src: '/images/empanada.jpg',
                   alt: 'Empanada individual',
-                  span: 'row-span-2',
+                  span: 'sm:row-span-2',
                   description: 'Detalle de nuestra empanada artesanal',
                 },
                 {
                   src: '/images/empanada-and-beer.jpg',
                   alt: 'Empanadas con cerveza',
-                  span: 'row-span-2',
+                  span: 'sm:row-span-2',
                   description: 'Snack perfecto para compartir',
                 },
                 {
                   src: '/images/3-dessert-piramid.jpg',
                   alt: 'Pirámide de postres',
-                  span: 'row-span-2',
+                  span: 'sm:row-span-2',
                   description: 'Dulce final para tu experiencia',
                 },
                 {
                   src: '/images/pizza-and-beer2.jpg',
                   alt: 'Pizza y cerveza en mesa',
-                  span: 'row-span-2',
+                  span: 'sm:row-span-2',
                   description: 'Momentos para disfrutar',
                 },
               ].map((image, index) => (
                 <div
                   class={`${image.span} group cursor-pointer overflow-hidden rounded-2xl relative shadow-md hover:shadow-xl transition-all duration-300 transform hover:scale-105`}
-                  @click="openModal('${image.src}', '${image.alt}')"
                   style={`animation: fade-in-up 0.6s ease-out ${index * 50}ms forwards; opacity: 0;`}
                 >
                   <img
@@ -122,7 +115,7 @@ import Section from '@components/layout/Section.astro'
                     loading="lazy"
                   />
                   {/* Overlay sutil en hover */}
-                  <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  <div class="absolute inset-0 bg-linear-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   {/* Descripción en hover */}
                   <div class="absolute bottom-0 left-0 right-0 p-4 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out">
                     <p class="text-sm font-medium drop-shadow-lg">{image.description}</p>
@@ -130,42 +123,6 @@ import Section from '@components/layout/Section.astro'
                 </div>
               ))
             }
-          </div>
-        </div>
-
-        <!-- Modal de imagen expandida -->
-        <div
-          class="fixed inset-0 z-50 bg-black/90 hidden items-center justify-center p-4"
-          x-show="modalOpen"
-          @click.self="closeModal()"
-          @keydown.escape="closeModal()"
-          x-transition
-        >
-          <div class="relative max-w-5xl w-full max-h-[90vh]">
-            <!-- Botón cerrar -->
-            <button
-              @click="closeModal()"
-              class="absolute -top-12 right-0 text-white hover:text-gray-300 transition-colors z-10"
-              aria-label="Cerrar modal"
-            >
-              <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"
-                ></path>
-              </svg>
-            </button>
-
-            <!-- Imagen expandida -->
-            <img
-              x-show="modalOpen"
-              :src="selectedImage"
-              :alt="selectedAlt"
-              class="w-full h-auto object-contain rounded-lg shadow-2xl"
-            />
-
-            <!-- Contador de imagen -->
-            <div class="absolute bottom-4 left-4 bg-black/50 text-white px-4 py-2 rounded-full text-sm">
-              <span x-text="imageIndex + 1"></span> / <span x-text="totalImages"></span>
-            </div>
           </div>
         </div>
       </div>
@@ -185,44 +142,3 @@ import Section from '@components/layout/Section.astro'
     }
   }
 </style>
-
-<script>
-  import Alpine from 'alpinejs'
-
-  window.galleryPage = function () {
-    return {
-      modalOpen: false,
-      selectedImage: '',
-      selectedAlt: '',
-      imageIndex: 0,
-      totalImages: 14,
-      images: [
-        '/images/oven-mosaic-front-face.jpg',
-        '/images/hero-food-truck.jpg',
-        '/images/chef-puttin-pizza-in-oven.jpg',
-        '/images/vertical-full-pizza.jpg',
-        '/images/empanada-realy-good-looking.jpg',
-        '/images/pizza-slice-cool-photo.jpg',
-        '/images/oven-inside-fire-pizza.jpg',
-        '/images/pizza-and-beer.jpg',
-        '/images/serving-beer.jpg',
-        '/images/oven-mosaic.jpg',
-        '/images/empanada.jpg',
-        '/images/empanada-and-beer.jpg',
-        '/images/3-dessert-piramid.jpg',
-        '/images/pizza-and-beer2.jpg',
-      ],
-      openModal(src: string, alt: string) {
-        this.selectedImage = src
-        this.selectedAlt = alt
-        this.imageIndex = this.images.indexOf(src)
-        this.modalOpen = true
-        document.body.style.overflow = 'hidden'
-      },
-      closeModal() {
-        this.modalOpen = false
-        document.body.style.overflow = 'auto'
-      },
-    }
-  }
-</script>

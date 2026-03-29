@@ -1,22 +1,14 @@
 ---
 import Layout from '@/layouts/Layout.astro'
-import MetaTags from '@/components/layout/MetaTags.astro'
 import Schema from '@/components/layout/Schema.astro'
+import Button from '@/components/ui/Button.astro'
 import { MAIN_ROUTES } from '@/constants/site_map'
 import { BUSINESS_INFO } from '@/constants/business'
 
 const title = 'Página no encontrada'
-const description =
-  'Lo sentimos, la página que buscas no existe. Aquí puedes encontrar nuestras secciones principales.'
 ---
 
 <Layout title={title}>
-  <MetaTags
-    title={title}
-    description={description}
-    noindex={true}
-    canonical="https://tutto-a-lena.com/404"
-  />
   <Schema type="organization" />
 
   <main class="min-h-[70vh] flex items-center justify-center px-4">
@@ -40,18 +32,12 @@ const description =
 
       <!-- CTA Button -->
       <div class="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-        <a
-          href={BUSINESS_INFO.cta.home}
-          class="inline-flex items-center justify-center px-8 py-3 bg-primary text-primary-foreground font-semibold rounded-lg hover:bg-primary-hover transition-colors shadow-glow"
-        >
+        <Button href={BUSINESS_INFO.cta.home} variant="primary" size="lg" class="font-semibold">
           Volver al inicio
-        </a>
-        <a
-          href={BUSINESS_INFO.cta.contact}
-          class="inline-flex items-center justify-center px-8 py-3 border-2 border-primary text-primary font-semibold rounded-lg hover:bg-primary hover:text-primary-foreground transition-colors"
-        >
+        </Button>
+        <Button href={BUSINESS_INFO.cta.contact} variant="outline" size="lg" class="font-semibold">
           Contactanos
-        </a>
+        </Button>
       </div>
 
       <!-- Navigation Links -->
@@ -74,7 +60,9 @@ const description =
       <!-- Help Text -->
       <p class="text-sm text-muted mt-8">
         Si crees que esto es un error, por favor{' '}
-        <a href={BUSINESS_INFO.cta.contact} class="text-primary hover:underline font-semibold"> contáctanos </a>
+        <a href={BUSINESS_INFO.cta.contact} class="text-primary hover:underline font-semibold">
+          contáctanos
+        </a>
       </p>
     </div>
   </main>
@@ -102,7 +90,7 @@ const description =
         </a>
 
         <a
-          href="/donde-estamos"
+          href={BUSINESS_INFO.cta.location}
           class="group bg-surface p-6 rounded-lg border border-surface-border hover:border-primary hover:shadow-glow transition-all"
         >
           <div class="mb-4 text-4xl">📍</div>
@@ -113,7 +101,7 @@ const description =
         </a>
 
         <a
-          href="/contacto"
+          href={BUSINESS_INFO.cta.contact}
           class="group bg-surface p-6 rounded-lg border border-surface-border hover:border-primary hover:shadow-glow transition-all"
         >
           <div class="mb-4 text-4xl">📞</div>
