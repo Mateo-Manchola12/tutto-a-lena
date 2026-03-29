@@ -37,7 +37,21 @@ const {
 } = Astro.props
 
 const ogImageUrl = generateOgImage(ogImage)
-const canonicalUrl = canonical || Astro.url.href
+const normalizeCanonicalUrl = (value?: string) => {
+  const siteUrl = BUSINESS_INFO.website.url.replace(/\/$/, '')
+  const source = value?.trim() || Astro.url.pathname
+
+  if (/^https?:\/\//i.test(source)) {
+    const parsed = new URL(source)
+    return `${parsed.origin}${parsed.pathname === '/' ? '' : parsed.pathname}`
+  }
+
+  const path = source.startsWith('/') ? source : `/${source}`
+  const parsed = new URL(path, siteUrl)
+  return `${parsed.origin}${parsed.pathname === '/' ? '' : parsed.pathname}`
+}
+
+const canonicalUrl = normalizeCanonicalUrl(canonical)
 const finalKeywords = [
   'pizzas a leña',
   'cocina italiana',
@@ -51,8 +65,6 @@ const robotsContent = [noindex ? 'noindex' : 'index', nofollow ? 'nofollow' : 'f
 ---
 
 <!-- Meta Tags Básicos -->
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 <meta name="description" content={description} />
 <meta name="keywords" content={finalKeywords} />
@@ -67,7 +79,7 @@ const robotsContent = [noindex ? 'noindex' : 'index', nofollow ? 'nofollow' : 'f
 <meta property="og:type" content={ogType} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
-<meta property="og:url" content={Astro.url.href} />
+<meta property="og:url" content={canonicalUrl} />
 <meta property="og:site_name" content={BUSINESS_INFO.name} />
 <meta property="og:image" content={ogImageUrl} />
 <meta property="og:image:type" content="image/jpeg" />

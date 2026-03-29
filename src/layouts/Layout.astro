@@ -18,30 +18,39 @@ import Footer from '@/components/layout/Footer.astro'
 import Header from '@/components/layout/Header.astro'
 import MetaTags from '@/components/layout/MetaTags.astro'
 import { ClientRouter } from 'astro:transitions'
+import type { Props as MetaTagsProps } from '@/components/layout/MetaTags.astro'
+import { SITE_MAP, NO_INDEX_ROUTES } from '@/constants/site_map'
 
 type Props = {
   title?: string
+  seo?: MetaTagsProps
 }
 
-const { title } = Astro.props
+const { title, seo = {} } = Astro.props
+const defaultTitle = 'Tutto a Leña | Arte italiano, corazón argentino'
+const currentSlug = Astro.url.pathname.replace(/^\//, '').replace(/\/$/, '')
+const currentPage = SITE_MAP.find(page => page.slug === currentSlug)
+
+const computedTitle =
+  seo.title || (currentPage ? `Tutto a Leña | ${currentPage.name}` : title ? `${title} | Tutto a Leña` : defaultTitle)
+const computedDescription = seo.description || currentPage?.description
+const computedNoIndex = seo.noindex ?? NO_INDEX_ROUTES.includes(currentSlug)
 ---
 
 <!doctype html>
-<html lang="es">
+<html lang="es" transition:name="root" transition:animate="none">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <MetaTags />
-    <title>
-      {title ? title + ' | Tutto a Leña' : 'Tutto a Leña | Arte italiano, corazón argentino'}
-    </title>
+    <MetaTags title={computedTitle} description={computedDescription} noindex={computedNoIndex} {...seo} />
+    <title>{computedTitle}</title>
     <ClientRouter />
   </head>
   <body class="grid min-h-dvh grid-rows-[auto_1fr_auto]">
-    <header class="sticky top-0 z-50 border-b border-b-gray-700">
+    <header class="sticky top-0 z-50">
       <Header />
     </header>
-    <main>
+    <main transition:animate="slide">
       <slot />
     </main>
     <footer class="bg-surface"><Footer /></footer>

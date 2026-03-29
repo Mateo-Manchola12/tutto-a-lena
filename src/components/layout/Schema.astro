@@ -78,18 +78,29 @@ switch (type) {
       schema = generateArticleSchema(article)
     }
     break
-  case 'aggregate':
-    const schemaList = schemas
-      .map(s => {
-        if (s.type === 'organization') return generateOrganizationSchema()
-        if (s.type === 'restaurant') return generateRestaurantSchema()
-        if (s.type === 'localBusiness') return generateLocalBusinessSchema()
-      })
-      .filter(Boolean)
+  case 'aggregate': {
+    const schemaSource =
+      schemas.length > 0
+        ? schemas
+        : [{ type: 'organization' as const }, { type: 'restaurant' as const }]
+
+    const schemaList: Record<string, any>[] = []
+
+    for (const s of schemaSource) {
+      if (s.type === 'organization') {
+        schemaList.push(generateOrganizationSchema())
+      } else if (s.type === 'restaurant') {
+        schemaList.push(generateRestaurantSchema())
+      } else if (s.type === 'localBusiness') {
+        schemaList.push(generateLocalBusinessSchema())
+      }
+    }
+
     if (schemaList.length > 0) {
       schema = mergeSchemas(schemaList)
     }
     break
+  }
 }
 
 // Mergear custom schema si existe

@@ -5,47 +5,6 @@
 
 import { BUSINESS_INFO } from '@/constants/business'
 
-export interface SeoProps {
-  title?: string
-  description?: string
-  keywords?: string[]
-  ogImage?: string
-  ogType?: 'website' | 'article' | 'product' | 'video'
-  twitterCard?: 'summary' | 'summary_large_image' | 'app' | 'player'
-  canonical?: string
-  noindex?: boolean
-  nofollow?: boolean
-  author?: string
-  publishedDate?: Date
-  modifiedDate?: Date
-  structuredData?: Record<string, any>
-}
-
-/**
- * Generar título SEO
- */
-export const generateTitle = (pageTitle?: string): string => {
-  if (!pageTitle) return 'Tutto a Leña | Arte italiano, corazón argentino'
-  return `${pageTitle} | Tutto a Leña`
-}
-
-/**
- * Generar descripción META
- */
-export const generateDescription = (description?: string): string => {
-  if (!description) return BUSINESS_INFO.description
-  return description.length > 160 ? description.substring(0, 157) + '...' : description
-}
-
-/**
- * Generar URL canónica
- */
-export const generateCanonical = (path?: string): string => {
-  const basePath = BUSINESS_INFO.website.url
-  if (!path) return basePath
-  return `${basePath}${path.startsWith('/') ? path : '/' + path}`
-}
-
 /**
  * Generar OG Image
  */
@@ -112,23 +71,30 @@ export const generateRestaurantSchema = () => {
  * Generar openingHoursSpecification schema
  */
 export const generateOpeningHours = () => {
-  const hours = BUSINESS_INFO.hours
-  const daysOfWeek = [
-    { day: 'Monday', hours: hours.monday },
-    { day: 'Tuesday', hours: hours.tuesday },
-    { day: 'Wednesday', hours: hours.wednesday },
-    { day: 'Thursday', hours: hours.thursday },
-    { day: 'Friday', hours: hours.friday },
-    { day: 'Saturday', hours: hours.saturday },
-    { day: 'Sunday', hours: hours.sunday },
+  const hours = BUSINESS_INFO.hours as Record<string, { open: string; close: string }>
+  const dayMapping = [
+    { schemaDay: 'Monday', keys: ['monday', 'Monday', 'lunes', 'Lunes'] },
+    { schemaDay: 'Tuesday', keys: ['tuesday', 'Tuesday', 'martes', 'Martes'] },
+    { schemaDay: 'Wednesday', keys: ['wednesday', 'Wednesday', 'miercoles', 'miércoles', 'Miércoles'] },
+    { schemaDay: 'Thursday', keys: ['thursday', 'Thursday', 'jueves', 'Jueves'] },
+    { schemaDay: 'Friday', keys: ['friday', 'Friday', 'viernes', 'Viernes'] },
+    { schemaDay: 'Saturday', keys: ['saturday', 'Saturday', 'sabado', 'sábado', 'Sábado'] },
+    { schemaDay: 'Sunday', keys: ['sunday', 'Sunday', 'domingo', 'Domingo'] },
   ]
 
-  return daysOfWeek.map(({ day, hours }) => ({
-    '@type': 'OpeningHoursSpecification',
-    dayOfWeek: day,
-    opens: hours.open,
-    closes: hours.close,
-  }))
+  return dayMapping
+    .map(({ schemaDay, keys }) => {
+      const dayHours = keys.map(key => hours[key]).find(Boolean)
+      if (!dayHours) return null
+
+      return {
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: schemaDay,
+        opens: dayHours.open,
+        closes: dayHours.close,
+      }
+    })
+    .filter(Boolean)
 }
 
 /**
