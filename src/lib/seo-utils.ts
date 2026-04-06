@@ -25,7 +25,6 @@ export const generateOrganizationSchema = () => {
     logo: `${BUSINESS_INFO.website.url}/logo.png`,
     description: BUSINESS_INFO.description,
     url: BUSINESS_INFO.website.url,
-    sameAs: BUSINESS_INFO.socialProfiles,
     contactPoint: {
       '@type': 'ContactPoint',
       contactType: 'Customer Service',
@@ -49,20 +48,6 @@ export const generateRestaurantSchema = () => {
     telephone: BUSINESS_INFO.phone.raw,
     email: BUSINESS_INFO.email.display,
     priceRange: BUSINESS_INFO.priceRange,
-    address: {
-      '@type': 'PostalAddress',
-      streetAddress: BUSINESS_INFO.location.street,
-      addressLocality: BUSINESS_INFO.location.city,
-      addressRegion: BUSINESS_INFO.location.state,
-      postalCode: BUSINESS_INFO.location.zipCode,
-      addressCountry: BUSINESS_INFO.location.country,
-    },
-    geo: {
-      '@type': 'GeoCoordinates',
-      latitude: BUSINESS_INFO.location.coordinates.latitude,
-      longitude: BUSINESS_INFO.location.coordinates.longitude,
-    },
-    sameAs: BUSINESS_INFO.socialProfiles,
     openingHoursSpecification: generateOpeningHours(),
   }
 }
@@ -110,15 +95,6 @@ export const generateLocalBusinessSchema = () => {
     url: BUSINESS_INFO.website.url,
     telephone: BUSINESS_INFO.phone.raw,
     email: BUSINESS_INFO.email.display,
-    address: {
-      '@type': 'PostalAddress',
-      streetAddress: BUSINESS_INFO.location.street,
-      addressLocality: BUSINESS_INFO.location.city,
-      addressRegion: BUSINESS_INFO.location.state,
-      postalCode: BUSINESS_INFO.location.zipCode,
-      addressCountry: BUSINESS_INFO.location.country,
-    },
-    sameAs: BUSINESS_INFO.socialProfiles,
     foundingDate: `${BUSINESS_INFO.foundedYear}`,
   }
 }

@@ -15,15 +15,15 @@ const { phone, email, whatsapp } = BUSINESS_INFO
       <div class="space-y-2">
         <p class="text-foreground">
           <span class="font-semibold">Teléfono:</span>
-          {phone ?? '+54 11 XXXX-XXXX'}
+          {phone.display}
         </p>
         <p class="text-foreground">
           <span class="font-semibold">Email:</span>
-          {email ?? 'info@tuttoalena.com'}
+          {email.display}
         </p>
         <p class="text-foreground">
           <span class="font-semibold">WhatsApp:</span>
-          {whatsapp ?? '+54 9 11 XXXX-XXXX'}
+          {whatsapp.display}
         </p>
       </div>
     </div>

@@ -3,6 +3,7 @@ import Logo from '@assets/logo.png'
 import { Picture } from 'astro:assets'
 import Button from '@components/ui/Button.astro'
 import { MAIN_ROUTES } from '@/constants/site_map'
+import { getWhatsappUrl } from '@/constants/business'
 
 const isActive = (slug: string) => new URL(Astro.request.url).pathname === `/${slug}`
 ---
@@ -63,7 +64,7 @@ const isActive = (slug: string) => new URL(Astro.request.url).pathname === `/${s
       </ol>
 
       <Button
-        href="/reservar"
+        href={getWhatsappUrl('events')}
         variant="primary"
         size="lg"
         class="mt-10 w-full rounded-2xl text-center md:mt-0 md:w-auto"

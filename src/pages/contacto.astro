@@ -4,8 +4,10 @@ import Breadcrumbs from '@components/layout/Breadcrumbs.astro'
 import Container from '@components/layout/Container.astro'
 import Button from '@components/ui/Button.astro'
 import { BUSINESS_INFO, getWhatsappUrl } from '@constants/business'
+import { sortBusinessHours } from '@/lib/sort-hours'
 
-const { phone, email, whatsapp } = BUSINESS_INFO
+const { phone, email, whatsapp, hours } = BUSINESS_INFO
+const orderedHours = sortBusinessHours(hours)
 ---
 
 <Layout>
@@ -160,8 +162,14 @@ const { phone, email, whatsapp } = BUSINESS_INFO
             <div class="bg-surface rounded-lg p-4 border border-surface-border">
               <p class="text-sm text-muted-foreground leading-relaxed">
                 <strong class="text-foreground">Horario de atención:</strong><br />
-                Lunes a viernes: 10:00 - 20:00 hs.<br />
-                Sábados y domingos: 12:00 - 22:00 hs.
+                {
+                  orderedHours.map(([day, h]) => (
+                    <>
+                      {day}: {h.open} - {h.close} hs.
+                      <br />
+                    </>
+                  ))
+                }
               </p>
             </div>
           </div>

@@ -4,8 +4,10 @@ import Breadcrumbs from '@components/layout/Breadcrumbs.astro'
 import Container from '@components/layout/Container.astro'
 import { BUSINESS_INFO } from '@constants/business'
 import Button from '@/components/ui/Button.astro'
+import { sortBusinessHours } from '@/lib/sort-hours'
 
-const { location, phone, email, hours } = BUSINESS_INFO
+const { phone, email, hours } = BUSINESS_INFO
+const orderedHours = sortBusinessHours(hours)
 ---
 
 <Layout>
@@ -26,7 +28,7 @@ const { location, phone, email, hours } = BUSINESS_INFO
           ¿Dónde <span class="text-primary">nos encontramos?</span>
         </h1>
         <p class="text-xl text-muted max-w-2xl mx-auto">
-          Visítanos en nuestro espacio en Buenos Aires. Te esperamos con las mejores pizzas a leña
+          Visítanos. Te esperamos con las mejores pizzas a leña
         </p>
       </div>
     </div>
@@ -37,23 +39,6 @@ const { location, phone, email, hours } = BUSINESS_INFO
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 py-12 md:py-16">
       <!-- Info Column -->
       <div class="lg:col-span-1 space-y-8">
-        <!-- Dirección -->
-        <div
-          class="bg-surface rounded-2xl border border-surface-border p-6 hover:border-primary hover:shadow-glow transition-all duration-300"
-        >
-          <div class="flex items-start gap-4">
-            <div class="text-3xl shrink-0">📍</div>
-            <div>
-              <h3 class="text-lg font-bold text-foreground mb-2">Dirección</h3>
-              <p class="text-muted-foreground leading-relaxed">
-                {location?.street ?? '—'}<br />
-                {location?.city ?? ''}, {location?.zipCode ?? ''}
-              </p>
-              <p class="text-sm text-muted mt-2">{location?.country ?? ''}</p>
-            </div>
-          </div>
-        </div>
-
         <!-- Teléfono -->
         <div
           class="bg-surface rounded-2xl border border-surface-border p-6 hover:border-primary hover:shadow-glow transition-all duration-300"
@@ -63,7 +48,7 @@ const { location, phone, email, hours } = BUSINESS_INFO
             <div>
               <h3 class="text-lg font-bold text-foreground mb-2">Teléfono</h3>
               <a href={phone.href} class="text-primary font-semibold hover:underline">
-                {phone.display ?? '—'}
+                {phone.display}
               </a>
               <p class="text-sm text-muted mt-1">Llamadas y WhatsApp</p>
             </div>
@@ -79,7 +64,7 @@ const { location, phone, email, hours } = BUSINESS_INFO
             <div>
               <h3 class="text-lg font-bold text-foreground mb-2">Email</h3>
               <a href={email.href} class="text-primary font-semibold hover:underline break-all">
-                {email.display ?? '—'}
+                {email.display}
               </a>
               <p class="text-sm text-muted mt-1">Respuesta en 24hs</p>
             </div>
@@ -96,7 +81,7 @@ const { location, phone, email, hours } = BUSINESS_INFO
               <h3 class="text-lg font-bold text-foreground mb-3">Horarios</h3>
               <ul class="space-y-2">
                 {
-                  Object.entries(hours).map(([day, h]) => (
+                  orderedHours.map(([day, h]) => (
                     <li class="flex justify-between gap-4 text-muted-foreground">
                       <span class="font-semibold">{day}:</span>
                       <span>
@@ -116,15 +101,15 @@ const { location, phone, email, hours } = BUSINESS_INFO
         <div
           class="bg-surface rounded-2xl border border-surface-border overflow-hidden shadow-elegant h-full min-h-[400px] md:min-h-[600px]"
         >
-          <iframe
+          <!-- <iframe
             class="w-full h-full"
             loading="lazy"
             src={`https://www.google.com/maps?q=${location?.coordinates?.latitude ?? 0},${location?.coordinates?.longitude ?? 0}&output=embed`}
             title="Ubicación Tutto a Leña"></iframe>
+        </div> -->
         </div>
       </div>
     </div>
-
     <!-- CTA Section -->
     <section
       class="py-12 px-6 bg-linear-to-r from-primary/10 to-primary/5 rounded-2xl border border-primary/20 text-center space-y-6 mb-12"
