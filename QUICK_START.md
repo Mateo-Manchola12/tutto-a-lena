@@ -352,15 +352,6 @@ npm run dev
   <code>npm run dev</code> y comienza a personalizar! 🚀
 </p>
 
-### Opción C: Profesional (5-6 horas)
-
-```
-1. Datos + imágenes
-2. Fase 2 (componentes)
-3. Todas las páginas
-4. Testing + optimización
-```
-
 ---
 
 ## 📁 Archivos Clave Para Editar
@@ -411,54 +402,6 @@ export const HERO_GALLERY: GalleryImage[] = [
 
 ---
 
-## 🎯 Próximos Pasos Directos
-
-### Para Fase 2 (Sistema de Diseño):
-
-Crear componentes UI base en `src/components/ui/`:
-
-```typescript
-// Button.astro
-// Card.astro
-// Badge.astro
-// Icon.astro
-// Image.astro
-// Section.astro
-// Container.astro
-```
-
-Luego crear componentes por sección en `src/components/index/`:
-
-```typescript
-// MenuTeaser.astro
-// Gallery.astro
-// Events.astro
-// Testimonials.astro
-// etc.
-```
-
-### Para Fase 3 (Páginas):
-
-Crear archivos en `src/pages/`:
-
-```
-pages/
-├── index.astro (HOMEPAGE)
-├── 404.astro (HECHO ✅)
-├── carta/
-│   └── index.astro
-├── donde-estamos/
-│   └── index.astro
-├── catering/
-│   └── index.astro
-├── eventos/
-│   └── index.astro
-└── contacto/
-    └── index.astro
-```
-
----
-
 ## 🧪 Testing
 
 ```bash
@@ -477,30 +420,6 @@ npm run preview
 
 ---
 
-## 📊 Progress Tracker
-
-```
-Fase 1 ████████████████████ 100% ✅
-├── 1.1 Configuración █████ 100% ✅
-├── 1.2 SEO Foundation █████ 100% ✅
-└── 1.3 Data Structure █████ 100% ✅
-
-Fase 2 ░░░░░░░░░░░░░░░░░░░░░  0% ⏳
-├── UI Components ░░░░░░
-├── Layout Components ░░░░░░
-└── Animation System ░░░░░░
-
-Fase 3 ░░░░░░░░░░░░░░░░░░░░░  0% ⏳
-├── Homepage ░░░░░░
-├── Menu Page ░░░░░░
-├── Location Page ░░░░░░
-├── Events Page ░░░░░░
-├── Catering Page ░░░░░░
-└── Contact Page ░░░░░░
-```
-
----
-
 ## 🔍 Verificación Rápida
 
 Después de actualizar datos, verificar:
@@ -514,15 +433,6 @@ Después de actualizar datos, verificar:
 ---
 
 ## 📞 Contacto y Soporte
-
-### Documentación Creada:
-
-- `PLAN_DESARROLLO.md` - Plan maestro completo
-- `RESUMEN_EJECUTIVO.md` - Resumen de lo hecho
-- `ESTRUCTURA_PROYECTO.md` - Explicación de carpetas
-- `FASE_1_1_COMPLETADA.md` - Detalles Fase 1.1
-- `FASE_1_2_COMPLETADA.md` - Detalles Fase 1.2
-- `FASE_1_3_COMPLETADA.md` - Detalles Fase 1.3
 
 ### Enlaces Útiles:
 
@@ -545,7 +455,6 @@ Si solo tienes 30 minutos:
    ```
 
 2. **Edita datos críticos en:**
-
    - `src/constants/business.ts` (teléfono, dirección)
    - `src/constants/menu.ts` (precios)
 
@@ -572,6 +481,3 @@ Salida HTML + SEO ✅
 ---
 
 **Proyecto:** Tutto a Leña
-**Fase Actual:** 1 Completada ✅ | Fase 2 Pendiente
-**Tiempo Estimado:** 30 min (datos) → 3 horas (completo)
-**Status:** 🟢 Ready to Continue

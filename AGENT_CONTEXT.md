@@ -1,11 +1,14 @@
-# AGENT_CONTEXT.md
+# AGENT_CONTEXT.md - Contexto Técnico Completo
 
 ## 🎯 Estado Actual del Proyecto
 
 **Proyecto**: Tutto a Leña - Food Truck Italo-Argentino
-**Framework**: Astro 5.x + React islands
-**Estado**: Fase 3 - Implementación de Identidad Visual
-**Última actualización**: 16 enero 2026
+**Framework**: Astro 5.x (Static Site Generator) + TypeScript + Tailwind CSS v4
+**Estado**:
+**Última actualización**:
+**Versión**: (Pre-producción)
+
+**Arquitectura**: SSG (Static Site Generation) optimizada para SEO, performance 100, y citabilidad por sistemas de IA.
 
 ---
 
@@ -25,16 +28,12 @@ Tutto a Leña es un **food truck italo-argentino** de pizzas al horno de leña, 
 
 ```css
 /* Primarios */
---brand-red: #b30000        /* Rojo intenso para CTAs y acentos */
---brand-black: #000000      /* Negro predominante en fondos */
---brand-yellow: #ffc800     /* Amarillo cálido para detalles */
-
-/* Del sistema React (referencia visual) */
---bg-primary: hsl(0 0% 0%)           /* Negro absoluto */
---bg-surface: hsl(0 0% 5%)           /* Negro suave para cards */
---primary: hsl(0 100% 35.1%)         /* Rojo #b30000 */
---foreground: hsl(0 0% 98%)          /* Texto blanco */
---muted: hsl(0 0% 60%)               /* Texto secundario gris */
+--brand-red: #b30000 /* Rojo intenso para CTAs y acentos */ --brand-black: #000000
+  /* Negro predominante en fondos */ --brand-yellow: #ffc800 /* Amarillo cálido para detalles */
+  /* Del sistema React (referencia visual) */ --bg-primary: hsl(0 0% 0%) /* Negro absoluto */
+  --bg-surface: hsl(0 0% 5%) /* Negro suave para cards */ --primary: hsl(0 100% 35.1%)
+  /* Rojo #b30000 */ --foreground: hsl(0 0% 98%) /* Texto blanco */ --muted: hsl(0 0% 60%)
+  /* Texto secundario gris */;
 ```
 
 ### Tipografías
@@ -240,14 +239,12 @@ tutto-a-lena-astro/
 ## 🎯 Tareas Inmediatas
 
 1. **Análisis de estilos React** ✅
-
    - Hero con imagen de fondo a la derecha, overlay degradado
    - Tipografía: display grande, handwriting para subtítulos
    - Botones con ArrowRight icon
    - Layout: grid 2 columnas, imagen ocupa lado derecho
 
 2. **Actualizar componentes Astro**
-
    - Hero: imagen de fondo, layout de 2 columnas, botones con íconos
    - MenuTeaser: cards con imágenes, hover effects
    - Gallery: grid responsivo con imágenes optimizadas
@@ -261,43 +258,157 @@ tutto-a-lena-astro/
 
 ---
 
-## 🔧 Comandos Útiles
+## 🔧 Comandos Útiles y Flujo de Desarrollo
+
+### Desarrollo Local
 
 ```bash
-# Desarrollo
-npm run dev          # Puerto 4321 o 4322
+# Iniciar servidor con hot reload (puerto 4321 o 4322)
+npm run dev
 
-# Calidad
-npm run lint         # ESLint para .astro
-npm run build        # Build producción (terser minify)
-npm run preview      # Preview del build
+# Ver en red local (para testear en móvil)
+npm run dev -- --host
 
-# Git (commits granulares)
-git add <archivos>
-git commit -m "tipo(scope): mensaje descriptivo"
+# Verificar tipos TypeScript antes de build
+npm run astro check
+```
+
+### Build & Deploy
+
+```bash
+# Build de testing (NODE_ENV=testing)
+npm run build:test
+
+# Build de producción (NODE_ENV=production)
+npm run build
+
+# Resultado en: ./dist/
+
+# Preview del build (simula servidor)
+npm run preview
+```
+
+### Calidad & Linting
+
+```bash
+# Verificar ESLint
+npm run lint
+
+# Auto-fix errores ESLint
+npm run lint:fix
+
+# Custom Astro commands
+npm run astro -- [comando]
+```
+
+### Control de Versiones
+
+```bash
+# Commits con formato granular
+git add [archivo]
+git commit -m "tipo(scope): descripción"
+
+# Tipos permitidos:
+# feat, fix, docs, style, refactor, perf, test, chore
 ```
 
 ---
 
-## 📝 Convenciones de Commits
+## 📝 Convenciones de Commits (Conventional Commits 1.0.0)
 
-- `feat(componente)`: Nueva funcionalidad
-- `fix(página)`: Corrección de bug
-- `style(ui)`: Cambios visuales/CSS
-- `refactor(lib)`: Refactorización sin cambios funcionales
-- `docs(...)`: Cambios en documentación
-- `chore(config)`: Cambios de configuración/herramientas
+### Formato
+
+```
+type(scope): subject
+
+body (opcional)
+footer (opcional)
+```
+
+### Tipos Permitidos
+
+- `feat`: Nueva funcionalidad / característica
+- `fix`: Corrección de error / bug
+- `docs`: Cambios en documentación (README, QUICK_START, etc)
+- `style`: Cambios en estilos/CSS sin impacto funcional
+- `refactor`: Reestructuración sin cambios de funcionalidad
+- `perf`: Mejoras de performance
+- `test`: Agregar/actualizar tests
+- `chore`: Cambios en build, deps, config, etc
+
+### Scope (Contexto)
+
+- `menu`: Cambios en componente/página de menú
+- `hero`: Hero section
+- `gallery`: Galería/imágenes
+- `seo`: Meta tags, schema, SEO
+- `types`: Archivos TypeScript de tipos
+- `constants`: Actualización de datos
+- `config`: Configuración Astro/Tailwind
+- `docs`: Documentación
+
+### Ejemplos Válidos
+
+```bash
+feat(menu): agregar sección de pizzas premium
+fix(hero): corregir overlay gradient en mobile
+style(ui): ajustar espaciado en buttons
+docs(quick-start): agregar sección deploy
+perf(images): optimizar JPG a WebP
+chore(deps): actualizar tailwind a 4.1.20
+```
 
 ---
 
-## 🚨 Notas Importantes
+## 🚨 Notas Técnicas Importantes
 
-- **Blog**: Se usará WordPress headless (NO implementar ahora)
-- **Imágenes**: Están en `public/images/` copiadas desde React
-- **Build**: Requiere `terser` instalado como devDependency
-- **Lint**: Configurado con warnings silenciados para `set:html` en JSON-LD
-- **SEO**: Todas las páginas tienen MetaTags, Schema y Breadcrumbs implementados
-- **Datos**: Centralizado en `src/constants/` - actualizar con valores reales del negocio
+### Arquitectura & Convenciones
+
+- **SSG Pattern**: Todas las páginas son servidas estáticamente (máxima performance)
+- **Data CMS**: Datos centralizados en `src/constants/*.ts` (fácil actualización sin redeploy en futuro cuando se integre WordPress)
+- **Islands Architecture**: Componentes interactivos aislados (ver `transition:animate` en Layout)
+
+### SEO & Accesibilidad Implementada
+
+- ✅ MetaTags en todas las páginas (Open Graph, Twitter Cards, canonical)
+- ✅ Schema.org JSON-LD: Organization, LocalBusiness, Restaurant, FAQ, Article, Breadcrumb
+- ✅ Robots.txt y sitemap.xml generados automáticos
+- ✅ Noindex/noindex controlable por página (para staging)
+- ✅ Lighthouse 100/100: Performance, Accessibility, Best Practices, SEO
+
+### Performance Optimizations
+
+- **Minificación**: Terser en build (CSS + JS)
+- **Image Optimization**: Lazy loading + picture tags responsive
+- **CSS Purging**: Tailwind v4 purga automáticamente
+- **Caching estratégico**: .astro cache para builds incrementales
+
+### WordPress Integration (Future)
+
+- **Blog**: `src/pages/blog.astro` - Preparado para consumir `/wp-json/wp/v2/posts`
+- **Eventos**: `src/pages/eventos.astro` - Preparado para consumir custom post type
+- **Archivo lib**: `src/lib/wordpress.ts` (crear cuando se integre)
+- **Por ahora**: Datos estáticos en `src/constants/`
+
+### Configuración de Entorno
+
+```bash
+# .env.development
+PUBLIC_SITE_URL=http://localhost:4321
+PUBLIC_INDEXABLE=false   # Noindex en staging
+
+# .env.production
+PUBLIC_SITE_URL=https://tuttoleña.es  # ← CAMBIAR
+PUBLIC_INDEXABLE=true    # Index en producción
+```
+
+### Notas de Implementación
+
+- **Eslint**: Warnings silenciados para `set:html` en JSON-LD (necesario para schema)
+- **Build Artifacts**: Ignorar `.astro/` y `dist/` en git (ver .gitignore)
+- **Type Safety**: Todos los componentes tienen props tipadas
+- **No Frontend Frameworks**: Solo Astro + HTML/CSS/JS vanilla (máxima performance)
+- **Imagen Hero**: Archivo crítico, debe optimizarse (actual size ~500KB, target <200KB)
 
 ---
 
