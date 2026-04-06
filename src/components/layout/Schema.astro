@@ -82,7 +82,11 @@ switch (type) {
     const schemaSource =
       schemas.length > 0
         ? schemas
-        : [{ type: 'organization' as const }, { type: 'restaurant' as const }]
+        : [
+            { type: 'organization' as const },
+            { type: 'restaurant' as const },
+            { type: 'localBusiness' as const },
+          ]
 
     const schemaList: Record<string, any>[] = []
 

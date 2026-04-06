@@ -31,8 +31,29 @@ const defaultTitle = 'Tutto a Leña | Arte italiano, corazón argentino'
 const currentSlug = Astro.url.pathname.replace(/^\//, '').replace(/\/$/, '')
 const currentPage = SITE_MAP.find(page => page.slug === currentSlug)
 
+const defaultKeywordsBySlug: Record<string, string[]> = {
+  '': ['pizza artesanal', 'horno a lena', 'cocina italiana', 'restaurante en buenos aires'],
+  carta: ['menu italiano', 'pizzas a lena', 'pastas frescas', 'entradas y postres'],
+  'donde-estamos': ['ubicacion restaurante', 'horarios tutto a lena', 'como llegar'],
+  catering: ['catering italiano', 'catering para eventos', 'pizza party'],
+  eventos: ['eventos gastronomicos', 'eventos privados', 'catas y experiencias'],
+  galeria: ['fotos restaurante', 'galeria de platos', 'horno a lena'],
+  contacto: ['telefono tutto a lena', 'whatsapp restaurante', 'reservas por contacto'],
+  blog: ['blog de cocina italiana', 'recetas italianas', 'novedades gastronomicas'],
+  reservar: ['reservar mesa', 'reserva restaurante', 'disponibilidad'],
+  'politica-privacidad': ['politica de privacidad'],
+  'terminos-condiciones': ['terminos y condiciones'],
+}
+
+const computedKeywords = seo.keywords || defaultKeywordsBySlug[currentSlug] || []
+
 const computedTitle =
-  seo.title || (currentPage ? `Tutto a Leña | ${currentPage.name}` : title ? `${title} | Tutto a Leña` : defaultTitle)
+  seo.title ||
+  (currentPage
+    ? `Tutto a Leña | ${currentPage.name}`
+    : title
+      ? `${title} | Tutto a Leña`
+      : defaultTitle)
 const computedDescription = seo.description || currentPage?.description
 const computedNoIndex = seo.noindex ?? NO_INDEX_ROUTES.includes(currentSlug)
 ---
@@ -42,7 +63,13 @@ const computedNoIndex = seo.noindex ?? NO_INDEX_ROUTES.includes(currentSlug)
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <MetaTags title={computedTitle} description={computedDescription} noindex={computedNoIndex} {...seo} />
+    <MetaTags
+      title={computedTitle}
+      description={computedDescription}
+      keywords={computedKeywords}
+      noindex={computedNoIndex}
+      {...seo}
+    />
     <title>{computedTitle}</title>
     <ClientRouter />
   </head>

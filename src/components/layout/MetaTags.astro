@@ -52,6 +52,8 @@ const normalizeCanonicalUrl = (value?: string) => {
 }
 
 const canonicalUrl = normalizeCanonicalUrl(canonical)
+const hasGoogleVerification = Boolean(import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION)
+const hasBingVerification = Boolean(import.meta.env.PUBLIC_BING_SITE_VERIFICATION)
 const finalKeywords = [
   'pizzas a leña',
   'cocina italiana',
@@ -106,8 +108,14 @@ const robotsContent = [noindex ? 'noindex' : 'index', nofollow ? 'nofollow' : 'f
 {modifiedDate && <meta property="article:modified_time" content={modifiedDate.toISOString()} />}
 
 <!-- Verificación de sitios -->
-<meta name="google-site-verification" content="XXXX" />
-<meta name="msvalidate.01" content="XXXX" />
+{
+  hasGoogleVerification && (
+    <meta name="google-site-verification" content={import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION} />
+  )
+}
+{
+  hasBingVerification && <meta name="msvalidate.01" content={import.meta.env.PUBLIC_BING_SITE_VERIFICATION} />
+}
 
 <!-- Otros meta tags útiles -->
 <meta name="format-detection" content="telephone=no" />
@@ -127,4 +135,5 @@ const robotsContent = [noindex ? 'noindex' : 'index', nofollow ? 'nofollow' : 'f
 <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
 
 <!-- Alternate links para idiomas (cuando aplique) -->
-<link rel="alternate" hreflang="es" href={BUSINESS_INFO.website.urlEs} />
+<link rel="alternate" hreflang="es" href={canonicalUrl} />
+<link rel="alternate" hreflang="x-default" href={canonicalUrl} />
