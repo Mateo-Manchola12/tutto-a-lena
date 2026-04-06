@@ -19,6 +19,7 @@
     "@tailwindcss/vite": "^4.1.17",
     "astro": "^5.16.10",
     "astro-htaccess": "^0.2.3",
+    "firebase": "^12.11.0",
     "tailwind-animations": "^1.0.1",
     "tailwindcss": "^4.1.17"
   },
