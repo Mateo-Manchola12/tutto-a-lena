@@ -85,3 +85,18 @@ jobs:
           port: ${{ env.HOSTINGER_FTP_PORT }}
           local-dir: ./
           server-dir: /public_html/
+      - name: Notify CMS publish result
+        if: always()
+        run: |
+          if [ "${{ job.status }}" = "success" ]; then
+            STATUS="published"
+            ERROR_MESSAGE=""
+          else
+            STATUS="failed"
+            ERROR_MESSAGE="Astro workflow ended with status ${{ job.status }}"
+          fi
+
+          curl -X POST "${{ secrets.COMPLETE_ASTRO_DEPLOY_URL }}" \
+            -H "Authorization: Bearer ${{ secrets.ASTRO_CALLBACK_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            -d "{\"status\":\"${STATUS}\",\"errorMessage\":\"${ERROR_MESSAGE}\"}"
