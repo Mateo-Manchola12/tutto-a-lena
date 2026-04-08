@@ -118,7 +118,6 @@ export interface BusinessInfo {
     url: string
     urlEs: string
   }
-  socialProfiles: string[]
   cta: {
     menu: string
     catering: string
