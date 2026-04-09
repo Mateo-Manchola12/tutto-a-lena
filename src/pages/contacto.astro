@@ -3,10 +3,12 @@ import Layout from '@/layouts/Layout.astro'
 import Breadcrumbs from '@components/layout/Breadcrumbs.astro'
 import Container from '@components/layout/Container.astro'
 import Button from '@components/ui/Button.astro'
-import { BUSINESS_INFO, getWhatsappUrl } from '@constants/business'
+import { BusinessInfo } from '@constants/business'
 import { sortBusinessHours } from '@/lib/sort-hours'
 
-const { phone, email, whatsapp, hours } = BUSINESS_INFO
+const businessInfo = await BusinessInfo.getInfo()
+const { phone, email, whatsapp, hours } = businessInfo
+const getWhatsappUrl = BusinessInfo.getWhatsappUrl
 const orderedHours = sortBusinessHours(hours)
 ---
 
@@ -41,7 +43,7 @@ const orderedHours = sortBusinessHours(hours)
 
           <!-- WhatsApp -->
           <a
-            href={getWhatsappUrl('default')}
+            href={await getWhatsappUrl('default')}
             target="_blank"
             rel="noopener noreferrer"
             class="group block bg-surface rounded-2xl border border-surface-border p-6 hover:border-primary hover:shadow-glow transition-all duration-300"
@@ -100,7 +102,7 @@ const orderedHours = sortBusinessHours(hours)
 
           <!-- Ubicación -->
           <a
-            href={BUSINESS_INFO.cta.location}
+            href={businessInfo.cta.location}
             class="group block bg-linear-to-br from-primary/10 to-primary/5 rounded-2xl border border-primary/20 p-6 hover:border-primary hover:shadow-glow transition-all duration-300"
           >
             <div class="flex items-start gap-4">
@@ -134,7 +136,7 @@ const orderedHours = sortBusinessHours(hours)
 
             <div class="space-y-3">
               <a
-                href={getWhatsappUrl('catering')}
+                href={await getWhatsappUrl('catering')}
                 target="_blank"
                 rel="noopener noreferrer"
                 class="block p-4 bg-surface rounded-lg border border-surface-border hover:border-primary hover:bg-primary/5 transition-all duration-300 text-foreground hover:text-primary font-semibold"
@@ -142,7 +144,7 @@ const orderedHours = sortBusinessHours(hours)
                 🍕 Consultar sobre catering
               </a>
               <a
-                href={getWhatsappUrl('events')}
+                href={await getWhatsappUrl('events')}
                 target="_blank"
                 rel="noopener noreferrer"
                 class="block p-4 bg-surface rounded-lg border border-surface-border hover:border-primary hover:bg-primary/5 transition-all duration-300 text-foreground hover:text-primary font-semibold"
@@ -150,7 +152,7 @@ const orderedHours = sortBusinessHours(hours)
                 🎉 Información sobre eventos
               </a>
               <a
-                href={getWhatsappUrl('general')}
+                href={await getWhatsappUrl('general')}
                 target="_blank"
                 rel="noopener noreferrer"
                 class="block p-4 bg-surface rounded-lg border border-surface-border hover:border-primary hover:bg-primary/5 transition-all duration-300 text-foreground hover:text-primary font-semibold"
@@ -195,7 +197,7 @@ const orderedHours = sortBusinessHours(hours)
         Visítanos en nuestro espacio. Te esperamos de martes a domingo con las mejores pizzas a
         leña.
       </p>
-      <Button href={BUSINESS_INFO.cta.location} variant="primary" size="lg" class="font-bold">
+      <Button href={businessInfo.cta.location} variant="primary" size="lg" class="font-bold">
         Ver Ubicación
       </Button>
     </section>

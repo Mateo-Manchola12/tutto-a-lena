@@ -3,7 +3,9 @@ import Layout from '@/layouts/Layout.astro'
 import Schema from '@/components/layout/Schema.astro'
 import Button from '@/components/ui/Button.astro'
 import { MAIN_ROUTES } from '@/constants/site_map'
-import { BUSINESS_INFO } from '@/constants/business'
+import { BusinessInfo } from '@/constants/business'
+
+const businessInfo = await BusinessInfo.getInfo()
 
 const title = 'Página no encontrada'
 ---
@@ -32,10 +34,10 @@ const title = 'Página no encontrada'
 
       <!-- CTA Button -->
       <div class="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-        <Button href={BUSINESS_INFO.cta.home} variant="primary" size="lg" class="font-semibold">
+        <Button href={businessInfo.cta.home} variant="primary" size="lg" class="font-semibold">
           Volver al inicio
         </Button>
-        <Button href={BUSINESS_INFO.cta.contact} variant="outline" size="lg" class="font-semibold">
+        <Button href={businessInfo.cta.contact} variant="outline" size="lg" class="font-semibold">
           Contactanos
         </Button>
       </div>
@@ -60,7 +62,7 @@ const title = 'Página no encontrada'
       <!-- Help Text -->
       <p class="text-sm text-muted mt-8">
         Si crees que esto es un error, por favor{' '}
-        <a href={BUSINESS_INFO.cta.contact} class="text-primary hover:underline font-semibold">
+        <a href={businessInfo.cta.contact} class="text-primary hover:underline font-semibold">
           contáctanos
         </a>
       </p>
@@ -77,7 +79,7 @@ const title = 'Página no encontrada'
 
       <div class="grid md:grid-cols-3 gap-6">
         <a
-          href={BUSINESS_INFO.cta.menu}
+          href={businessInfo.cta.menu}
           class="group bg-surface p-6 rounded-lg border border-surface-border hover:border-primary hover:shadow-glow transition-all"
         >
           <div class="mb-4 text-4xl">🍕</div>
@@ -90,7 +92,7 @@ const title = 'Página no encontrada'
         </a>
 
         <a
-          href={BUSINESS_INFO.cta.location}
+          href={businessInfo.cta.location}
           class="group bg-surface p-6 rounded-lg border border-surface-border hover:border-primary hover:shadow-glow transition-all"
         >
           <div class="mb-4 text-4xl">📍</div>
@@ -101,7 +103,7 @@ const title = 'Página no encontrada'
         </a>
 
         <a
-          href={BUSINESS_INFO.cta.contact}
+          href={businessInfo.cta.contact}
           class="group bg-surface p-6 rounded-lg border border-surface-border hover:border-primary hover:shadow-glow transition-all"
         >
           <div class="mb-4 text-4xl">📞</div>

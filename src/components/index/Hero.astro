@@ -1,7 +1,9 @@
 ---
 import Button from '@components/ui/Button.astro'
-import { BUSINESS_INFO } from '@constants/business'
+import { BusinessInfo } from '@constants/business'
 import logo from '@assets/logo.png'
+
+const businessInfo = await BusinessInfo.getInfo()
 ---
 
 <section class="relative min-h-screen flex items-center overflow-hidden bg-background">
@@ -56,7 +58,7 @@ import logo from '@assets/logo.png'
 
         <!-- CTAs -->
         <div class="flex flex-col sm:flex-row gap-4 pt-4">
-          <Button href={BUSINESS_INFO.cta.menu} variant="primary" size="lg" class="group">
+          <Button href={businessInfo.cta.menu} variant="primary" size="lg" class="group">
             Ver Carta
             <svg
               class="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1"
@@ -72,7 +74,7 @@ import logo from '@assets/logo.png'
             </svg>
           </Button>
           <Button
-            href={BUSINESS_INFO.cta.location}
+            href={businessInfo.cta.location}
             variant="outline"
             size="lg"
             class="border-primary text-primary hover:bg-primary hover:text-primary-foreground"

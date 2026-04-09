@@ -2,11 +2,12 @@
 import Layout from '@/layouts/Layout.astro'
 import Breadcrumbs from '@components/layout/Breadcrumbs.astro'
 import Container from '@components/layout/Container.astro'
-import { BUSINESS_INFO } from '@constants/business'
+import { BusinessInfo } from '@constants/business'
 import Button from '@/components/ui/Button.astro'
 import { sortBusinessHours } from '@/lib/sort-hours'
 
-const { phone, email, hours } = BUSINESS_INFO
+const businessInfo = await BusinessInfo.getInfo()
+const { phone, email, hours } = businessInfo
 const orderedHours = sortBusinessHours(hours)
 ---
 
@@ -123,14 +124,14 @@ const orderedHours = sortBusinessHours(hours)
       </p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
         <Button
-          href={BUSINESS_INFO.cta.catering}
+          href={businessInfo.cta.catering}
           variant="primary"
           class="px-8 py-3 font-bold h-auto"
         >
           Conocer Catering
         </Button>
         <Button
-          href={BUSINESS_INFO.cta.contact}
+          href={businessInfo.cta.contact}
           variant="outline"
           class="px-8 py-3 font-bold h-auto"
         >
