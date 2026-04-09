@@ -54,17 +54,34 @@ export type SchemaContactPoint = {
   email?: string
 }
 
-export type MenuItem = {
+interface MenuItem {
   id: string
   name: string
   description: string
   price?: number
-  category: 'pizza' | 'pasta' | 'carne' | 'entrada' | 'postre' | 'bebida'
-  image?: string
   ingredients?: string[]
-  tags?: ('vegetariano' | 'vegano' | 'picante' | 'sin-gluten' | 'nuevo' | 'popular' | 'especialidad' | 'premium' | 'mariscos' | 'argentino' | 'italiano' | 'clasico' | 'casero' | 'para-compartir' | 'estacional' | 'saludable' | 'cerveza' | 'artesanal' | 'vino' | 'cafe')[]
+  tags?: MenuTag.id[]
 }
 
+interface MenuTag {
+  id: string
+  name: string
+  emoji: string
+}
+
+interface MenuCategory {
+  id: string
+  name: string
+  emoji: string
+  description: string
+  products: MenuItem[]
+}
+
+interface Menu {
+  id: string
+  categories: MenuCategory[]
+  tags: MenuTag[]
+}
 
 export interface BusinessInfo {
   name: string

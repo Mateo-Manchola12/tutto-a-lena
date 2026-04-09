@@ -3,9 +3,10 @@
  * MetaTags.astro - Componente para generar todos los meta tags
  * Incluye: OG tags, Twitter cards, canonical, etc.
  */
-import { BUSINESS_INFO } from '@/constants/business'
+import { BusinessInfo } from '@/constants/business'
 import { generateOgImage } from '@/lib/seo-utils'
 
+const businessInfo = await BusinessInfo.getInfo()
 export interface Props {
   title?: string
   description?: string
@@ -23,7 +24,7 @@ export interface Props {
 
 const {
   title = 'Tutto a Leña | Arte italiano, corazón argentino',
-  description = BUSINESS_INFO.description,
+  description = businessInfo.description,
   keywords = [],
   ogImage,
   ogType = 'website',
@@ -31,14 +32,14 @@ const {
   canonical,
   noindex = false,
   nofollow = false,
-  author = BUSINESS_INFO.name,
+  author = businessInfo.name,
   publishedDate,
   modifiedDate,
 } = Astro.props
 
 const ogImageUrl = generateOgImage(ogImage)
 const normalizeCanonicalUrl = (value?: string) => {
-  const siteUrl = BUSINESS_INFO.website.url.replace(/\/$/, '')
+  const siteUrl = businessInfo.website.url.replace(/\/$/, '')
   const source = value?.trim() || Astro.url.pathname
 
   if (/^https?:\/\//i.test(source)) {
@@ -82,7 +83,7 @@ const robotsContent = [noindex ? 'noindex' : 'index', nofollow ? 'nofollow' : 'f
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:url" content={canonicalUrl} />
-<meta property="og:site_name" content={BUSINESS_INFO.name} />
+<meta property="og:site_name" content={businessInfo.name} />
 <meta property="og:image" content={ogImageUrl} />
 <meta property="og:image:type" content="image/jpeg" />
 <meta property="og:image:width" content="1200" />
@@ -110,18 +111,23 @@ const robotsContent = [noindex ? 'noindex' : 'index', nofollow ? 'nofollow' : 'f
 <!-- Verificación de sitios -->
 {
   hasGoogleVerification && (
-    <meta name="google-site-verification" content={import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION} />
+    <meta
+      name="google-site-verification"
+      content={import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION}
+    />
   )
 }
 {
-  hasBingVerification && <meta name="msvalidate.01" content={import.meta.env.PUBLIC_BING_SITE_VERIFICATION} />
+  hasBingVerification && (
+    <meta name="msvalidate.01" content={import.meta.env.PUBLIC_BING_SITE_VERIFICATION} />
+  )
 }
 
 <!-- Otros meta tags útiles -->
 <meta name="format-detection" content="telephone=no" />
 <meta name="apple-mobile-web-app-capable" content="true" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-<meta name="apple-mobile-web-app-title" content={BUSINESS_INFO.name} />
+<meta name="apple-mobile-web-app-title" content={businessInfo.name} />
 <meta name="theme-color" content="#ff8860" />
 
 <!-- Favicon -->

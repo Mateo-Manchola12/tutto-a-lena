@@ -3,15 +3,17 @@
  * Funciones helper para generar meta tags, structured data, etc.
  */
 
-import { BUSINESS_INFO } from '@/constants/business'
+import { BusinessInfo } from '@/constants/business'
+
+const businessInfo = await BusinessInfo.getInfo()
 
 /**
  * Generar OG Image
  */
 export const generateOgImage = (image?: string): string => {
-  if (!image) return `${BUSINESS_INFO.website.url}/og-image.jpg`
+  if (!image) return `${businessInfo.website.url}/og-image.jpg`
   if (image.startsWith('http')) return image
-  return `${BUSINESS_INFO.website.url}${image.startsWith('/') ? image : '/' + image}`
+  return `${businessInfo.website.url}${image.startsWith('/') ? image : '/' + image}`
 }
 
 /**
@@ -21,15 +23,15 @@ export const generateOrganizationSchema = () => {
   return {
     '@context': 'https://schema.org',
     '@type': 'Organization',
-    name: BUSINESS_INFO.name,
-    logo: `${BUSINESS_INFO.website.url}/logo.png`,
-    description: BUSINESS_INFO.description,
-    url: BUSINESS_INFO.website.url,
+    name: businessInfo.name,
+    logo: `${businessInfo.website.url}/logo.png`,
+    description: businessInfo.description,
+    url: businessInfo.website.url,
     contactPoint: {
       '@type': 'ContactPoint',
       contactType: 'Customer Service',
-      telephone: BUSINESS_INFO.phone.raw,
-      email: BUSINESS_INFO.email.display,
+      telephone: businessInfo.phone.raw,
+      email: businessInfo.email.display,
     },
   }
 }
@@ -41,13 +43,13 @@ export const generateRestaurantSchema = () => {
   return {
     '@context': 'https://schema.org',
     '@type': 'Restaurant',
-    name: BUSINESS_INFO.name,
-    image: `${BUSINESS_INFO.website.url}/logo.png`,
-    description: BUSINESS_INFO.description,
-    url: BUSINESS_INFO.website.url,
-    telephone: BUSINESS_INFO.phone.raw,
-    email: BUSINESS_INFO.email.display,
-    priceRange: BUSINESS_INFO.priceRange,
+    name: businessInfo.name,
+    image: `${businessInfo.website.url}/logo.png`,
+    description: businessInfo.description,
+    url: businessInfo.website.url,
+    telephone: businessInfo.phone.raw,
+    email: businessInfo.email.display,
+    priceRange: businessInfo.priceRange,
     openingHoursSpecification: generateOpeningHours(),
   }
 }
@@ -56,7 +58,7 @@ export const generateRestaurantSchema = () => {
  * Generar openingHoursSpecification schema
  */
 export const generateOpeningHours = () => {
-  const hours = BUSINESS_INFO.hours as Record<string, { open: string; close: string }>
+  const hours = businessInfo.hours as Record<string, { open: string; close: string }>
   const dayMapping = [
     { schemaDay: 'Monday', keys: ['monday', 'Monday', 'lunes', 'Lunes'] },
     { schemaDay: 'Tuesday', keys: ['tuesday', 'Tuesday', 'martes', 'Martes'] },
@@ -89,13 +91,13 @@ export const generateLocalBusinessSchema = () => {
   return {
     '@context': 'https://schema.org',
     '@type': 'LocalBusiness',
-    name: BUSINESS_INFO.name,
-    image: `${BUSINESS_INFO.website.url}/logo.png`,
-    description: BUSINESS_INFO.description,
-    url: BUSINESS_INFO.website.url,
-    telephone: BUSINESS_INFO.phone.raw,
-    email: BUSINESS_INFO.email.display,
-    foundingDate: `${BUSINESS_INFO.foundedYear}`,
+    name: businessInfo.name,
+    image: `${businessInfo.website.url}/logo.png`,
+    description: businessInfo.description,
+    url: businessInfo.website.url,
+    telephone: businessInfo.phone.raw,
+    email: businessInfo.email.display,
+    foundingDate: `${businessInfo.foundedYear}`,
   }
 }
 
@@ -154,7 +156,7 @@ export const generateArticleSchema = (props: {
     dateModified: props.modifiedDate?.toISOString() || props.publishedDate.toISOString(),
     author: {
       '@type': 'Organization',
-      name: BUSINESS_INFO.name,
+      name: businessInfo.name,
     },
   }
 }

@@ -1,7 +1,9 @@
 ---
 import Card from '@components/ui/Card.astro'
 import Button from '@components/ui/Button.astro'
-import { BUSINESS_INFO } from '@constants/business'
+import { BusinessInfo } from '@constants/business'
+
+const businessInfo = await BusinessInfo.getInfo()
 
 // Highlights del menú para mostrar en home
 const highlights = [
@@ -59,7 +61,7 @@ const highlights = [
 
     <!-- CTA -->
     <div class="text-center">
-      <Button href={BUSINESS_INFO.cta.menu} variant="primary" size="lg" class="shadow-glow">
+      <Button href={businessInfo.cta.menu} variant="primary" size="lg" class="shadow-glow">
         Ver Carta Completa
       </Button>
     </div>

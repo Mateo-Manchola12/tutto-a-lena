@@ -3,29 +3,11 @@ import Layout from '@/layouts/Layout.astro'
 import Breadcrumbs from '@components/layout/Breadcrumbs.astro'
 import Container from '@components/layout/Container.astro'
 import Button from '@components/ui/Button.astro'
-import { BUSINESS_INFO } from '@constants/business'
-import { getMenuItemsByCategory } from '@constants/menu'
+import { BusinessInfo } from '@constants/business'
+import { Menu } from '@constants/menu'
 
-const categories = [
-  { id: 'pizzas', name: '🍕 Pizzas', emoji: '🍕' },
-  { id: 'pasta', name: '🍝 Pastas', emoji: '🍝' },
-  { id: 'carne', name: '🥩 Carnes', emoji: '🥩' },
-  { id: 'entrada', name: '🍤 Entradas', emoji: '🍤' },
-  { id: 'postre', name: '🍰 Postres', emoji: '🍰' },
-  { id: 'bebida', name: '🍷 Bebidas', emoji: '🍷' },
-]
-
-const getCategoryId = (name: string) => {
-  const map: Record<string, string> = {
-    'pizzas': 'pizza',
-    'pasta': 'pasta',
-    'carne': 'carne',
-    'entrada': 'entrada',
-    'postre': 'postre',
-    'bebida': 'bebida',
-  }
-  return map[name] || name
-}
+const businessInfo = await BusinessInfo.getInfo()
+const menuInfo = await Menu.getInfo()
 ---
 
 <Layout>
@@ -56,14 +38,13 @@ const getCategoryId = (name: string) => {
     <!-- Tabs Navigation -->
     <div class="py-8">
       <div class="flex flex-wrap gap-2 md:gap-4 justify-center mb-12">
-        {
-          categories.map((cat) => (
+        {menuInfo.categories.map((cat) => (
             <a
               href={`#${cat.id}`}
               class="inline-flex items-center gap-2 px-4 md:px-6 py-2 md:py-3 rounded-full border-2 border-surface-border hover:border-primary text-foreground hover:text-primary hover:bg-primary/5 transition-all duration-300 font-semibold"
             >
               <span class="text-xl">{cat.emoji}</span>
-              <span class="hidden sm:inline">{cat.name.split(' ')[1]}</span>
+              <span class="hidden sm:inline">{cat.name}</span>
             </a>
           ))
         }
@@ -73,29 +54,22 @@ const getCategoryId = (name: string) => {
     <!-- Categorias -->
     <div class="space-y-16 pb-16">
       {
-        categories.map((category) => {
-          const categoryId = getCategoryId(category.id)
-          const items = getMenuItemsByCategory(categoryId as any)
+        menuInfo.categories.map((category) => {
           return (
             <section id={category.id} class="scroll-mt-20">
               <!-- Category Header -->
               <div class="mb-8 pb-6 border-b-2 border-primary/30">
                 <h2 class="font-display text-4xl md:text-5xl font-bold text-foreground">
-                  <span class="text-3xl md:text-4xl">{category.emoji}</span> {category.name}
+                  {category.emoji} {category.name}
                 </h2>
                 <p class="text-muted mt-2">
-                  {category.id === 'pizzas' && 'Horneadas a 800°C en nuestro horno a leña artesanal'}
-                  {category.id === 'pasta' && 'Elaboradas con ingredientes frescos y técnicas tradicionales italianas'}
-                  {category.id === 'carne' && 'Carnes premium preparadas a la parrilla y en horno'}
-                  {category.id === 'entrada' && 'Perfectas para comenzar tu experiencia gastronómica'}
-                  {category.id === 'postre' && 'Dulces finales para completar tu experiencia'}
-                  {category.id === 'bebida' && 'Bebidas que complementan perfectamente tu comida'}
+                  {category.description}
                 </p>
               </div>
 
               <!-- Items Grid -->
               <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {items.map((item) => (
+                {category.products.map(async (item) => (
                   <div class="group bg-surface rounded-2xl border border-surface-border p-6 hover:border-primary hover:shadow-glow transition-all duration-300 transform hover:scale-105">
                     <!-- Header con nombre y precio -->
                     <div class="flex items-start justify-between gap-4 mb-3">
@@ -105,24 +79,9 @@ const getCategoryId = (name: string) => {
                         </h3>
                         {item.tags && item.tags.length > 0 && (
                           <div class="flex flex-wrap gap-1 mt-2">
-                            {item.tags.map((tag) => (
+                            {(await Menu.getTagsById(item.tags)).map((tag) => (
                               <span class="inline-block px-2 py-1 bg-primary/10 text-primary text-xs font-semibold rounded-full">
-                                {tag === 'popular' && '⭐ Popular'}
-                                {tag === 'nuevo' && '✨ Nuevo'}
-                                {tag === 'especialidad' && '🎯 Especialidad'}
-                                {tag === 'premium' && '👑 Premium'}
-                                {tag === 'vegetariano' && '🌱 Vegetariano'}
-                                {tag === 'picante' && '🌶️ Picante'}
-                                {tag === 'mariscos' && '🦐 Mariscos'}
-                                {tag === 'argentino' && '🇦🇷 Argentino'}
-                                {tag === 'italiano' && '🇮🇹 Italiano'}
-                                {tag === 'clasico' && '⏰ Clásico'}
-                                {tag === 'casero' && '🏡 Casero'}
-                                {tag === 'para-compartir' && '👥 Compartir'}
-                                {tag === 'estacional' && '🍂 Estacional'}
-                                {!['popular', 'nuevo', 'especialidad', 'premium', 'vegetariano', 'picante', 'mariscos', 'argentino', 'italiano', 'clasico', 'casero', 'para-compartir', 'estacional'].includes(tag) && (
-                                  <span>{tag}</span>
-                                )}
+                                { tag.emoji } { tag.name }
                               </span>
                             ))}
                           </div>
@@ -167,10 +126,10 @@ const getCategoryId = (name: string) => {
         Nuestro catering lleva la magia de Tutto a Leña a tu evento. Desde bodas hasta eventos corporativos, hacemos de cada ocasión un momento memorable.
       </p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <Button href={BUSINESS_INFO.cta.catering} variant="primary" size="lg" class="font-bold">
+        <Button href={businessInfo.cta.catering} variant="primary" size="lg" class="font-bold">
           Solicitar Catering
         </Button>
-        <Button href={BUSINESS_INFO.cta.contact} variant="outline" size="lg" class="font-bold">
+        <Button href={businessInfo.cta.contact} variant="outline" size="lg" class="font-bold">
           Contáctanos
         </Button>
       </div>

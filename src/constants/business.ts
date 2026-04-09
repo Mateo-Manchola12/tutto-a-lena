@@ -22,24 +22,32 @@
  * Utilizados en: SEO, footer, contacto, schema.org, CTAs, etc.
  */
 
-import { getBusinessInfo } from '@/lib/firebase'
+import { Firebase } from '@/lib/firebase'
+import type { BusinessInfo as BusinessInfoType } from '@/types/pageTypes'
+export class BusinessInfo {
+  static data: BusinessInfoType | null = null
 
+  static async getInfo() {
+    if (!BusinessInfo.data)
+      BusinessInfo.data = await Firebase.getBusinessInfo()
 
-export const BUSINESS_INFO = await getBusinessInfo()
+    return BusinessInfo.data
+  }
 
-export default BUSINESS_INFO
-
-/**
+  /**
  * Helper para construir URLs de WhatsApp con mensajes predefinidos
  * @param messageType - Tipo de mensaje (default, catering, events, general, booking, inquiry)
  * @param customMessage - Mensaje personalizado (opcional, sobrescribe el predefinido)
  */
-export const getWhatsappUrl = (
-  messageType: keyof typeof BUSINESS_INFO.cta.whatsappMessages = 'default',
-  customMessage?: string,
-): string => {
-  const phoneNumber = BUSINESS_INFO.whatsapp.raw
-  const message = customMessage || BUSINESS_INFO.cta.whatsappMessages[messageType]
-  const encodedMessage = encodeURIComponent(message)
-  return `https://wa.me/${phoneNumber}?text=${encodedMessage}`
+  static async getWhatsappUrl(
+    messageType: keyof BusinessInfoType['cta']['whatsappMessages'] = 'default',
+    customMessage?: string,
+  ): Promise<string> {
+    const info = await BusinessInfo.getInfo()
+
+    const phoneNumber = info.whatsapp.raw
+    const message = customMessage || info.cta.whatsappMessages[messageType]
+    const encodedMessage = encodeURIComponent(message)
+    return `https://wa.me/${phoneNumber}?text=${encodedMessage}`
+  }
 }
