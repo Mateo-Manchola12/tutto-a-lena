@@ -17,7 +17,11 @@ const isActive = (slug: string) => new URL(Astro.request.url).pathname === `/${s
         formats={['webp', 'avif']}
         src={Logo}
         alt="Tutto a Leña | Arte italiano, corazón argentino"
-        width={65}
+        widths={[65, 98, 130]}
+        sizes="65px"
+        width={130}
+        height={130}
+        class="size-[65px]"
       />
     </a>
 

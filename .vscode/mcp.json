@@ -1,0 +1,17 @@
+{
+  "servers": {
+    "lighthouse": {
+      "command": "npx",
+      "args": [
+        "lighthouse-mcp",
+        "--url=http://localhost:4173",
+        "--device=mobile",
+        "--categories=performance,accessibility",
+        "--throttling=true"
+      ],
+      "env": {},
+      "type": "stdio"
+    }
+  },
+  "inputs": []
+}

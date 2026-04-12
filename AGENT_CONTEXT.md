@@ -169,14 +169,6 @@ tutto-a-lena-astro/
 - 14 imágenes profesionales importadas
 - Estructura de datos completa
 
-**Ahora**:
-
-- ⚠️ Actualizar global.css con colores oscuros definitivos
-- ⚠️ Rediseñar Hero con overlay y composición correcta
-- ⚠️ Menu con estilo chalkboard/pizarra
-- ⚠️ Gallery con collage orgánico
-- ⚠️ Ajustar todos los componentes al diseño oscuro
-
 ### ⏳ Fase 4: WordPress Headless (PREPARADO)
 
 - Blog y Eventos se conectarán a WordPress headless
@@ -233,28 +225,6 @@ tutto-a-lena-astro/
   - Integrar imágenes del proyecto React (hero-food-truck.jpg, vertical-full-pizza.jpg, etc.)
   - Actualizar paleta de colores global para coincidir con React
   - Blog: integrar WordPress headless (futuro)
-
----
-
-## 🎯 Tareas Inmediatas
-
-1. **Análisis de estilos React** ✅
-   - Hero con imagen de fondo a la derecha, overlay degradado
-   - Tipografía: display grande, handwriting para subtítulos
-   - Botones con ArrowRight icon
-   - Layout: grid 2 columnas, imagen ocupa lado derecho
-
-2. **Actualizar componentes Astro**
-   - Hero: imagen de fondo, layout de 2 columnas, botones con íconos
-   - MenuTeaser: cards con imágenes, hover effects
-   - Gallery: grid responsivo con imágenes optimizadas
-   - About/Contact/Events: estilos coherentes con React
-
-3. **Refinamiento visual**
-   - Colores coherentes (primary terracota visible)
-   - Sombras y elevaciones sutiles
-   - Animaciones de fade-in
-   - Responsive mobile-first
 
 ---
 
@@ -365,7 +335,7 @@ chore(deps): actualizar tailwind a 4.1.20
 ### Arquitectura & Convenciones
 
 - **SSG Pattern**: Todas las páginas son servidas estáticamente (máxima performance)
-- **Data CMS**: Datos centralizados en `src/constants/*.ts` (fácil actualización sin redeploy en futuro cuando se integre WordPress)
+- **Data CMS**: Datos centralizados en firebase y blog esta en configuración con wordpress headless (futuro)
 - **Islands Architecture**: Componentes interactivos aislados (ver `transition:animate` en Layout)
 
 ### SEO & Accesibilidad Implementada
@@ -386,9 +356,7 @@ chore(deps): actualizar tailwind a 4.1.20
 ### WordPress Integration (Future)
 
 - **Blog**: `src/pages/blog.astro` - Preparado para consumir `/wp-json/wp/v2/posts`
-- **Eventos**: `src/pages/eventos.astro` - Preparado para consumir custom post type
 - **Archivo lib**: `src/lib/wordpress.ts` (crear cuando se integre)
-- **Por ahora**: Datos estáticos en `src/constants/`
 
 ### Configuración de Entorno
 

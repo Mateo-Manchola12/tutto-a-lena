@@ -1,20 +1,27 @@
 ---
+import { Image, Picture } from 'astro:assets'
 import Button from '@components/ui/Button.astro'
 import { BusinessInfo } from '@constants/business'
 import logo from '@assets/logo.png'
+import heroFoodTruck from '@assets/hero-food-truck.jpg'
 
 const businessInfo = await BusinessInfo.getInfo()
 ---
 
 <section class="relative min-h-screen flex items-center overflow-hidden bg-background">
   <!-- Background Image with Gradient Overlay -->
-  <div class="absolute inset-0">
-    <img
-      src="/images/hero-food-truck.jpg"
+  <div class="hero-media absolute inset-0">
+    <Picture
+      src={heroFoodTruck}
       alt="Tutto a Leña Food Truck con horno de leña"
+      formats={['avif', 'webp']}
+      widths={[256, 384, 512, 768]}
+      sizes="(max-width: 1023px) 66vw, 50vw"
       class="w-2/3 h-full object-cover ml-auto opacity-80"
       style="transform: scaleX(-1);"
       loading="eager"
+      fetchpriority="high"
+      decoding="sync"
     />
     <!-- Overlay: Negro sólido izquierda → transparente derecha -->
     <div class="absolute inset-0 bg-gradient-hero"></div>
@@ -26,12 +33,16 @@ const businessInfo = await BusinessInfo.getInfo()
       <!-- Left Column - Logo + Text Content -->
       <div class="space-y-6 md:space-y-8 animate-fade-in">
         <!-- Logo -->
-        <img
-          src={logo.src}
+        <Image
+          src={logo}
           alt="Tutto a Leña - Food Truck Italo-Argentino"
-          class="h-28 md:h-36 lg:h-40 w-auto"
+          widths={[112, 144, 160, 224, 320]}
           width={logo.width}
           height={logo.height}
+          class="h-28 md:h-36 lg:h-40 w-auto"
+          sizes="(max-width: 767px) 112px, (max-width: 1023px) 144px, 160px"
+          loading="eager"
+          decoding="sync"
         />
 
         <!-- Main Heading -->
@@ -105,6 +116,12 @@ const businessInfo = await BusinessInfo.getInfo()
 
   .animate-fade-in {
     animation: fade-in 0.8s ease-out forwards;
+  }
+
+  :global(.hero-media picture) {
+    display: block;
+    width: 100%;
+    height: 100%;
   }
 
   /* Efecto glow para "al fuego" */

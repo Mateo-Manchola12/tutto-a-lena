@@ -3,6 +3,12 @@ import Layout from '../layouts/Layout.astro'
 import Schema from '@components/layout/Schema.astro'
 import Container from '@components/layout/Container.astro'
 import Section from '@components/layout/Section.astro'
+import { Gallery } from '@/constants/gallery'
+import { Picture } from 'astro:assets'
+
+// ─── Datos desde Firestore ────────────────────────────────────────────────────
+const images = await Gallery.getAllSorted()
+
 ---
 
 <Layout>
@@ -11,119 +17,39 @@ import Section from '@components/layout/Section.astro'
   <Container>
     <Section title="Galería" subtitle="Un vistazo a nuestros platos, horno y espacio">
       <div class="w-full">
-        <!-- Masonry grid infinito -->
-        <div class="relative">
-          <div
-            id="gallery-grid"
-            class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 auto-rows-[250px] gap-4 md:gap-6"
-          >
-            {
-              [
-                {
-                  src: '/images/oven-mosaic-front-face.jpg',
-                  alt: 'Horno de leña con mosaico frontal',
-                  span: 'sm:row-span-2 col-span-2',
-                  description: 'Nuestro hermoso horno artesanal',
-                },
-                {
-                  src: '/images/hero-food-truck.jpg',
-                  alt: 'Food truck Tutto a Leña',
-                  span: 'sm:row-span-2',
-                  description: 'Nuestro icónico food truck donde todo comenzó',
-                },
-                {
-                  src: '/images/chef-puttin-pizza-in-oven.jpg',
-                  alt: 'Chef colocando pizza en horno de leña',
-                  span: 'sm:row-span-2',
-                  description: 'El arte de hornear en fuego real',
-                },
-                {
-                  src: '/images/vertical-full-pizza.jpg',
-                  alt: 'Pizza completa recién horneada',
-                  span: 'sm:row-span-2',
-                  description: 'Perfección recién salida del horno',
-                },
-                {
-                  src: '/images/empanada-realy-good-looking.jpg',
-                  alt: 'Empanadas artesanales',
-                  span: 'sm:row-span-2',
-                  description: 'Empanadas doradas y crujientes',
-                },
-                {
-                  src: '/images/pizza-slice-cool-photo.jpg',
-                  alt: 'Porción de pizza',
-                  span: 'sm:row-span-2',
-                  description: 'Cada porción es una obra de arte',
-                },
-                {
-                  src: '/images/oven-inside-fire-pizza.jpg',
-                  alt: 'Interior del horno con fuego y pizza',
-                  span: '',
-                  description: 'El corazón de nuestra cocina',
-                },
-                {
-                  src: '/images/pizza-and-beer.jpg',
-                  alt: 'Pizza y cerveza',
-                  span: 'sm:row-span-2',
-                  description: 'La combinación perfecta',
-                },
-                {
-                  src: '/images/serving-beer.jpg',
-                  alt: 'Sirviendo cerveza tirada',
-                  span: 'sm:row-span-2',
-                  description: 'Cerveza artesanal bien fría',
-                },
-                {
-                  src: '/images/oven-mosaic.jpg',
-                  alt: 'Horno de leña decorado',
-                  span: 'sm:row-span-1 sm:col-span-2',
-                  description: 'Diseño único en cada detalle',
-                },
-                {
-                  src: '/images/empanada.jpg',
-                  alt: 'Empanada individual',
-                  span: 'sm:row-span-2',
-                  description: 'Detalle de nuestra empanada artesanal',
-                },
-                {
-                  src: '/images/empanada-and-beer.jpg',
-                  alt: 'Empanadas con cerveza',
-                  span: 'sm:row-span-2',
-                  description: 'Snack perfecto para compartir',
-                },
-                {
-                  src: '/images/3-dessert-piramid.jpg',
-                  alt: 'Pirámide de postres',
-                  span: 'sm:row-span-2',
-                  description: 'Dulce final para tu experiencia',
-                },
-                {
-                  src: '/images/pizza-and-beer2.jpg',
-                  alt: 'Pizza y cerveza en mesa',
-                  span: 'sm:row-span-2',
-                  description: 'Momentos para disfrutar',
-                },
-              ].map((image, index) => (
-                <div
-                  class={`${image.span} group cursor-pointer overflow-hidden rounded-2xl relative shadow-md hover:shadow-xl transition-all duration-300 transform hover:scale-105`}
-                  style={`animation: fade-in-up 0.6s ease-out ${index * 50}ms forwards; opacity: 0;`}
-                >
-                  <img
-                    src={image.src}
-                    alt={image.alt}
-                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
-                    loading="lazy"
-                  />
-                  {/* Overlay sutil en hover */}
-                  <div class="absolute inset-0 bg-linear-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  {/* Descripción en hover */}
+        <div
+          id="gallery-grid"
+          class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 auto-rows-[250px] gap-4 md:gap-6"
+        >
+          {images.map((image, index) => {
+            const spanClass = Gallery.getSpanClass(image)
+            return (
+              <div
+                class={`gallery-item ${spanClass} group cursor-pointer overflow-hidden rounded-2xl relative shadow-md hover:shadow-xl transition-all duration-300`}
+                style={`animation: fade-in-up 0.6s ease-out ${Math.min(index, 10) * 50}ms forwards; opacity: 0;`}
+              >
+                <Picture
+                  src={image.src}
+                  alt={image.alt}
+                  formats={['avif', 'webp']}
+                  inferSize
+                  sizes="(max-width: 639px) 50vw, (max-width: 767px) 33vw, 25vw"
+                  loading={index < 2 ? 'eager' : 'lazy'}
+                  decoding={index < 2 ? 'sync' : 'async'}
+                  class="w-full h-full object-cover transition-transform duration-700 ease-out"
+                  style={`transform: rotate(${image.rotate}deg) scale(1.04);`}
+                />
+                <!-- Overlay gradient -->
+                <div class="absolute inset-0 bg-linear-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <!-- Descripción en hover -->
+                {image.description && (
                   <div class="absolute bottom-0 left-0 right-0 p-4 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out">
                     <p class="text-sm font-medium drop-shadow-lg">{image.description}</p>
                   </div>
-                </div>
-              ))
-            }
-          </div>
+                )}
+              </div>
+            )
+          })}
         </div>
       </div>
     </Section>
@@ -141,4 +67,31 @@ import Section from '@components/layout/Section.astro'
       transform: translateY(0);
     }
   }
+
+  /* El elemento <picture> generado por Astro debe llenar la celda del grid */
+  .gallery-item {
+    content-visibility: auto;
+    contain-intrinsic-size: 250px 250px;
+  }
+
+  .gallery-item :global(picture) {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Resetea la rotación orgánica en hover */
+  .gallery-item:hover :global(img) {
+    transform: rotate(0deg) scale(1.1) !important;
+  }
 </style>
+
+<!-- Safelist Tailwind — evita purge de clases de span dinámicas -->
+<!--
+  col-span-1 col-span-2
+  sm:col-span-1 sm:col-span-2
+  md:col-span-1 md:col-span-2
+  row-span-1 row-span-2
+  sm:row-span-1 sm:row-span-2
+  md:row-span-1 md:row-span-2
+-->

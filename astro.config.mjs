@@ -55,6 +55,7 @@ export default defineConfig({
       errorPages: [{ code: 404, document: '/404' }],
       customRules: INDEXABLE
         ? [
+            `RewriteEngine On`,
             // GZIP compression
             `<IfModule mod_deflate.c>`,
             `  AddOutputFilterByType DEFLATE text/html text/plain text/xml`,
@@ -63,10 +64,11 @@ export default defineConfig({
             `  AddOutputFilterByType DEFLATE application/xml+rss`,
             `  AddOutputFilterByType DEFLATE text/x-js`,
             `</IfModule>`,
-            // Cache headers - Inmutable assets
-            `<FilesMatch "\\.(jpg|jpeg|png|gif|ico|css|js|webp|avif|woff|woff2|ttf|eot|svg)$">`,
-            `  Header set Cache-Control "public, max-age=31536000, immutable"`,
-            `</FilesMatch>`,
+            // Cache fuerte sólo para assets hashados emitidos por Astro/Vite
+            `SetEnvIf Request_URI "^/(assets|_astro)/" LONG_CACHE_ASSET=1`,
+            `<IfModule mod_headers.c>`,
+            `  Header always set Cache-Control "public, max-age=31536000, immutable" env=LONG_CACHE_ASSET`,
+            `</IfModule>`,
             // Cache headers - HTML
             `<FilesMatch "\\.html$">`,
             `  Header set Cache-Control "public, max-age=3600, must-revalidate"`,
@@ -81,7 +83,6 @@ export default defineConfig({
             `Header set X-Frame-Options "SAMEORIGIN"`,
             `Header set X-XSS-Protection "1; mode=block"`,
             // Redirect www to non-www
-            `RewriteEngine On`,
             `RewriteCond %{HTTP_HOST} ^www\\.tutto-a-lena\\.com$ [NC]`,
             `RewriteRule ^(.*)$ https://tutto-a-lena.com/$1 [L,R=301]`,
             // Force HTTPS
@@ -105,7 +106,15 @@ export default defineConfig({
       },
       rollupOptions: {
         output: {
-          assetFileNames: 'assets/[name].[hash][extname]',
+          assetFileNames: assetInfo => {
+            const extension = assetInfo.names?.[0]?.split('.').pop()?.toLowerCase()
+
+            if (extension === 'css') {
+              return 'assets/styles.[hash][extname]'
+            }
+
+            return 'assets/[name].[hash][extname]'
+          },
           chunkFileNames: 'chunks/[name].[hash].js',
           entryFileNames: '[name].[hash].js',
         },
@@ -119,10 +128,5 @@ export default defineConfig({
       external: [],
       noExternal: ['tailwind-animations'],
     },
-  },
-
-  // Performance configuration
-  prefetch: {
-    prefetchAll: true,
   },
 })

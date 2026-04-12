@@ -1,5 +1,6 @@
 ---
-
+import { Image } from 'astro:assets'
+import { SITE_IMAGES } from '@constants/site-images'
 ---
 
 <section class="py-16 md:py-24 bg-surface border-t border-surface-border">
@@ -20,11 +21,14 @@
         <!-- Ingredient 1 -->
         <div class="flex gap-6">
           <div class="shrink-0">
-            <img
-              src="/images/pizza-and-beer.jpg"
+            <Image
+              src={SITE_IMAGES.pizzaAndBeer}
               alt="Mozzarella di bufala"
+              widths={[96, 144, 192]}
+              sizes="96px"
               class="w-24 h-24 rounded-lg object-cover shadow-md"
               loading="lazy"
+              decoding="async"
             />
           </div>
           <div class="flex-1">
@@ -40,11 +44,14 @@
         <!-- Ingredient 2 -->
         <div class="flex gap-6">
           <div class="shrink-0">
-            <img
-              src="/images/oven-inside-fire-pizza.jpg"
+            <Image
+              src={SITE_IMAGES.ovenInsideFirePizza}
               alt="Tomates San Marzano"
+              widths={[96, 144, 192]}
+              sizes="96px"
               class="w-24 h-24 rounded-lg object-cover shadow-md"
               loading="lazy"
+              decoding="async"
             />
           </div>
           <div class="flex-1">
@@ -60,11 +67,14 @@
         <!-- Ingredient 3 -->
         <div class="flex gap-6">
           <div class="shrink-0">
-            <img
-              src="/images/vertical-full-pizza.jpg"
+            <Image
+              src={SITE_IMAGES.verticalFullPizza}
               alt="Aceite de Oliva Toscano"
+              widths={[96, 144, 192]}
+              sizes="96px"
               class="w-24 h-24 rounded-lg object-cover shadow-md"
               loading="lazy"
+              decoding="async"
             />
           </div>
           <div class="flex-1">
@@ -80,11 +90,14 @@
         <!-- Ingredient 4 -->
         <div class="flex gap-6">
           <div class="shrink-0">
-            <img
-              src="/images/pizza-slice-cool-photo.jpg"
+            <Image
+              src={SITE_IMAGES.pizzaSliceCoolPhoto}
               alt="Masa de Fermentación Larga"
+              widths={[96, 144, 192]}
+              sizes="96px"
               class="w-24 h-24 rounded-lg object-cover shadow-md"
               loading="lazy"
+              decoding="async"
             />
           </div>
           <div class="flex-1">
@@ -100,11 +113,14 @@
         <!-- Ingredient 5 -->
         <div class="flex gap-6">
           <div class="shrink-0">
-            <img
-              src="/images/empanada-realy-good-looking.jpg"
+            <Image
+              src={SITE_IMAGES.empanadaReallyGoodLooking}
               alt="Rúcula fresca"
+              widths={[96, 144, 192]}
+              sizes="96px"
               class="w-24 h-24 rounded-lg object-cover shadow-md"
               loading="lazy"
+              decoding="async"
             />
           </div>
           <div class="flex-1">
@@ -120,11 +136,14 @@
         <!-- Ingredient 6 -->
         <div class="flex gap-6">
           <div class="shrink-0">
-            <img
-              src="/images/serving-beer.jpg"
+            <Image
+              src={SITE_IMAGES.servingBeer}
               alt="Selección de bebidas"
+              widths={[96, 144, 192]}
+              sizes="96px"
               class="w-24 h-24 rounded-lg object-cover shadow-md"
               loading="lazy"
+              decoding="async"
             />
           </div>
           <div class="flex-1">

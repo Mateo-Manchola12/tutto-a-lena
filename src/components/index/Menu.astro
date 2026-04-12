@@ -2,6 +2,7 @@
 import Card from '@components/ui/Card.astro'
 import Button from '@components/ui/Button.astro'
 import { BusinessInfo } from '@constants/business'
+import { SITE_IMAGES } from '@constants/site-images'
 
 const businessInfo = await BusinessInfo.getInfo()
 
@@ -9,17 +10,17 @@ const businessInfo = await BusinessInfo.getInfo()
 const highlights = [
   {
     title: 'Pizzas Artesanales',
-    image: '/images/vertical-full-pizza.jpg',
+    image: SITE_IMAGES.verticalFullPizza,
     description: 'Masa madre, ingredientes premium, horneadas en leña',
   },
   {
     title: 'Por Porción',
-    image: '/images/pizza-slice-cool-photo.jpg',
+    image: SITE_IMAGES.pizzaSliceCoolPhoto,
     description: 'Llevá solo lo que necesitás, siempre recién horneadas',
   },
   {
     title: 'Empanadas Argentinas',
-    image: '/images/empanada-realy-good-looking.jpg',
+    image: SITE_IMAGES.empanadaReallyGoodLooking,
     description: 'Carne jugosa, masa casera, doradas a la perfección',
   },
 ]

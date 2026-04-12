@@ -1,49 +1,9 @@
 ---
-import type { ImageMetadata } from 'astro'
-import Picture from 'astro/components/Picture.astro'
-// Imágenes seleccionadas para home (collage orgánico)
-const images = [
-  {
-    src: '/images/oven-mosaic-front-face.jpg',
-    alt: 'Horno de leña con mosaico frontal',
-    span: 'sm:row-span-2 sm:col-span-2',
-    rotate: -1,
-  },
-  {
-    src: '/images/hero-food-truck.jpg',
-    alt: 'Food truck Tutto a Leña',
-    span: 'sm:row-span-2',
-    rotate: 2,
-  },
-  {
-    src: '/images/chef-puttin-pizza-in-oven.jpg',
-    alt: 'Chef colocando pizza en horno',
-    span: 'sm:row-span-2',
-    rotate: -2,
-  },
-  {
-    src: '/images/vertical-full-pizza.jpg',
-    alt: 'Pizza completa recién horneada',
-    span: 'sm:row-span-2',
-    rotate: 1,
-  },
-  {
-    src: '/images/empanada-realy-good-looking.jpg',
-    alt: 'Empanadas artesanales',
-    span: 'sm:row-span-2',
-    rotate: -1,
-  },
-  {
-    src: '/images/pizza-slice-cool-photo.jpg',
-    alt: 'Porción de pizza',
-    span: 'sm:row-span-2',
-    rotate: 2,
-  },
-]
+import { Picture } from 'astro:assets'
+import { Gallery as GalleryData } from '@/constants/gallery'
 
-const imagesMetadata = import.meta.glob<{default: ImageMetadata}>("/public/images/*.jpg")
-
-
+// ─── Datos desde Firestore ────────────────────────────────────────────────────
+const images = await GalleryData.getFeatured(6)
 ---
 
 <section class="py-16 md:py-20 bg-background">
@@ -58,51 +18,51 @@ const imagesMetadata = import.meta.glob<{default: ImageMetadata}>("/public/image
       </p>
     </div>
 
-    <!-- Collage Grid - Masonry orgánico -->
+    <!-- Collage Grid — responsive masonry orgánico -->
     <div class="relative max-w-6xl mx-auto">
-      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 auto-rows-[200px] gap-4">
-        {
-          images.map(async (image, index) => {
-            const  imageMetadata = (await imagesMetadata[`/public${image.src}`]()).default
-            return (
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 auto-rows-[200px] gap-4">
+        {images.map((image, index) => {
+          const spanClass = GalleryData.getSpanClass(image)
+          return (
             <div
-              class={`${image.span} group cursor-pointer overflow-hidden rounded-3xl relative shadow-card hover:shadow-glow-strong transition-all duration-500`}
+              class={`gallery-item ${spanClass} group cursor-pointer overflow-hidden rounded-3xl relative shadow-card hover:shadow-glow-strong transition-all duration-500`}
               style={`animation: fade-in-up 0.7s ease-out ${index * 100}ms forwards; opacity: 0;`}
             >
               <Picture
-              src={imageMetadata}
-              alt={image.alt}
-              loading={"lazy"}
-              style={`transform: rotate(${image.rotate}deg);`}
-              class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
-              formats={['webp', 'avif']}
+                src={image.src}
+                alt={image.alt}
+                formats={['avif', 'webp']}
+                inferSize
+                sizes="(max-width: 639px) 50vw, (max-width: 767px) 33vw, 25vw"
+                loading="lazy"
+                decoding="async"
+                class="w-full h-full object-cover transition-transform duration-700 ease-out"
+                style={`transform: rotate(${image.rotate}deg) scale(1.04);`}
               />
               <!-- Overlay sutil en hover -->
               <div class="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             </div>
-            )
-          })
-        }
+          )
+        })}
       </div>
 
       <!-- Botón para ver galería completa -->
       <div class="text-center mt-12">
-        <button
+        <a
+          href="/galeria"
           class="inline-flex items-center gap-2 px-6 py-3 bg-surface-light hover:bg-surface-hover text-foreground rounded-lg transition-colors border border-surface-border"
-          onclick="window.location.href='/galeria'"
         >
           Ver galería completa
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
           </svg>
-        </button>
+        </a>
       </div>
     </div>
   </div>
 </section>
 
 <style>
-  /* Animación fade-in desde abajo */
   @keyframes fade-in-up {
     from {
       opacity: 0;
@@ -114,17 +74,25 @@ const imagesMetadata = import.meta.glob<{default: ImageMetadata}>("/public/image
     }
   }
 
-  /* Efecto de foto inclinada (polaroid) */
-  .grid > div:nth-child(odd) img {
-    transition: transform 0.7s ease-out;
+  /* El elemento <picture> generado por Astro debe llenar la celda del grid */
+  .gallery-item :global(picture) {
+    display: block;
+    width: 100%;
+    height: 100%;
   }
 
-  .grid > div:nth-child(even) img {
-    transition: transform 0.7s ease-out;
-  }
-
-  /* Hover suave */
-  .grid > div:hover img {
+  /* Resetea la rotación orgánica y escala en hover */
+  .gallery-item:hover :global(img) {
     transform: rotate(0deg) scale(1.1) !important;
   }
 </style>
+
+<!-- Safelist Tailwind — asegura que las clases de span nunca sean purgadas -->
+<!--
+  col-span-1 col-span-2
+  sm:col-span-1 sm:col-span-2
+  md:col-span-1 md:col-span-2
+  row-span-1 row-span-2
+  sm:row-span-1 sm:row-span-2
+  md:row-span-1 md:row-span-2
+-->

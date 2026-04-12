@@ -1,11 +1,20 @@
 ---
-
+import { Picture } from 'astro:assets'
+import { SITE_IMAGES } from '@constants/site-images'
 ---
 
-<div
-  class="relative h-64 flex items-center justify-center bg-cover bg-center rounded-lg overflow-hidden"
-  style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)), url('/images/oven-mosaic-front-face.jpg');"
->
+<div class="relative h-64 flex items-center justify-center rounded-lg overflow-hidden">
+  <Picture
+    src={SITE_IMAGES.ovenMosaicFrontFace}
+    alt="Horno mosaico de Tutto a Leña"
+    formats={['avif', 'webp']}
+    widths={[320, 640, 960]}
+    sizes="100vw"
+    class="absolute inset-0 h-full w-full object-cover"
+    loading="lazy"
+    decoding="async"
+  />
+  <div class="absolute inset-0 bg-linear-to-b from-black/50 to-black/60"></div>
   <div class="text-center text-white px-4">
     <p class="font-script text-3xl md:text-4xl mb-2">La tradición se encuentra con la innovación</p>
     <p class="text-lg text-neutral-200">Más de 500°C de pura pasión italiana</p>

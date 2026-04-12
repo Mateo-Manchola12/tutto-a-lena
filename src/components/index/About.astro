@@ -1,14 +1,18 @@
 ---
-
+import { Image } from 'astro:assets'
+import { SITE_IMAGES } from '@constants/site-images'
 ---
 
 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
   <div>
-    <img
-      src="/images/oven-inside-fire-pizza.jpg"
+    <Image
+      src={SITE_IMAGES.ovenInsideFirePizza}
       alt="Horno a leña"
+      widths={[240, 320, 480, 640]}
+      sizes="(max-width: 767px) 100vw, 50vw"
       class="rounded-lg shadow-elegant w-full"
       loading="lazy"
+      decoding="async"
     />
   </div>
   <div class="space-y-4">
