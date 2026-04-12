@@ -184,6 +184,11 @@ export interface EventCta {
   url: string
 }
 
+export interface EventCoordinates {
+  lat: number
+  lng: number
+}
+
 export interface EventEntry {
   id: string
   title: string
@@ -192,6 +197,10 @@ export interface EventEntry {
   startTime: string
   endTime?: string
   location: string
+  locationPlaceId?: string
+  locationCoordinates?: EventCoordinates
+  locationGoogleMapsUrl?: string
+  locationValidatedAt?: string
   featured: boolean
   cta?: EventCta
 }

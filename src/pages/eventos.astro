@@ -4,7 +4,7 @@ import Breadcrumbs from '@components/layout/Breadcrumbs.astro'
 import Container from '@components/layout/Container.astro'
 import Button from '@components/ui/Button.astro'
 import { BusinessInfo } from '@constants/business'
-import { formatEventDate, getUpcomingEvents } from '@constants/events'
+import { formatEventDate, getUpcomingEvents, hasValidatedLocation } from '@constants/events'
 
 const businessInfo = await BusinessInfo.getInfo()
 const events = await getUpcomingEvents()
@@ -56,7 +56,7 @@ const events = await getUpcomingEvents()
                     <p class="text-muted-foreground leading-relaxed">{ev.description}</p>
 
                     <!-- CTA -->
-                    <div class="pt-4 border-t border-surface-border">
+                    <div class="pt-4 border-t border-surface-border flex flex-wrap gap-3">
                       <Button
                         href={ev.cta?.url ?? businessInfo.cta.contact}
                         variant="ghost"
@@ -65,6 +65,17 @@ const events = await getUpcomingEvents()
                       >
                         {ev.cta?.label ?? 'Consultar más'} →
                       </Button>
+
+                      {hasValidatedLocation(ev) && ev.locationGoogleMapsUrl ? (
+                        <Button
+                          href={ev.locationGoogleMapsUrl}
+                          variant="ghost"
+                          size="sm"
+                          class="text-primary font-semibold px-0 hover:px-0"
+                        >
+                          Ver ubicación →
+                        </Button>
+                      ) : null}
                     </div>
                   </div>
                 </div>

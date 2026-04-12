@@ -3,7 +3,13 @@ import Layout from '@/layouts/Layout.astro'
 import Breadcrumbs from '@components/layout/Breadcrumbs.astro'
 import Container from '@components/layout/Container.astro'
 import { BusinessInfo } from '@constants/business'
-import { getCurrentEvent, formatEventDate, getUpcomingEvents } from '@constants/events'
+import {
+  formatEventDate,
+  getCurrentEvent,
+  getEventMapEmbedUrl,
+  getUpcomingEvents,
+  hasValidatedLocation,
+} from '@constants/events'
 import Button from '@/components/ui/Button.astro'
 import { sortBusinessHours } from '@/lib/sort-hours'
 
@@ -12,6 +18,8 @@ const { phone, email, hours } = businessInfo
 const orderedHours = sortBusinessHours(hours)
 const currentEvent = await getCurrentEvent()
 const upcomingEvents = await getUpcomingEvents()
+const currentEventMapUrl = currentEvent ? getEventMapEmbedUrl(currentEvent) : null
+const currentEventHasMap = currentEvent ? hasValidatedLocation(currentEvent) : false
 ---
 
 <Layout>
@@ -38,7 +46,7 @@ const upcomingEvents = await getUpcomingEvents()
     </div>
   </section>
 
-  <Container>
+  <Container size={'xl'}>
     <!-- Ubicación e Info -->
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 py-12 md:py-16">
       <!-- Info Column -->
@@ -102,90 +110,123 @@ const upcomingEvents = await getUpcomingEvents()
 
       <!-- Mapa -->
       <div class="lg:col-span-2">
-        {currentEvent ? (
-          <div class="bg-surface rounded-2xl border border-surface-border overflow-hidden shadow-elegant h-full min-h-[400px] md:min-h-[600px] p-8 flex flex-col justify-center">
-            <div class="space-y-6">
-              <div>
-                <h3 class="text-2xl font-bold text-foreground mb-2">🎉 {currentEvent.title}</h3>
-                <p class="text-primary font-semibold mb-4">
-                  📅 Hoy {formatEventDate(currentEvent.date)}
-                </p>
-              </div>
+        {
+          currentEvent ? (
+            <div class="bg-surface rounded-2xl border border-surface-border overflow-hidden shadow-elegant h-full min-h-[400px] md:min-h-[600px]">
+              <div
+                class:list={[
+                  'h-full',
+                  currentEventHasMap
+                    ? 'grid md:grid-cols-[1.15fr_0.85fr]'
+                    : 'p-8 flex flex-col justify-center',
+                ]}
+              >
+                {currentEventHasMap && currentEventMapUrl ? (
+                  <iframe
+                    class="min-h-80 h-full w-full border-0"
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
+                    src={currentEventMapUrl}
+                    title={`Mapa del evento ${currentEvent.title}`}
+                  />
+                ) : null}
 
-              <div class="space-y-4">
-                <div>
-                  <h4 class="font-bold text-foreground mb-2">Descripción</h4>
-                  <p class="text-muted">{currentEvent.description}</p>
+                <div class:list={['space-y-6', currentEventHasMap ? 'p-8' : '']}>
+                  <div>
+                    <h3 class="text-2xl font-bold text-foreground mb-2">🎉 {currentEvent.title}</h3>
+                    <p class="text-primary font-semibold mb-4">
+                      📅 Hoy {formatEventDate(currentEvent.date)}
+                    </p>
+                  </div>
+
+                  <div class="space-y-4">
+                    <div>
+                      <h4 class="font-bold text-foreground mb-2">Descripción</h4>
+                      <p class="text-muted">{currentEvent.description}</p>
+                    </div>
+
+                    <div>
+                      <h4 class="font-bold text-foreground mb-2">⏰ Horario</h4>
+                      <p class="text-muted">
+                        {currentEvent.startTime}
+                        {currentEvent.endTime ? ` - ${currentEvent.endTime}` : ''}
+                      </p>
+                    </div>
+
+                    {currentEvent.location && (
+                      <div>
+                        <h4 class="font-bold text-foreground mb-2">📍 Ubicación</h4>
+                        <p class="text-muted">{currentEvent.location}</p>
+                      </div>
+                    )}
+                  </div>
+
+                  <div class="flex flex-col gap-3 sm:flex-row">
+                    {currentEvent.cta && (
+                      <Button
+                        href={currentEvent.cta.url}
+                        variant="primary"
+                        class="w-full sm:w-auto"
+                      >
+                        {currentEvent.cta.label}
+                      </Button>
+                    )}
+
+                    {currentEvent.locationGoogleMapsUrl && (
+                      <Button
+                        href={currentEvent.locationGoogleMapsUrl}
+                        variant="outline"
+                        class="w-full sm:w-auto"
+                      >
+                        Abrir en Google Maps
+                      </Button>
+                    )}
+                  </div>
                 </div>
-
+              </div>
+            </div>
+          ) : (
+            <div class="bg-linear-to-br from-primary/10 to-primary/5 rounded-2xl border border-primary/20 overflow-hidden shadow-elegant h-full min-h-[400px] md:min-h-[600px] p-8 flex flex-col justify-center items-center text-center">
+              <div class="space-y-6">
+                <div class="text-6xl">🎭</div>
                 <div>
-                  <h4 class="font-bold text-foreground mb-2">⏰ Horario</h4>
-                  <p class="text-muted">
-                    {currentEvent.startTime}
-                    {currentEvent.endTime ? ` - ${currentEvent.endTime}` : ''}
+                  <h3 class="text-2xl font-bold text-foreground mb-3">
+                    No tenemos eventos ahora mismo
+                  </h3>
+                  <p class="text-muted max-w-sm mx-auto">
+                    Pero pronto te sorprenderemos con experiencias culinarias únicas. Descubre
+                    nuestros próximos eventos o contáctanos para participar.
                   </p>
                 </div>
 
-                {currentEvent.location && (
-                  <div>
-                    <h4 class="font-bold text-foreground mb-2">📍 Ubicación</h4>
-                    <p class="text-muted">{currentEvent.location}</p>
-                  </div>
-                )}
-              </div>
-
-              {currentEvent.cta && (
-                <Button href={currentEvent.cta.url} variant="primary" class="w-full">
-                  {currentEvent.cta.label}
-                </Button>
-              )}
-            </div>
-          </div>
-        ) : (
-          <div class="bg-linear-to-br from-primary/10 to-primary/5 rounded-2xl border border-primary/20 overflow-hidden shadow-elegant h-full min-h-[400px] md:min-h-[600px] p-8 flex flex-col justify-center items-center text-center">
-            <div class="space-y-6">
-              <div class="text-6xl">🎭</div>
-              <div>
-                <h3 class="text-2xl font-bold text-foreground mb-3">
-                  No tenemos eventos ahora mismo
-                </h3>
-                <p class="text-muted max-w-sm mx-auto">
-                  Pero pronto te sorprenderemos con experiencias culinarias únicas. Descubre nuestros
-                  próximos eventos o contáctanos para participar.
-                </p>
-              </div>
-
-              <div class="flex flex-col sm:flex-row gap-3 justify-center pt-4">
-                {upcomingEvents.length > 0 ? (
-                  <>
-                    <Button
-                      href="/eventos"
-                      variant="primary"
-                      class="px-6 py-2 font-bold h-auto"
-                    >
-                      Ver Próximos Eventos
-                    </Button>
+                <div class="flex flex-col sm:flex-row gap-3 justify-center pt-4">
+                  {upcomingEvents.length > 0 ? (
+                    <>
+                      <Button href="/eventos" variant="primary" class="px-6 py-2 font-bold h-auto">
+                        Ver Próximos Eventos
+                      </Button>
+                      <Button
+                        href={businessInfo.cta.contact}
+                        variant="outline"
+                        class="px-6 py-2 font-bold h-auto"
+                      >
+                        Contáctanos
+                      </Button>
+                    </>
+                  ) : (
                     <Button
                       href={businessInfo.cta.contact}
-                      variant="outline"
+                      variant="primary"
                       class="px-6 py-2 font-bold h-auto"
                     >
                       Contáctanos
                     </Button>
-                  </>
-                ) : (
-                  <Button
-                    href={businessInfo.cta.contact}
-                    variant="primary"
-                    class="px-6 py-2 font-bold h-auto"
-                  >
-                    Contáctanos
-                  </Button>
-                )}
+                  )}
+                </div>
               </div>
             </div>
-          </div>
-        )}
+          )
+        }
       </div>
     </div>
     <!-- CTA Section -->

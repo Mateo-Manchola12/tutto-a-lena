@@ -9,6 +9,8 @@ const DATE_FORMATTER = new Intl.DateTimeFormat('es-ES', {
 
 const parseEventDate = (value: string) => new Date(`${value}T00:00:00`)
 
+const startOfDay = (date: Date) => new Date(date.getFullYear(), date.getMonth(), date.getDate())
+
 export class EventsInfo {
   static data: EventsDocument | null = null
 
@@ -26,13 +28,14 @@ export const sortEventsByDate = (events: EventEntry[]) => {
 }
 
 export const getUpcomingEvents = async (days: number = 30): Promise<EventEntry[]> => {
-  const now = new Date()
-  const limitDate = new Date(now.getTime() + days * 24 * 60 * 60 * 1000)
+  const today = startOfDay(new Date())
+  const limitDate = new Date(today)
+  limitDate.setDate(limitDate.getDate() + days)
   const { events } = await EventsInfo.getInfo()
 
   return sortEventsByDate(events).filter((event) => {
     const eventDate = parseEventDate(event.date)
-    return eventDate >= now && eventDate <= limitDate
+    return eventDate >= today && eventDate <= limitDate
   })
 }
 
@@ -43,14 +46,12 @@ export const parseEventTime = (dateStr: string, timeStr: string) => {
 }
 
 export const getCurrentEvent = async (): Promise<EventEntry | null> => {
-  const now = new Date()
+  const today = startOfDay(new Date())
   const { events } = await EventsInfo.getInfo()
 
   for (const event of sortEventsByDate(events)) {
-    const startTime = parseEventTime(event.date, event.startTime)
-    const endTime = event.endTime ? parseEventTime(event.date, event.endTime) : startTime
-
-    if (now >= startTime && now <= endTime) {
+    const eventDate = parseEventDate(event.date)
+    if (eventDate.getTime() === today.getTime()) {
       return event
     }
   }
@@ -59,3 +60,17 @@ export const getCurrentEvent = async (): Promise<EventEntry | null> => {
 }
 
 export const formatEventDate = (value: string) => DATE_FORMATTER.format(parseEventDate(value))
+
+export const hasValidatedLocation = (event: EventEntry) => {
+  return Boolean(event.locationPlaceId && event.locationCoordinates && event.locationGoogleMapsUrl)
+}
+
+export const getEventMapEmbedUrl = (event: EventEntry) => {
+  const coordinates = event.locationCoordinates
+
+  if (!coordinates) {
+    return null
+  }
+
+  return `https://www.google.com/maps?q=${coordinates.lat},${coordinates.lng}&z=15&output=embed`
+}
