@@ -4,10 +4,10 @@ import Breadcrumbs from '@components/layout/Breadcrumbs.astro'
 import Container from '@components/layout/Container.astro'
 import Button from '@components/ui/Button.astro'
 import { BusinessInfo } from '@constants/business'
-import { getUpcomingEvents } from '@constants/events'
+import { formatEventDate, getUpcomingEvents } from '@constants/events'
 
 const businessInfo = await BusinessInfo.getInfo()
-const events = getUpcomingEvents()
+const events = await getUpcomingEvents()
 ---
 
 <Layout>
@@ -43,8 +43,9 @@ const events = getUpcomingEvents()
                 <div class="group bg-surface rounded-2xl border border-surface-border overflow-hidden hover:border-primary hover:shadow-glow transition-all duration-300 transform hover:scale-105">
                   <!-- Header con fecha -->
                   <div class="bg-linear-to-r from-primary to-primary/80 text-white p-4">
-                    <p class="text-sm font-semibold opacity-90">📅 {ev.date}</p>
-                    <p class="text-sm opacity-75">⏰ {ev.startTime} - {ev.endTime}</p>
+                    <p class="text-sm font-semibold opacity-90">📅 {formatEventDate(ev.date)}</p>
+                    <p class="text-sm opacity-75">⏰ {ev.startTime}{ev.endTime ? ` - ${ev.endTime}` : ''}</p>
+                    <p class="text-sm opacity-75">📍 {ev.location}</p>
                   </div>
 
                   <!-- Contenido -->
@@ -57,12 +58,12 @@ const events = getUpcomingEvents()
                     <!-- CTA -->
                     <div class="pt-4 border-t border-surface-border">
                       <Button
-                        href={businessInfo.cta.contact}
+                        href={ev.cta?.url ?? businessInfo.cta.contact}
                         variant="ghost"
                         size="sm"
                         class="text-primary font-semibold px-0 hover:px-0"
                       >
-                        Consultar más →
+                        {ev.cta?.label ?? 'Consultar más'} →
                       </Button>
                     </div>
                   </div>

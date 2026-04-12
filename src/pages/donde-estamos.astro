@@ -3,12 +3,15 @@ import Layout from '@/layouts/Layout.astro'
 import Breadcrumbs from '@components/layout/Breadcrumbs.astro'
 import Container from '@components/layout/Container.astro'
 import { BusinessInfo } from '@constants/business'
+import { getCurrentEvent, formatEventDate, getUpcomingEvents } from '@constants/events'
 import Button from '@/components/ui/Button.astro'
 import { sortBusinessHours } from '@/lib/sort-hours'
 
 const businessInfo = await BusinessInfo.getInfo()
 const { phone, email, hours } = businessInfo
 const orderedHours = sortBusinessHours(hours)
+const currentEvent = await getCurrentEvent()
+const upcomingEvents = await getUpcomingEvents()
 ---
 
 <Layout>
@@ -99,16 +102,90 @@ const orderedHours = sortBusinessHours(hours)
 
       <!-- Mapa -->
       <div class="lg:col-span-2">
-        <div
-          class="bg-surface rounded-2xl border border-surface-border overflow-hidden shadow-elegant h-full min-h-[400px] md:min-h-[600px]"
-        >
-          <!-- <iframe
-            class="w-full h-full"
-            loading="lazy"
-            src={`https://www.google.com/maps?q=${location?.coordinates?.latitude ?? 0},${location?.coordinates?.longitude ?? 0}&output=embed`}
-            title="Ubicación Tutto a Leña"></iframe>
-        </div> -->
-        </div>
+        {currentEvent ? (
+          <div class="bg-surface rounded-2xl border border-surface-border overflow-hidden shadow-elegant h-full min-h-[400px] md:min-h-[600px] p-8 flex flex-col justify-center">
+            <div class="space-y-6">
+              <div>
+                <h3 class="text-2xl font-bold text-foreground mb-2">🎉 {currentEvent.title}</h3>
+                <p class="text-primary font-semibold mb-4">
+                  📅 Hoy {formatEventDate(currentEvent.date)}
+                </p>
+              </div>
+
+              <div class="space-y-4">
+                <div>
+                  <h4 class="font-bold text-foreground mb-2">Descripción</h4>
+                  <p class="text-muted">{currentEvent.description}</p>
+                </div>
+
+                <div>
+                  <h4 class="font-bold text-foreground mb-2">⏰ Horario</h4>
+                  <p class="text-muted">
+                    {currentEvent.startTime}
+                    {currentEvent.endTime ? ` - ${currentEvent.endTime}` : ''}
+                  </p>
+                </div>
+
+                {currentEvent.location && (
+                  <div>
+                    <h4 class="font-bold text-foreground mb-2">📍 Ubicación</h4>
+                    <p class="text-muted">{currentEvent.location}</p>
+                  </div>
+                )}
+              </div>
+
+              {currentEvent.cta && (
+                <Button href={currentEvent.cta.url} variant="primary" class="w-full">
+                  {currentEvent.cta.label}
+                </Button>
+              )}
+            </div>
+          </div>
+        ) : (
+          <div class="bg-linear-to-br from-primary/10 to-primary/5 rounded-2xl border border-primary/20 overflow-hidden shadow-elegant h-full min-h-[400px] md:min-h-[600px] p-8 flex flex-col justify-center items-center text-center">
+            <div class="space-y-6">
+              <div class="text-6xl">🎭</div>
+              <div>
+                <h3 class="text-2xl font-bold text-foreground mb-3">
+                  No tenemos eventos ahora mismo
+                </h3>
+                <p class="text-muted max-w-sm mx-auto">
+                  Pero pronto te sorprenderemos con experiencias culinarias únicas. Descubre nuestros
+                  próximos eventos o contáctanos para participar.
+                </p>
+              </div>
+
+              <div class="flex flex-col sm:flex-row gap-3 justify-center pt-4">
+                {upcomingEvents.length > 0 ? (
+                  <>
+                    <Button
+                      href="/eventos"
+                      variant="primary"
+                      class="px-6 py-2 font-bold h-auto"
+                    >
+                      Ver Próximos Eventos
+                    </Button>
+                    <Button
+                      href={businessInfo.cta.contact}
+                      variant="outline"
+                      class="px-6 py-2 font-bold h-auto"
+                    >
+                      Contáctanos
+                    </Button>
+                  </>
+                ) : (
+                  <Button
+                    href={businessInfo.cta.contact}
+                    variant="primary"
+                    class="px-6 py-2 font-bold h-auto"
+                  >
+                    Contáctanos
+                  </Button>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
     <!-- CTA Section -->

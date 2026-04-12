@@ -155,3 +155,47 @@ export interface BusinessInfo {
   priceRange: string
   foundedYear: number
 }
+
+export interface GalleryImageSpan {
+  default: 1 | 2
+  sm: 1 | 2
+  md: 1 | 2
+}
+
+export interface GalleryImage {
+  id: string
+  src: string
+  storagePath: string
+  alt: string
+  description: string
+  colSpan: GalleryImageSpan
+  rowSpan: GalleryImageSpan
+  rotate: number
+  featured: boolean
+  order: number
+}
+
+export interface Gallery {
+  images: GalleryImage[]
+}
+
+export interface EventCta {
+  label: string
+  url: string
+}
+
+export interface EventEntry {
+  id: string
+  title: string
+  description: string
+  date: string
+  startTime: string
+  endTime?: string
+  location: string
+  featured: boolean
+  cta?: EventCta
+}
+
+export interface EventsDocument {
+  events: EventEntry[]
+}

@@ -20,6 +20,17 @@ export default defineConfig({
   // Site info
   site: DOMAIN_NAME,
 
+  // Image optimization
+  image: {
+    // Permite a Astro optimizar imágenes remotas de Firebase Storage en la build (SSG)
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'firebasestorage.googleapis.com',
+      },
+    ],
+  },
+
   // Markdown configuration
   markdown: {
     syntaxHighlight: 'shiki',
