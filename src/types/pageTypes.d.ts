@@ -208,3 +208,33 @@ export interface EventEntry {
 export interface EventsDocument {
   events: EventEntry[]
 }
+
+export interface PostCard {
+  date: Date
+  slug: string
+  title: string
+  excerpt: string
+  image: string | null
+}
+
+export interface PostAuthor {
+  id: number
+  name: string
+  url?: string
+  avatar?: string
+}
+
+export interface Post extends PostCard {
+  id: number
+  content: string
+  author?: PostAuthor
+  categories?: string[]
+  tags?: string[]
+  featured?: boolean
+  readTime?: number
+}
+
+export interface BlogMetadata extends SeoMetadata {
+  postCount?: number
+  latestPostDate?: Date
+}
