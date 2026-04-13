@@ -108,10 +108,13 @@ switch (type) {
 }
 
 // Mergear custom schema si existe
-if (customSchema && schema) {
-  schema = { ...schema, ...customSchema }
+if (customSchema) {
+  if (schema) {
+    schema = { ...schema, ...customSchema }
+  } else {
+    schema = customSchema
+  }
 }
 ---
 
-{/* eslint-disable-next-line astro/no-set-html-directive */}
 {schema && <script type="application/ld+json" set:html={JSON.stringify(schema)} />}
