@@ -35,23 +35,27 @@ const schema = showSchema
 ---
 
 <nav aria-label="Breadcrumb" class="px-4 py-3 sm:px-6 lg:px-8 border-b border-surface-border">
-  <ol class="flex flex-wrap gap-2 text-sm">
+  <ol class="flex flex-nowrap items-center gap-2 text-sm min-w-0">
     {
       items.map((item, index) => (
-        <li class="flex items-center gap-2" key={item.href}>
+        <li class="flex items-center gap-2 min-w-0 shrink-0 last:shrink last:min-w-0" key={item.href}>
           {index > 0 && (
-            <span aria-hidden="true" class="text-muted">
+            <span aria-hidden="true" class="text-muted shrink-0">
               →
             </span>
           )}
           {index === items.length - 1 ? (
-            <span aria-current="page" class="font-semibold text-foreground">
+            <span
+              aria-current="page"
+              class="font-semibold text-foreground truncate block max-w-[200px] sm:max-w-xs md:max-w-sm"
+              title={item.label}
+            >
               {item.label}
             </span>
           ) : (
             <a
               href={item.href}
-              class="text-muted-foreground hover:text-primary transition-colors duration-200"
+              class="text-muted-foreground hover:text-primary transition-colors duration-200 shrink-0"
             >
               {item.label}
             </a>
@@ -62,5 +66,4 @@ const schema = showSchema
   </ol>
 </nav>
 
-{/* eslint-disable-next-line astro/no-set-html-directive */}
 {schema && <script type="application/ld+json" set:html={JSON.stringify(schema)} />}
