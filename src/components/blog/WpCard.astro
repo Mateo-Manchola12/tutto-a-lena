@@ -1,0 +1,81 @@
+---
+import type { PostCard } from '@/types/pageTypes'
+import { Image } from 'astro:assets'
+import ovenImg from '@/assets/oven-inside-fire-pizza.jpg'
+
+const { date, slug, title, excerpt, image } = Astro.props as PostCard
+
+const formattedDate = new Date(date).toLocaleDateString('es-ES', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+})
+---
+
+<article class="h-full">
+  <a
+    href={`/blog/${slug}`}
+    class="group flex flex-col h-full overflow-hidden rounded-2xl border border-surface-border bg-card transition-all duration-300 hover:border-primary/60 hover:shadow-glow hover:-translate-y-1"
+  >
+    <!-- Imagen con lazy loading y gradiente -->
+    <div class="relative w-full overflow-hidden bg-surface">
+      <div class="relative pb-[66.66%] pt-0">
+        {
+          image ? (
+            <img
+              src={image}
+              alt={title}
+              class="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+              loading="lazy"
+              decoding="async"
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              fetchpriority="low"
+            />
+          ) : (
+            <Image
+              src={ovenImg}
+              alt="Tutto a Leña — horno artesanal"
+              class="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+              loading="lazy"
+              fetchpriority="low"
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            />
+          )
+        }
+        {/* Gradiente overlay */}
+        <div
+          class="pointer-events-none absolute inset-0 bg-linear-to-t from-background/80 via-background/20 to-transparent"
+        >
+        </div>
+      </div>
+    </div>
+
+    <!-- Contenido -->
+    <div class="flex flex-1 flex-col space-y-3 p-4 sm:p-5 md:p-6">
+      <!-- Título -->
+      <h2
+        class="font-display text-lg sm:text-xl md:text-2xl leading-snug text-foreground line-clamp-2 group-hover:text-primary transition-colors"
+      >
+        {title}
+      </h2>
+
+      <!-- Excerpt -->
+      <p class="flex-1 line-clamp-3 text-xs sm:text-sm leading-relaxed text-muted-foreground">
+        {excerpt || 'Sin descripción disponible'}
+      </p>
+
+      <!-- Footer: fecha y meta -->
+      <div
+        class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 pt-2 border-t border-surface-border"
+      >
+        <time
+          class="inline-flex rounded-full border border-primary/40 bg-primary/10 px-2.5 sm:px-3 py-1 text-xs font-semibold tracking-wide text-primary whitespace-nowrap"
+          datetime={date.toISOString()}
+        >
+          {formattedDate}
+        </time>
+        <span class="text-xs text-muted-foreground">•&nbsp;Leer más</span>
+      </div>
+    </div>
+  </a>
+</article>

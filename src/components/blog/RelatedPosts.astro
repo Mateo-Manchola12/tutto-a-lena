@@ -1,0 +1,30 @@
+---
+import WpCard from './WpCard.astro'
+import type { PostCard } from '@/types/pageTypes'
+
+interface Props {
+  posts: PostCard[]
+  title?: string
+}
+
+const { posts, title = 'Posts Relacionados' } = Astro.props
+---
+
+{
+  posts.length > 0 && (
+    <section class="space-y-6 sm:space-y-8">
+      <div>
+        <h2 class="font-display text-2xl sm:text-3xl md:text-4xl text-foreground mb-2">
+          {title}
+        </h2>
+        <div class="h-1 w-12 bg-linear-to-r from-primary to-accent rounded-full" />
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {posts.map((post) => (
+          <WpCard {...post} />
+        ))}
+      </div>
+    </section>
+  )
+}

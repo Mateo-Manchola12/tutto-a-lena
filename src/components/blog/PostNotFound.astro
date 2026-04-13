@@ -1,0 +1,37 @@
+---
+interface Props {
+  slug?: string
+}
+
+const { slug } = Astro.props
+---
+
+<div class="space-y-6 py-12 md:py-16 text-center">
+  <div class="space-y-2">
+    <h1 class="font-display text-4xl sm:text-5xl text-foreground">
+      Post No Encontrado
+    </h1>
+    <p class="text-lg text-muted-foreground">
+      {
+        slug
+          ? `No pudimos encontrar el artículo "${slug}". Quizás fue eliminado o la URL es incorrecta.`
+          : 'No pudimos encontrar ese artículo. Por favor intenta nuevamente.'
+      }
+    </p>
+  </div>
+
+  <div class="flex flex-col sm:flex-row gap-3 justify-center pt-6">
+    <a
+      href="/blog"
+      class="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-primary hover:bg-primary-hover text-primary-foreground font-semibold transition-colors"
+    >
+      ← Volver al Blog
+    </a>
+    <a
+      href="/"
+      class="inline-flex items-center justify-center px-6 py-3 rounded-lg border border-primary/60 text-primary hover:bg-primary/10 font-semibold transition-colors"
+    >
+      Ir a Inicio
+    </a>
+  </div>
+</div>

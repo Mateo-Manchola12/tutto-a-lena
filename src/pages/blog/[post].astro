@@ -1,0 +1,104 @@
+---
+import Layout from '@/layouts/Layout.astro'
+import { getSlugList, getPostBySlug, getRelatedPosts } from '@/lib/wp'
+import Breadcrumbs from '@/components/layout/Breadcrumbs.astro'
+import Container from '@/components/layout/Container.astro'
+import PostHeader from '@/components/blog/PostHeader.astro'
+import PostContent from '@/components/blog/PostContent.astro'
+import RelatedPosts from '@/components/blog/RelatedPosts.astro'
+import PostNotFound from '@/components/blog/PostNotFound.astro'
+import MetaTags from '@/components/layout/MetaTags.astro'
+import Schema from '@/components/layout/Schema.astro'
+import CallToAction from '@/components/index/CallToAction.astro'
+
+export async function getStaticPaths() {
+  const slugs = await getSlugList()
+  return slugs.map(slug => ({
+    params: { post: slug },
+  }))
+}
+
+const { post } = Astro.params
+const postData = await getPostBySlug(post!)
+
+// Si el post no existe
+if (!postData) {
+  return new Response(JSON.stringify({ error: 'Not found' }), { status: 404 })
+}
+
+// Obtener posts relacionados
+const relatedPosts = await getRelatedPosts(postData.slug, 3)
+
+// SEO: Metadatos
+const canonicalURL = new URL(`/blog/${postData.slug}`, Astro.site)
+const seoMeta = {
+  title: postData.title,
+  description: postData.excerpt || postData.content.substring(0, 160),
+  canonical: canonicalURL.toString(),
+  ogImage: postData.image || undefined,
+  ogType: 'article' as const,
+  twitterCard: 'summary_large_image' as const,
+  structuredData: {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: postData.title,
+    description: postData.excerpt,
+    image: postData.image,
+    datePublished: postData.date.toISOString(),
+    author: postData.author && {
+      '@type': 'Person',
+      name: postData.author.name,
+      url: postData.author.url,
+    },
+  },
+}
+---
+
+<Layout>
+  <MetaTags meta={seoMeta} />
+  <Schema customSchema={seoMeta.structuredData} />
+
+  <Container>
+    {/* Breadcrumbs */}
+    <Breadcrumbs
+      items={[
+        { label: 'Inicio', href: '/' },
+        { label: 'Blog', href: '/blog' },
+        { label: postData.title, href: `/blog/${postData.slug}` },
+      ]}
+    />
+
+    <div class="space-y-12 md:space-y-16 w-[92ch] mx-auto my-10">
+      {/* Header del post */}
+      <PostHeader post={postData} />
+
+      {/* Contenido principal */}
+      <div class="prose-max-width">
+        {
+          postData.content ? (
+            <PostContent content={postData.content} />
+          ) : (
+            <PostNotFound slug={postData.slug} />
+          )
+        }
+      </div>
+
+      {/* Posts relacionados */}
+      {
+        relatedPosts.length > 0 && (
+          <div class="border-t border-surface-border pt-12 md:pt-16">
+            <RelatedPosts posts={relatedPosts} title="Artículos Relacionados" />
+          </div>
+        )
+      }
+    </div>
+  </Container>
+
+  <CallToAction />
+</Layout>
+
+<style>
+  :global(.prose-max-width) {
+    max-width: 92ch;
+  }
+</style>

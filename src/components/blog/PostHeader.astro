@@ -1,0 +1,74 @@
+---
+import type { Post } from '@/types/pageTypes'
+
+interface Props {
+  post: Post
+}
+
+const { post } = Astro.props
+const { image, title, date, author, readTime } = post
+
+const formattedDate = new Date(date).toLocaleDateString('es-ES', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+})
+---
+
+<header class="space-y-6 sm:space-y-8">
+  <!-- Título principal -->
+  <h1 class="font-display text-3xl sm:text-4xl md:text-5xl leading-[1.1] text-foreground">
+    {title}
+  </h1>
+
+  <!-- Meta información: autor, fecha, lectura -->
+  <div
+    class="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6 pt-4 border-t border-surface-border"
+  >
+    {/* Autor */}
+    {
+      author && (
+        <div class="flex items-center gap-3">
+          {author.avatar && (
+            <img
+              src={author.avatar}
+              alt={author.name}
+              class="w-10 h-10 rounded-full object-cover border border-surface-border"
+              loading="lazy"
+              decoding="async"
+            />
+          )}
+          <div>
+            <p class="text-sm font-medium text-foreground">{author.name}</p>
+          </div>
+        </div>
+      )
+    }
+
+    <!-- Fecha -->
+    <time class="text-sm text-muted-foreground" datetime={date.toISOString()}>
+      {formattedDate}
+    </time>
+
+    <!-- Tiempo de lectura -->
+    {readTime && <span class="text-sm text-muted-foreground">~{readTime} min de lectura</span>}
+  </div>
+
+  <!-- Imagen destacada -->
+  {
+    image && (
+      <div class="relative w-full overflow-hidden rounded-2xl bg-surface">
+        <div class="relative pb-[50%] pt-0 sm:pb-[66.66%]  mx-auto">
+          <img
+            src={image}
+            alt={title}
+            class="absolute inset-0 h-full w-full object-cover"
+            loading="lazy"
+            decoding="async"
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, 80vw"
+          />
+        </div>
+      </div>
+    )
+  }
+</header>

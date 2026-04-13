@@ -1,0 +1,154 @@
+---
+interface Props {
+  content: string
+}
+
+const { content } = Astro.props
+---
+
+<article class="wp-content">
+  <Fragment set:html={content} />
+</article>
+
+<style>
+  @reference '@/styles/global.css';
+
+  /* ===== BASE DEL CONTENIDO WORDPRESS ===== */
+  .wp-content {
+    @apply max-w-none text-base text-muted-foreground leading-relaxed;
+  }
+
+  /* Headings — anulan la escala mínima de WP */
+  .wp-content :global(h1),
+  .wp-content :global(.wp-block-heading:first-child) {
+    @apply mt-0 mb-6 font-display text-4xl leading-tight text-foreground;
+  }
+
+  .wp-content :global(h2),
+  .wp-content :global(.wp-block-heading) {
+    @apply mt-10 mb-4 font-display text-3xl leading-tight text-foreground;
+  }
+
+  .wp-content :global(h3) {
+    @apply mt-8 mb-3 font-display text-2xl leading-tight text-foreground;
+  }
+
+  .wp-content :global(h4),
+  .wp-content :global(h5),
+  .wp-content :global(h6) {
+    @apply mt-6 mb-2 font-semibold text-lg text-foreground;
+  }
+
+  /* Párrafos */
+  .wp-content :global(p) {
+    @apply mb-5 leading-relaxed text-muted-foreground;
+  }
+
+  /* Links */
+  .wp-content :global(a) {
+    @apply text-primary underline decoration-primary/40 hover:text-primary-hover hover:decoration-primary transition-colors;
+  }
+
+  /* Listas */
+  .wp-content :global(ul),
+  .wp-content :global(ol) {
+    @apply mb-5 pl-6 space-y-2 text-muted-foreground;
+  }
+
+  .wp-content :global(ul) {
+    @apply list-disc;
+  }
+
+  .wp-content :global(ol) {
+    @apply list-decimal;
+  }
+
+  .wp-content :global(li) {
+    @apply leading-relaxed;
+  }
+
+  /* Énfasis */
+  .wp-content :global(strong),
+  .wp-content :global(b) {
+    @apply font-semibold text-foreground;
+  }
+
+  /* Blockquotes */
+  .wp-content :global(blockquote) {
+    @apply my-6 border-l-4 border-primary/60 pl-5 py-1 italic text-muted-foreground bg-surface/40 rounded-r-lg;
+  }
+
+  /* Código inline */
+  .wp-content :global(code) {
+    @apply bg-surface text-accent px-1.5 py-0.5 rounded text-sm font-mono;
+  }
+
+  /* Bloques de código */
+  .wp-content :global(pre) {
+    @apply my-6 bg-surface-dark p-4 rounded-xl overflow-x-auto border border-surface-border;
+  }
+
+  .wp-content :global(pre code) {
+    @apply bg-transparent text-foreground px-0 py-0;
+  }
+
+  /* Separadores */
+  .wp-content :global(hr) {
+    @apply my-10 border-t border-surface-border;
+  }
+
+  /* ===== BLOQUES WORDPRESS (wp-block-*) ===== */
+
+  /* Imágenes — tamaño máximo controlado, no se desbordan */
+  .wp-content :global(.wp-block-image),
+  .wp-content :global(figure) {
+    @apply my-8 mx-0 max-w-full;
+  }
+
+  .wp-content :global(.wp-block-image img),
+  .wp-content :global(figure img) {
+    @apply w-full max-w-full h-auto rounded-xl border border-surface-border object-cover;
+  }
+
+  /* size-full / size-large: imagen a ancho completo */
+  .wp-content :global(.wp-block-image.size-full img),
+  .wp-content :global(.wp-block-image.size-large img) {
+    @apply w-full;
+  }
+
+  /* Pie de foto */
+  .wp-content :global(figcaption) {
+    @apply mt-2 text-xs text-center text-muted-foreground italic;
+  }
+
+  /* Tablas */
+  .wp-content :global(table) {
+    @apply w-full border-collapse text-sm my-6;
+  }
+
+  .wp-content :global(th),
+  .wp-content :global(td) {
+    @apply border border-surface-border px-4 py-2 text-left;
+  }
+
+  .wp-content :global(th) {
+    @apply bg-surface text-foreground font-semibold;
+  }
+
+  /* Alignment helpers de WP */
+  .wp-content :global(.aligncenter) {
+    @apply mx-auto block;
+  }
+
+  .wp-content :global(.alignleft) {
+    @apply float-left mr-6 mb-4;
+  }
+
+  .wp-content :global(.alignright) {
+    @apply float-right ml-6 mb-4;
+  }
+
+  .wp-content :global(.alignwide) {
+    @apply max-w-none;
+  }
+</style>
