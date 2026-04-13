@@ -1,11 +1,38 @@
 ---
 import Layout from '@/layouts/Layout.astro'
+import { getPosts } from '@/lib/wp'
 import Breadcrumbs from '@components/layout/Breadcrumbs.astro'
 import Container from '@components/layout/Container.astro'
 import Section from '@components/layout/Section.astro'
+import WpCard from '@components/blog/WpCard.astro'
+import MetaTags from '@components/layout/MetaTags.astro'
+import Schema from '@components/layout/Schema.astro'
+
+const posts = await getPosts()
+
+// SEO: Metadatos
+const canonicalURL = new URL('/blog', Astro.site)
+const seoMeta = {
+  title: 'Blog - Recetas, Noticias y Cultura Italiana',
+  description: 'Descubre nuestras mejores recetas italianas, consejos de cocina, historias de la pizzería Tutto a Leña y las tradiciones que llevamos en cada pizza.',
+  canonical: canonicalURL.toString(),
+  keywords: ['recetas pizza', 'cocina italiana', 'blog pizzería', 'cultura italiana'],
+  ogType: 'website' as const,
+  twitterCard: 'summary_large_image' as const,
+  structuredData: {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: 'Blog',
+    description: 'Blog de Tutto a Leña con recetas, noticias y cultura italiana',
+    url: canonicalURL.toString(),
+  },
+}
 ---
 
 <Layout>
+  <MetaTags meta={seoMeta} />
+  <Schema customSchema={seoMeta.structuredData} />
+
   <Container>
     <Breadcrumbs
       items={[
@@ -13,8 +40,33 @@ import Section from '@components/layout/Section.astro'
         { label: 'Blog', href: '/blog' },
       ]}
     />
-    <Section title="Blog" subtitle="Recetas, noticias y cultura italiana">
-      <p class="text-muted">Muy pronto: artículos y novedades de Tutto a Leña.</p>
+    <Section
+      title="Blog"
+      subtitle="Recetas, noticias y cultura italiana"
+    >
+      {posts.length > 0 ? (
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {posts.map(post => <WpCard {...post} />)}
+        </div>
+      ) : (
+        <div class="space-y-6 py-12 md:py-16 text-center">
+          <div class="space-y-2">
+            <h2 class="font-display text-3xl sm:text-4xl text-foreground">
+              No hay artículos aún
+            </h2>
+            <p class="text-lg text-muted-foreground">
+              Pronto compartiremos nuestras mejores recetas y historias de la pizzería.
+            </p>
+          </div>
+          <a
+            href="/"
+            class="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-primary hover:bg-primary-hover text-primary-foreground font-semibold transition-colors"
+          >
+            Volver al Inicio
+          </a>
+        </div>
+      )}
     </Section>
   </Container>
 </Layout>
+
