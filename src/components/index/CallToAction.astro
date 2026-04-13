@@ -1,5 +1,6 @@
 ---
 import { BusinessInfo } from '@constants/business'
+import Cloud from '@assets/cloud.svg'
 
 const businessInfo = await BusinessInfo.getInfo()
 ---
@@ -24,14 +25,14 @@ const businessInfo = await BusinessInfo.getInfo()
       <!-- Icon -->
       <div class="inline-block p-4 bg-white/20 rounded-full">
         <svg class="w-12 h-12 text-white" fill="currentColor" viewBox="0 0 20 20">
-          <path d="M3 15a4 4 0 014-4h1a5 5 0 019.584 1.231A3 3 0 0115 18H7a4 4 0 01-4-3z"></path>
+          <Cloud class="w-full h-full" />
         </svg>
       </div>
 
       <!-- Heading -->
       <div class="space-y-3">
         <h2 class="font-display text-4xl md:text-5xl font-bold text-white">
-          ¿Vení a probar la diferencia?
+          ¿Venís a probar la diferencia?
         </h2>
         <p class="text-xl text-white/90 leading-relaxed">
           Una experiencia gastronómica que va más allá de lo que esperas. Ven y comparte con
