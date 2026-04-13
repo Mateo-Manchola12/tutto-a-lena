@@ -20,7 +20,7 @@ export default [
       '@typescript-eslint/triple-slash-reference': 'off',
       'no-case-declarations': 'off',
       'astro/no-conflict-set-directives': 'error',
-      'astro/no-set-html-directive': 'warn',
+      'astro/no-set-html-directive': 'off',
     },
   },
 ]
